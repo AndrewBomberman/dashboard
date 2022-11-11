@@ -1,10 +1,12 @@
 import HotelsTable from "../tables/HotelsTable";
-import { useGetHotels } from "../../api/controllers/HotelController";
+import { useGetHotels } from "../../api/controllers/HotelController/useGetHotels";
 import { Stack, Spinner, Container, Row, Col, Badge } from "react-bootstrap";
 
 export default function HotelsPage() {
   const { data, isLoading, isFetching } = useGetHotels();
   
+
+
   while (isLoading || isFetching) {
     return (
       <Spinner animation="border" role="status">
@@ -12,6 +14,7 @@ export default function HotelsPage() {
       </Spinner>
     );
   }
+  console.log(data)
   
 
   return (
@@ -20,7 +23,7 @@ export default function HotelsPage() {
         <Stack gap={3}>
           <Row>
             <Col lg={10} md={8} offset={2}>
-              <HotelsTable hotels={data}/>
+              <HotelsTable hotels={data} />
             </Col>
           </Row>
         </Stack>

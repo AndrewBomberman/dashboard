@@ -11,28 +11,26 @@ import {
 import { useState, useEffect } from "react";
 import { BiImageAdd, BiSave } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { ImageGallery, Thumbnail } from "./EditHotelComponents";
+import { ImageGallery, NameForm, Thumbnail } from "./EditHotelComponents";
 
-
-
-export default function EditHotel() {
+export default function EditHotel({ hotel }) {
   const [selectedThumbnailImage, setSelectedThumbnailImage] = useState();
   const [thumbnail, setThumbnail] = useState();
   const [selectedGaleryImage, setSelectedGaleryImage] = useState();
-  const [imageGallery, setImageGallery] = useState([]);
-  const [name, setName ] = useState()
+  const [imageGallery, setImageGallery] = useState(hotel.image_gallery);
+  const [name, setName] = useState(hotel && hotel.name);
+  
 
   useEffect(() => {
-   
     if (selectedThumbnailImage) {
       const thumbnailObjectUrl = URL.createObjectURL(selectedThumbnailImage);
       setThumbnail(thumbnailObjectUrl);
-      return ()=>URL.revokeObjectURL(thumbnailObjectUrl)
+      return () => URL.revokeObjectURL(thumbnailObjectUrl);
     }
     if (selectedGaleryImage) {
       const imageGalleryObjectUrl = URL.createObjectURL(selectedGaleryImage);
-      setImageGallery([imageGalleryObjectUrl,...imageGallery]);
-      return ()=>URL.revokeObjectURL(imageGalleryObjectUrl)
+      setImageGallery([...imageGallery, imageGalleryObjectUrl]);
+      return () => URL.revokeObjectURL(imageGalleryObjectUrl);
     }
   }, [selectedThumbnailImage, selectedGaleryImage]);
 
@@ -52,10 +50,10 @@ export default function EditHotel() {
     e.preventDefault();
     e.target.reset();
   };
-  const handleReset = ()=>{
-    setImageGallery([])
-    setThumbnail()
-  }
+  const handleReset = () => {
+    setImageGallery([]);
+    setThumbnail();
+  };
 
   return (
     <div className="EditHotelForm">
@@ -73,21 +71,17 @@ export default function EditHotel() {
                 encType="multipart/form-data"
                 method="POST"
               >
-                <Thumbnail image={thumbnail} selector={newImage=>onSelectThumbnailImage(newImage)}/>
-               
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Name: </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter name"
-                    name={name}
-                    onChange={(e)=>{
-                      setName(e.target.value)
-                    }}
-                  />
-                </Form.Group>
-                
-                <Button id="save"
+                <Thumbnail
+                  image={thumbnail}
+                  selector={(newImage) => onSelectThumbnailImage(newImage)}
+                />
+                <NameForm
+                  name={name}
+                  selector={(newName) => setName(newName)}
+                />
+
+                <Button
+                  id="save"
                   variant="dark"
                   type="submit"
                   name="save"
@@ -95,7 +89,8 @@ export default function EditHotel() {
                 >
                   Save <BiSave />
                 </Button>
-                <Button id="cancel"
+                <Button
+                  id="cancel"
                   variant="danger"
                   type="submit"
                   name="cancel"
@@ -109,56 +104,13 @@ export default function EditHotel() {
           </Card>
         </Col>
         <Col lg={6} md={4}>
-          <Card bg="success" text="white">
-            <Card.Body>
-              <Card.Title className="text-center bg-dark p-2">
-                Image Gallery
-              </Card.Title>
-              {(imageGallery.length > 0 && (
-                <Carousel slide={false} variant="dark">
-                  {imageGallery.map(image => {
-                    return (
-                      <Carousel.Item key={image}>
-                        <Button variant="danger" className="btn w-100"  onClick={() => {
-                             console.log(image)
-                             setImageGallery(imageGallery.filter(img=>img!==image))
-                            }}>Delete</Button>
-                        <Image 
-                          className="d-block w-100"
-                          src={image}
-                          height={275}
-                        />
-                      
-                      </Carousel.Item>
-                    );
-                  })}
-                </Carousel>
-              )) || (
-                <Card.Subtitle className="text-center">No Images</Card.Subtitle>
-              )}
-
-              <Form.Group controlId="imageGallery" className="d-none">
-                <Form.Control
-                  className="d-none"
-                  type="file"
-                  accept="image/*"
-                  name="imageGallery"
-                  onChange={onSelectGaleryImage}
-                />
-              </Form.Group>
-            </Card.Body>
-            <Card.Footer>
-              <Button
-                variant="dark"
-                className="btn w-100"
-                onClick={() => {
-                  document.getElementById("imageGallery").click();
-                }}
-              >
-                <BiImageAdd />
-              </Button>
-            </Card.Footer>
-          </Card>
+          <ImageGallery
+            gallery={imageGallery}
+            selector={(newImage) => onSelectGaleryImage(newImage)}
+            manager={(newGallery) => {
+              console.log(newGallery)
+              setImageGallery(newGallery)}}
+          />
         </Col>
       </Row>
     </div>

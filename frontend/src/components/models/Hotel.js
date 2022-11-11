@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom"
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useDeleteHotel } from "../../api/controllers/HotelController";
+import { useDeleteHotel } from "../../api/controllers/HotelController/useDeleteHotel"
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 export default function Hotel({ hotel }) {
     const navigate = useNavigate()
-    const { mutate:deleteHotel } = useDeleteHotel(hotel._id)
+    const { mutate } = useDeleteHotel()
     
     const handleDelete = (e)=>{
       e.preventDefault();
-      deleteHotel(hotel._id)
+      mutate(hotel._id)
     }
     
   return (

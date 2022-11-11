@@ -4,11 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 
-
-
 export default function RoomsTable() {
-  
-
   return (
     <div className="RoomsTable">
       <Row>
@@ -50,9 +46,7 @@ export default function RoomsTable() {
                 </th>
               </tr>
             </thead>
-            <tbody>
-             
-            </tbody>
+            <tbody></tbody>
           </Table>
         </Col>
       </Row>

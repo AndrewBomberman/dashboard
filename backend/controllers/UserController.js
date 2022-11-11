@@ -31,5 +31,10 @@ const UserController = {
       res.status(400).json(error);
     }
   },
-};
+  logout: async (req, res) =>{
+    console.log(req)
+    res.cookie("jwt","",{expiresIn:0})
+    res.status(200).json()
+  }
+}
 export default UserController;

@@ -21,7 +21,8 @@ router.put("/rooms", auth, RoomController.edit);
 router.delete("/rooms", auth, RoomController.delete);
 
 //User Routes
-router.post("/register",UserController.register)
-router.post("/login",UserController.login)
+router.post("/register", UserController.register)
+router.post("/login", UserController.login)
+router.get("/logout", UserController.logout)
 
 export default router;

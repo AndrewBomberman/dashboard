@@ -12,7 +12,6 @@ export default function NavigationBar() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/hotels">Hotels</Nav.Link>
-              <Nav.Link href="/stats">Stats</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

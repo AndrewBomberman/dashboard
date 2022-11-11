@@ -11,13 +11,9 @@ const HotelController = {
     }));
   },
   edit: async (req, res) => {
-    const { _id, name, description } = req.body;
-    if(res.locals.user._id === _id) {
+    if(res.locals.user._id === req.query._id) {
       res.status(200).json(
-        await Hotel.findByIdAndUpdate(_id, {
-          name: name,
-          description: description,
-        })
+        await Hotel.findOneAndUpdate(req.query, req.body)
       );
     }
     res.status(401).json("Not Authorized");

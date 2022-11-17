@@ -2,15 +2,33 @@ import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../../api/repositories/UserRepository";
 import { useCookies } from "react-cookie";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { useParams } from "react-router-dom"
 
 export default function LoginPage() {
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+  const params = useParams()
+  const [googleOAuthUrl , setGoogleOAuthUrl] = useState();
+
   
 
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const [error, setError] = useState();
-  const navigate = useNavigate()
+  useEffect(()=>{
+    const loadOAuthUrl = async () =>{
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/auth/google/url")
+        const {url} = await response.json()
+  
+        setGoogleOAuthUrl(url)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    loadOAuthUrl()
+
+  },[])
 
   const useHandleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +37,7 @@ export default function LoginPage() {
       email: e.target["email"].value,
       password: e.target["password"].value,
     };
-    const response = await useLogin(user);
-    const json = await response.json();
-    if (response.status == 200) {
-      setCookie("auth", json, { expiresIn: 60 * 60 * 24 * 1000 });
-      navigate("/hotels");
-    }
-    setError(json);
+    await useLogin(user);
    
   };
 
@@ -55,7 +67,9 @@ export default function LoginPage() {
                     ></Form.Control>
                   </Form.Group>
                   <div className="p-2">
-                    <Button type="submit" className="btn w-100">Login</Button>
+                    <Button type="submit" className="btn w-100">
+                      Login
+                    </Button>
                   </div>
                 </Form>
               </Card.Body>
@@ -66,8 +80,14 @@ export default function LoginPage() {
                 <a href="/forgot-password" className="p-2">
                   Forgot Password?
                 </a>
-                <div className="p-2">{error}</div>
+                <div className="p-2">
+                </div>
+                <a href={googleOAuthUrl} className="btn btn-light w-100">Sign in with Google <FcGoogle/></a>
+                
+                
               </Card.Footer>
+              
+              
             </Card>
           </Col>
         </Row>

@@ -46,17 +46,10 @@ export const HotelSchema = new mongoose.Schema({
   user_id:mongoose.Types.ObjectId
 })
   .pre("save", async function (next) {
-    const user = await User.findById(this.user_id)
-    user.hotels.push(this)
-    console.log(user)
-    await user.save()
+    
     next();
   })
   .pre("remove", { query: false, document: true }, async function (next) {
-    const user = await User.findById(this.user_id)
-    user.hotels = user.hotels.filter(hotel=>hotel.id !==this._id)
-    console.log(user)
-    await user.save()
     await Room.deleteMany({ hotel_id: this._id });
     next();
   });

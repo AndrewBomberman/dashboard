@@ -1,40 +1,49 @@
 import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { getGoogleOAuthUrl } from "../config/googleOAuth.js";
+import { getGoogleUser } from "../config/googleOAuth.js";
 
-const createToken = (id) => {
-  return jwt.sign({ id }, "secret", {
-    expiresIn: 3 * 24 * 60 * 60,
-  });
-};
 const UserController = {
-  register: async (req, res) => {
-   
+  googleOAuthUrl: (req, res) => {
+    res.status(200).json({ url: getGoogleOAuthUrl() });
+  },
+
+  googleOAuthCallback: async (req, res) => {
+    const { code } = req.query;
     try {
-      const user = await User.create(req.body);
-      const token = createToken(user._id);
-      res.cookie("jwt", token, { httpOnly: true, expiresIn: 3 * 24 * 60 * 60 });
-      res.status(200).json(token);
+      const info = await getGoogleUser(code);
+      const token = createToken(info.email);
+      res.cookie("auth", token, { expiresIn: 3 * 24 * 60 * 60 });
+      res.redirect("http://localhost:3000/hotels");
     } catch (error) {
-      res.status(400).json(error);
+      res.redirect("http://localhost:3000/login");
     }
   },
-  login: async (req, res) => {
-    try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ email: email });
-      await bcrypt.compare(password, user.password);
-      const token = createToken(user._id);
-      res.cookie("jwt", token, { httpOnly: true, expiresIn: 3 * 24 * 60 * 60 });
-      res.status(200).json(token);
-    } catch (error) {
-      res.status(400).json(error);
+  jwtAuthRegisterUrl: async (req, res) => {
+    const user = await User.create(req.body)
+    res.status(200).json({ url: getJwtAuthUrl(user) });
+  },
+  jwtAuthLoginUrl: (req, res) => {
+    if (req.query.token) {
+      jwt.verify(
+        req.query.token,
+        process.env.JWT_SECRET,
+        async (err, decoded) => {
+          const user = await User.findOne(decoded.email);
+          if (user) {
+          }
+        }
+      );
     }
   },
-  logout: async (req, res) =>{
-    console.log(req)
-    res.cookie("jwt","",{expiresIn:0})
-    res.status(200).json()
-  }
-}
+  jwtAuthCallback: async (req, res) => {
+
+  },
+
+  logout: async (req, res, next) => {
+    res.cookie("auth", "", { expiresIn: 0 });
+    res.redirect("http://localhost:3000/login");
+  },
+};
 export default UserController;

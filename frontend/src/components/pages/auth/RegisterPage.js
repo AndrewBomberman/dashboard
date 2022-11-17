@@ -5,24 +5,28 @@ import { useCookies } from "react-cookie";
 import { useState } from "react";
 
 export default function RegisterPage() {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie, removeCookie] = useCookies("auth");
   const [error, setError] = useState();
   const navigate = useNavigate();
+  
 
   const useHandleSubmit = async (e) => {
     e.preventDefault();
-
+    /*
+    
+    console.log(cookies)
+    setCookie("auth",token, {httpOnly: true})
+    */
     const user = {
       email: e.target["email"].value,
-      password: e.target["password"].value,
-    };
-    const response = await useRegister(user);
-    const json = await response.json();
-    if (response.status == 200) {
-      setCookie("auth", json, { expiresIn: 60 * 60 * 24 * 1000 });
-      navigate("/hotels");
+      password: e.target["password"].value
     }
-    setError(json);
+    const token = await useRegister(user)
+    console.log(token)
+  
+   //window.location.href ="http://localhost:8000/api/v1/auth/jwt/callback?token="+token 
+    
+   
   };
 
   return (
@@ -55,9 +59,17 @@ export default function RegisterPage() {
                       Register
                     </Button>
                   </div>
-                  <div className="p-2">{error}</div>
+                  
                 </Form>
               </Card.Body>
+              <Card.Footer>
+                <a href="/login" className="p-2">
+                  Login
+                </a>
+                <a href="/forgot-password" className="p-2">
+                  Forgot Password?
+                </a>
+              </Card.Footer>
             </Card>
           </Col>
         </Row>

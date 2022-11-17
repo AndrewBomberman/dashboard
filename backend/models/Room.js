@@ -40,7 +40,6 @@ export const RoomSchema = new mongoose.Schema({
   facilities: [String],
   hotel_id: mongoose.Types.ObjectId,
 }).pre("save", async function (next) {
-  console.log(this);
   const hotel = await Hotel.findById(this.hotel_id);
   hotel.rooms.push(this);
   await hotel.save();

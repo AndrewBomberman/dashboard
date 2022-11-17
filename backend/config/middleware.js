@@ -1,30 +1,32 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/User.js";
 
 export const auth = (req, res, next) => {
-  console.log(req.headers)
-  console.log(req.headers.authorization);
-  const [token, value] = req.headers.authorization.split(" ");
+  console.log("Middleware")
   if (req.headers.authorization) {
-    if (token === "Bearer") {
-      jwt.verify(value, "secret", async (err, decoded) => {
-        if (err) {
-          console.log(err);
-          next();
-        }
-        if (decoded.id) {
-          console.log(decoded)
-          res.locals.user = await User.findById(decoded.id);
-          next();
+    
+    const [token, value] = req.headers.authorization.split(" ");
+    if (token === "Bearer" && value !=="undefined") {
+      
+        console.log(value)
+        jwt.verify(value, "secret", async (err, decoded) => {
+          if (err) {
+            console.log(err);
+            next();
+          }
+          if (decoded) {+
+            console.log(decoded.email)
+            res.locals.user_email = decoded.email
+            next();
         } else {
-          res.status(401).json("No Auth");
-        }
-      });
+          res.status(401).json("No Authorization")
+        };
+        });
+          
     } else {
-      res.status(401).json("No Auth");
-    }
+      res.status(401).json("No Authorization")
+    };
   } else {
-    res.status(401).json("No Auth");
-  }
+    res.status(401).json("No Authorization")
+  };
 }
 

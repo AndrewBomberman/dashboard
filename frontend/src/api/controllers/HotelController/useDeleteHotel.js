@@ -6,29 +6,28 @@ export const useDeleteHotel = () => {
   const [cookies, setCookies, removeCookie] = useCookies();
   const navigate = useNavigate();
   const client = useQueryClient();
+  
   return useMutation(
     async (id) => {
-      if (cookies.auth) {
-        const response = await fetch(
-          "http://localhost:8000/api/v1/hotels?_id=" + id,
-          {
-            method: "DELETE",
-            mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer " + cookies.auth,
-            },
-          }
-        );
-        console.log(response);
-        if (response.status !== 200) {
-          removeCookie("auth");
-          navigate("/login");
+      const response = await fetch(
+        "http://localhost:8000/api/v1/hotels?_id=" + id,
+        {
+          method: "DELETE",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "+ cookies.auth,
+          },
         }
+      );
+      if(response.status === 200){
         return await response.json();
-      } else {
-        navigate("/login");
       }
+      else {
+        removeCookie("auth")
+        navigate("/login")
+      }
+      
     },
     {
       onMutate: async (id) => {

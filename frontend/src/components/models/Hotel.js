@@ -3,10 +3,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useDeleteHotel } from "../../api/controllers/HotelController/useDeleteHotel"
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { useCookies } from "react-cookie";
 
 export default function Hotel({ hotel }) {
+    const [cookies, setCookies, removeCookie] = useCookies();
     const navigate = useNavigate()
-    const { mutate } = useDeleteHotel()
+    const { mutate } = useDeleteHotel(hotel._id)
     
     const handleDelete = (e)=>{
       e.preventDefault();

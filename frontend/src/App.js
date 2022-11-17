@@ -11,7 +11,7 @@ export default function App() {
   const queryClient = new QueryClient();
   return (
     <div className="App">
-      <GoogleOAuthProvider clientId="">
+      <GoogleOAuthProvider clientId="946692377961-bs3h27sj2f6nqqa7gursp11at5kk53eo.apps.googleusercontent.com">
         <QueryClientProvider client={queryClient}>
           <CookiesProvider>
             <Stack gap={3} >

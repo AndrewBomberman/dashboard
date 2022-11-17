@@ -2,7 +2,8 @@ import { Button } from "react-bootstrap";
 import { BiSortAlt2 } from "react-icons/bi";
 
 export const filterHotels = (data, query, sortBy, orderBy) => {
-  return data
+  if(data){
+    return data
     .filter((hotel) => {
       if (query.name) {
         return hotel.name.toLowerCase().includes(query.name.toLowerCase());
@@ -36,6 +37,8 @@ export const filterHotels = (data, query, sortBy, orderBy) => {
       }
       return 0;
     });
+  }
+  return [];
 };
 
 export const validateKey = (

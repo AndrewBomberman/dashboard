@@ -4,7 +4,7 @@ export const getHotels = async () => {
       "Authorization": "Bearer"
     }
   });
-  console.log(response)
+  
   if (response.status !== 200) {
     return []
   }

@@ -1,8 +1,10 @@
 import HotelsTable from "../tables/HotelsTable";
 import { useGetHotels } from "../../api/controllers/HotelController/useGetHotels";
-import { Stack, Spinner, Container, Row, Col, Badge } from "react-bootstrap";
+import { Stack, Spinner, Container, Row, Col } from "react-bootstrap";
 
 export default function HotelsPage() {
+  console.log("Document auth")
+  console.log(document.cookie)
   const { data, isLoading, isFetching } = useGetHotels();
   
 

@@ -1,52 +1,118 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Card from "react-bootstrap/Form";
+import {
+  Image,
+  Card,
+  Spinner,
+  Button,
+  Form,
+  Row,
+  Col,
+  Carousel,
+} from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { BiImageAdd, BiSave } from "react-icons/bi";
+import { MdCancel } from "react-icons/md";
+import { ImageGallery, NameForm, Thumbnail } from "./AddHotelComponents";
 
-export default function AddHotelForm() {
+export default function AddHotel() {
+  const [selectedThumbnailImage, setSelectedThumbnailImage] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [selectedGaleryImage, setSelectedGaleryImage] = useState("");
+  const [imageGallery, setImageGallery] = useState([]);
+  const [name, setName] = useState("");
+  
+
+  useEffect(() => {
+    if (selectedThumbnailImage) {
+      const thumbnailObjectUrl = URL.createObjectURL(selectedThumbnailImage);
+      setThumbnail(thumbnailObjectUrl);
+      return () => URL.revokeObjectURL(thumbnailObjectUrl);
+    }
+    if (selectedGaleryImage) {
+      const imageGalleryObjectUrl = URL.createObjectURL(selectedGaleryImage);
+      setImageGallery([...imageGallery, imageGalleryObjectUrl]);
+      return () => URL.revokeObjectURL(imageGalleryObjectUrl);
+    }
+  }, [selectedThumbnailImage, selectedGaleryImage]);
+
+  const onSelectThumbnailImage = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedThumbnailImage(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedThumbnailImage(e.target.files[0]);
+  };
+  const onSelectGaleryImage = (e) => {
+    setSelectedGaleryImage(e.target.files[0]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.target.reset();
+  };
+  const handleReset = () => {
+    setImageGallery([]);
+    setThumbnail();
   };
 
   return (
-    <div className="AddHotelForm">
-      <Card>
-        <Card.Body>
-          <Card.Title>Add Hotel</Card.Title>
-          <Card.Text>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
+    <div className="EditHotelForm">
+      <Row>
+        <Col lg={6} md={12}>
+          <Card bg="success" text="white">
+            <Card.Body>
+              <Card.Title className="text-center bg-dark p-2">
+                Hotel Profile
+              </Card.Title>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-              </Form.Group>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Default file input example</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={(e) => {
-                    e.preventDefault();
-                    console.log(e.target.files);
-                  }}
+              <Form
+                id="EditForm"
+                onSubmit={handleSubmit}
+                encType="multipart/form-data"
+                method="POST"
+              >
+                <Thumbnail
+                  image={thumbnail}
+                  selector={(newImage) => onSelectThumbnailImage(newImage)}
                 />
-              </Form.Group>
-             
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-          </Card.Text>
-        </Card.Body>
-      </Card>
+                <NameForm
+                  name={name}
+                  selector={(newName) => setName(newName)}
+                />
+
+                <Button
+                  id="save"
+                  variant="dark"
+                  type="submit"
+                  name="save"
+                  className="float-right"
+                >
+                  Save <BiSave />
+                </Button>
+                <Button
+                  id="cancel"
+                  variant="danger"
+                  type="submit"
+                  name="cancel"
+                  className="float-end"
+                  onClick={handleReset}
+                >
+                  Cancel <MdCancel />
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col lg={6} md={12}>
+          <ImageGallery
+            gallery={imageGallery}
+            selector={(newImage) => onSelectGaleryImage(newImage)}
+            manager={(newGallery) => {
+              console.log(newGallery)
+              setImageGallery(newGallery)}}
+          />
+        </Col>
+      </Row>
     </div>
   );
 }

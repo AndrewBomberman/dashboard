@@ -1,16 +1,22 @@
+
 export const useRegister = async (user) => {
-  return await fetch("http://localhost:8000/api/v1/register", {
+  console.log(user)
+  const response  = await fetch("http://localhost:8000/api/v1/auth/jwt/register", {
     method: "POST",
     mode: "cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   });
+  return await response.json();
+
 };
 export const useLogin = async (user) => {
-  return await fetch("http://localhost:8000/api/v1/login", {
+  
+  const response = await fetch("http://localhost:8000/api/v1/login", {
     method: "POST",
     mode: "cors",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user),
   });
+  return await response.json();
 };

@@ -3,29 +3,34 @@ import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 import HotelPage from "./pages/HotelPage";
 import HotelsPage from "./pages/HotelsPage";
-import { useCookies } from "react-cookie";
+import AddHotelForm from "./forms/submit/AddHotelForm"
+import Cookies from 'js-cookie'
+import { useEffect } from "react";
 
 export default function Router() {
-  const [cookies, setCookie, removeCookie] = useCookies()
-
+  const auth = Cookies.get('auth')
   return (
     <div className="Router">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={!auth ? <LoginPage /> :<Navigate to="/hotels"/>} />
+          <Route path="/register" element={!auth ? <RegisterPage /> : <Navigate to="/hotels"/>} />
           <Route
             path="/"
-            element={cookies?.auth ?<HotelsPage /> : <LoginPage />}
+            element={auth ? <HotelsPage />:<Navigate to="/login"/>}
           />
 
           <Route
             path="/hotels"
-            element={cookies?.auth ? <HotelsPage /> : <LoginPage />}
+            element={auth ? <HotelsPage />:<Navigate to="/login"/>}
           />
           <Route
             path="/hotels/:id"
-            element={cookies?.auth ? <HotelPage /> : <LoginPage />}
+            element={<HotelPage />}
+          />
+          <Route
+            path="/hotels/add"
+            element={<AddHotelForm />}
           />
         </Routes>
       </BrowserRouter>

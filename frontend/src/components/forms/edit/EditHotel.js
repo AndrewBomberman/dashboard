@@ -14,9 +14,9 @@ import { MdCancel } from "react-icons/md";
 import { ImageGallery, NameForm, Thumbnail } from "./EditHotelComponents";
 
 export default function EditHotel({ hotel }) {
-  const [selectedThumbnailImage, setSelectedThumbnailImage] = useState();
-  const [thumbnail, setThumbnail] = useState();
-  const [selectedGaleryImage, setSelectedGaleryImage] = useState();
+  const [selectedThumbnailImage, setSelectedThumbnailImage] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+  const [selectedGaleryImage, setSelectedGaleryImage] = useState("");
   const [imageGallery, setImageGallery] = useState(hotel.image_gallery);
   const [name, setName] = useState(hotel && hotel.name);
   
@@ -58,7 +58,7 @@ export default function EditHotel({ hotel }) {
   return (
     <div className="EditHotelForm">
       <Row>
-        <Col lg={6} md={4}>
+        <Col lg={6} md={12}>
           <Card bg="success" text="white">
             <Card.Body>
               <Card.Title className="text-center bg-dark p-2">
@@ -103,7 +103,7 @@ export default function EditHotel({ hotel }) {
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={6} md={4}>
+        <Col lg={6} md={12}>
           <ImageGallery
             gallery={imageGallery}
             selector={(newImage) => onSelectGaleryImage(newImage)}

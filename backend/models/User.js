@@ -24,10 +24,6 @@ export const UserSchema = new mongoose.Schema({
     this.password = await bcrypt.hash(this.password,salt);
     next();
 })
-.pre("remove", { query: false, document: true }, async function (next) {
-    await Hotel.deleteMany({ user_id: this._id });
-    next();
-});
 
 export const User = mongoose.model('User', UserSchema);
 

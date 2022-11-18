@@ -1,22 +1,21 @@
 import express from "express";
 import HotelController from "../controllers/HotelController.js";
 import RoomController from "../controllers/RoomController.js";
-import UserController from "../controllers/UserController.js";
-
-import { getJwtAuthUrl } from "./jwtAuth.js"
+import googleOAuthController from "../controllers/auth/googleOAuthController.js";
+import jwtAuthController from "../controllers/auth/jwtAuthController.js"
 import { auth } from "./middleware.js";
-import jwt from "jsonwebtoken";
+
 
 
 const router = express.Router();
 //Google Auth
-router.get("/auth/google/url", UserController.googleOAuthUrl)
-router.get("/auth/google/callback", UserController.googleOAuthCallback)
+router.get("/auth/google/url", googleOAuthController.googleOAuthUrl)
+router.get("/auth/google/callback", googleOAuthController.googleOAuthCallback)
 
 //JWt Auth
-router.post("/auth/jwt/register", UserController.jwtAuthRegisterUrl)
-router.post("/auth/jwt/login", UserController.jwtAuthLoginUrl)
-router.get("/auth/jwt/callback", UserController.jwtAuthCallback)
+router.post("/auth/jwt/register", jwtAuthController.jwtAuthRegisterUrl)
+router.post("/auth/jwt/login", jwtAuthController.jwtAuthLoginUrl)
+router.get("/auth/jwt/callback", jwtAuthController.jwtAuthCallback)
 
 //Hotel Routes
 router.get("/hotels", auth, HotelController.get);

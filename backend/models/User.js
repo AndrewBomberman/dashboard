@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import validator from 'validator';
 import bcrypt from "bcrypt";
-import { HotelSchema } from "./Hotel.js";
+
 
 export const UserSchema = new mongoose.Schema({
     email:{

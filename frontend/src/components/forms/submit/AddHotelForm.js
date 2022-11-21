@@ -49,6 +49,20 @@ export default function AddHotel() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.target.reset();
+    const formData = new FormData();
+    formData.append("thumbnail", thumbnail)
+    formData.append("imageGallery", imageGallery)
+    formData.append("name", name)
+    console.log(formData)
+
+    const response = await fetch("http://localhost:8000/api/v1/hotels",{
+      method:"POST",
+      mode:"cors",
+      body: formData
+    })
+    const json = await response.json()
+    console.log(json)
+    handleReset()
   };
   const handleReset = () => {
     setImageGallery([]);

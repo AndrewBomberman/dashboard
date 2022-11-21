@@ -21,14 +21,8 @@ export const HotelSchema = new mongoose.Schema({
     data: Buffer,
     content_type: String,
   },
-  thumbnail: {
-    type: String,
-    default: "No Thumbnail",
-  },
-  image_gallery: {
-    type: [String],
-    default: [],
-  },
+  thumbnail: String,
+  image_gallery: [String],
   reviews: [],
   bookings: {
     type: Number,

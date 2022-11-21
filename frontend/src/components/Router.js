@@ -6,6 +6,7 @@ import HotelsPage from "./pages/HotelsPage";
 import AddHotelForm from "./forms/submit/AddHotelForm"
 import Cookies from 'js-cookie'
 import { useEffect } from "react";
+import Test from "./pages/Test";
 
 export default function Router() {
   const auth = Cookies.get('auth')
@@ -17,7 +18,7 @@ export default function Router() {
           <Route path="/register" element={!auth ? <RegisterPage /> : <Navigate to="/hotels"/>} />
           <Route
             path="/"
-            element={auth ? <HotelsPage />:<Navigate to="/login"/>}
+            element={<Test />}
           />
 
           <Route

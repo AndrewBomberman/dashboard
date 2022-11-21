@@ -14,8 +14,11 @@ import { MdCancel } from "react-icons/md";
 import { ImageGallery, NameForm, Thumbnail } from "./EditHotelComponents";
 
 export default function EditHotel({ hotel }) {
+
+  console.log(hotel)
+  console.log()
   const [selectedThumbnailImage, setSelectedThumbnailImage] = useState("");
-  const [thumbnail, setThumbnail] = useState("");
+  const [thumbnail, setThumbnail] = useState(decodeURI(hotel.thumbnail));
   const [selectedGaleryImage, setSelectedGaleryImage] = useState("");
   const [imageGallery, setImageGallery] = useState(hotel.image_gallery);
   const [name, setName] = useState(hotel && hotel.name);

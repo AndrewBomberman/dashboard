@@ -6,6 +6,7 @@ import { getJwtAuthUrl } from "../../config/auth/jwtAuth.js"
 const jwtAuthController = {
   jwtAuthRegisterUrl: async (req, res) => {
     const user = await User.create(req.body);
+    console.log(user)
     res.status(200).json({ url: getJwtAuthUrl(user) });
   },
   jwtAuthLoginUrl: async (req, res) => {

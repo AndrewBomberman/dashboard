@@ -21,10 +21,8 @@ export default function RegisterPage() {
       email: e.target["email"].value,
       password: e.target["password"].value
     }
-    const token = await useRegister(user)
-    console.log(token)
-  
-   //window.location.href ="http://localhost:8000/api/v1/auth/jwt/callback?token="+token 
+    const {url} = await useRegister(user)
+    window.location.href = url
     
    
   };

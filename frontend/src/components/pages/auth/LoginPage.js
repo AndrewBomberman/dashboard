@@ -1,16 +1,10 @@
 import { Card, Row, Col, Container, Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../../api/repositories/UserRepository";
-import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { useParams } from "react-router-dom"
+
 
 export default function LoginPage() {
-  const [cookies, setCookie, removeCookie] = useCookies();
-  const [error, setError] = useState();
-  const navigate = useNavigate();
-  const params = useParams()
   const [googleOAuthUrl , setGoogleOAuthUrl] = useState();
 
   
@@ -20,7 +14,7 @@ export default function LoginPage() {
       try {
         const response = await fetch("http://localhost:8000/api/v1/auth/google/url")
         const {url} = await response.json()
-  
+        console.log(url)
         setGoogleOAuthUrl(url)
       } catch (error) {
         console.log(error)

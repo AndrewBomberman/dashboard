@@ -17,12 +17,16 @@ export const HotelSchema = new mongoose.Schema({
     },
   },
   rooms: [RoomSchema],
-  main_image: {
-    data: Buffer,
-    content_type: String,
+  thumbnail:{
+    contentType:String,
+    data:Buffer
   },
-  thumbnail: String,
-  image_gallery: [String],
+  image_gallery: [
+    {
+      contentType:String,
+      data:Buffer
+    }
+  ],
   reviews: [],
   bookings: {
     type: Number,

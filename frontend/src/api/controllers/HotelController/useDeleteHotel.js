@@ -20,13 +20,6 @@ export const useDeleteHotel = () => {
           },
         }
       );
-      if(response.status === 200){
-        return await response.json();
-      }
-      else {
-        removeCookie("auth")
-        navigate("/login")
-      }
       
     },
     {

@@ -21,14 +21,12 @@ export const getGoogleOAuthUrl = () =>{
 }
 
 const accessTokenUrl = ({ accessToken }) =>{
+    console.log("Access token: " + accessToken)
    return "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token="+accessToken
 }
 
 export const getGoogleUser = async (code)=>{
     const { tokens } = await oAuthClient(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET).getToken(code)
-    const response = await fetch ( accessTokenUrl({ accessToken:tokens.access_token }),{
-        headers: { "Authorization": "Bearer " + tokens.id_token }
-    })
-    return await response.json()
+    return tokens.id_token
 }
 

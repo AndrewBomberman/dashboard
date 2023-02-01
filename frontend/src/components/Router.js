@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
-import HotelPage from "./pages/HotelPage";
-import HotelsPage from "./pages/HotelsPage";
-import AddHotelForm from "./forms/submit/AddHotelForm"
+import HotelPage from "./pages/hotel/HotelPage";
+import HotelsPage from "./pages/hotel/HotelsPage";
+import AddHotelForm from "./forms/submit/AddHotel"
 import Cookies from 'js-cookie'
-import { useEffect } from "react";
 import Test from "./pages/Test";
 
 export default function Router() {

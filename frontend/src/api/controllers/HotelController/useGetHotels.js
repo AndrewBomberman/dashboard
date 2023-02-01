@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -7,9 +7,7 @@ export const useGetHotels = () => {
   const navigate = useNavigate();
   const auth = Cookies.get("auth");
 
-  return useQuery(
-    "hotels",
-    async () => {
+  return useQuery("hotels", async () => {
       console.log(auth);
       if (!auth) {
         window.location.href = "http://localhost:3000/login";

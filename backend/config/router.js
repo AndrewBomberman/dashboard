@@ -4,26 +4,28 @@ import RoomController from "../controllers/RoomController.js";
 import googleOAuthController from "../controllers/auth/googleOAuthController.js";
 import jwtAuthController from "../controllers/auth/jwtAuthController.js"
 import { auth } from "./middleware.js";
-import Grid from "gridfs-stream";
-import{ GridFsStorage} from "multer-gridfs-storage"
-import multer from "multer"
-import mongoose from "mongoose";
-import crypto from "crypto";
-
-export const db = (url)=>{
-    mongoose.connect(url)
-}
-const GridStore = mongoose.mongo.GridFSBucket
-
 
 
 
 
 const router = express.Router();
 //Test Route
-router.post("/test",function (req, res) {
+router.post("/test", async function (req, res) {
     
-    
+    const thumbnail = req.files.thumbnail
+    const gallery = req.files.gallery
+    console.log(req.files)
+    if(thumbnail){
+        await thumbnail.mv("./images/thumbnails/"+thumbnail.name)
+    }
+    if(gallery && gallery.length>0){
+        gallery.forEach(async image => {
+            await image.mv("./images/gallery/"+image.name)
+        });
+    }
+   
+   
+    res.status(200).json({message:"Test"})
 })
 
 //Google Auth
@@ -36,10 +38,12 @@ router.post("/auth/jwt/login", jwtAuthController.jwtAuthLoginUrl)
 router.get("/auth/jwt/callback", jwtAuthController.jwtAuthCallback)
 
 //Hotel Routes
+
+
 router.get("/hotels",  HotelController.get);
-router.post("/hotels",HotelController.add);
+router.post("/hotels" ,HotelController.add);
 router.put("/hotels",  HotelController.edit);
-router.delete("/hotels", auth ,HotelController.delete);
+router.delete("/hotels" ,HotelController.delete);
 
 //Room Routes
 router.get("/rooms", RoomController.get);

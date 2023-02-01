@@ -11,22 +11,24 @@ export const ImageGallery = ({ gallery, selector, manager }) => {
           </Card.Title>
           {(gallery.length > 0 && (
             <Carousel slide={false} variant="dark" id="imageGallerySlider" indicators={false}>
-              {gallery.map((image) => {
+              {gallery.map(image => {
                 return (
                   <Carousel.Item key={image}>
+                    <Image className="d-block w-100" src={image} height={275} />
                     <Button
                       variant="danger"
                       className="btn w-100"
-                      onClick={() => {
-                        
-                        manager(gallery.filter((img) => img !== image));
-                        const slider = document.getElementById("imageGallerySlider")
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log("DElete")
+                        console.log(gallery)
+                       
                         
                       }}
                     >
                       Delete
                     </Button>
-                    <Image className="d-block w-100" src={image} height={275} />
+                    
                   </Carousel.Item>
                 );
               })}
@@ -41,7 +43,10 @@ export const ImageGallery = ({ gallery, selector, manager }) => {
               type="file"
               accept="image/*"
               name="imageGallery"
-              onChange={(e) => selector(e)}
+              onChange={(e) => {
+                console.log("select image")
+                selector(e)
+              }}
             />
           </Form.Group>
         </Card.Body>

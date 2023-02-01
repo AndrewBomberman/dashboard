@@ -10,8 +10,7 @@ const googleOAuthController = {
       googleOAuthCallback: async (req, res) => {
         const { code } = req.query;
         try {
-          const info = await getGoogleUser(code);
-          const token = createToken(info.email);
+          const token = await getGoogleUser(code);
           res.cookie("auth", token, { expiresIn: 3 * 24 * 60 * 60 });
           res.redirect("http://localhost:3000/hotels");
         } catch (error) {

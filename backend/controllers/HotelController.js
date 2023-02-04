@@ -1,18 +1,4 @@
 import Hotel from "../models/Hotel.js";
-import multer from "multer"
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '/tmp/my-uploads')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-  })
-  
-  const upload = multer({ storage: storage })
-
 
 const HotelController = {
   
@@ -37,14 +23,23 @@ const HotelController = {
     console.log(req.files)
    
     if(thumbnail){
+      hotel.thumbnail = process.env.IMAGES_URL + "hotel/"+hotel._id+"/thumbnail/"+thumbnail.name
       await thumbnail.mv("./images/hotel/"+hotel._id+"/thumbnail/"+thumbnail.name)
+      
+      
     }
    
     if(gallery){
       gallery.forEach(async image => {
+        hotel.gallery.push(process.env.IMAGES_URL + "hotel/"+hotel._id+"/gallery/"+image.name)
         await image.mv("./images/hotel/"+hotel._id+"/gallery/"+image.name)
+        
+        
       });
+      await hotel.save()
     }
+    
+    
     
     res.status(200).json({hotel: "Abc"})
   },

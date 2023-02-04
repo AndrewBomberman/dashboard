@@ -16,15 +16,29 @@ import { ImageGallery } from "../../ImageGallery";
 import { useAddHotel } from "../../../api/controllers/HotelController/useAddHotel";
 import { useParams } from "react-router-dom"
 import { useGetHotel } from "../../../api/controllers/HotelController/useGetHotel"
+import { useState } from "react";
 
-export default function EditHotel({data}) {
+export default function EditHotel() {
  
   const { id } = useParams()
+ 
 
+
+ 
+  
+ 
+  
+
+  const { data, isLoading, isFetching } = useGetHotel(id);
+
+  while (isLoading || isFetching) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
   console.log(data)
-  
-
-  
 
   
 
@@ -32,7 +46,7 @@ export default function EditHotel({data}) {
 
   return (
     <div className="EditHotelForm">
-      <Image src={"http://localhost:8000/images/hotel/" + id + "/thumbnail"}></Image>
+      <Image className="d-block" height={275} src={data.thumbnail} />
     </div>
   );
 }

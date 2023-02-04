@@ -6,6 +6,7 @@ import HotelsPage from "./pages/hotel/HotelsPage";
 import AddHotelForm from "./forms/submit/AddHotel"
 import Cookies from 'js-cookie'
 import Test from "./pages/Test";
+import EditHotel from "./forms/edit/EditHotel";
 
 export default function Router() {
   const auth = Cookies.get('auth')
@@ -26,7 +27,7 @@ export default function Router() {
           />
           <Route
             path="/hotels/:id"
-            element={<HotelPage />}
+            element={<EditHotel />}
           />
           <Route
             path="/hotels/add"

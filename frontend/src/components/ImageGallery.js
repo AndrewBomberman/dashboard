@@ -1,33 +1,22 @@
 import { Image, Button, Carousel } from "react-bootstrap";
-export const ImageGallery = ({ gallery, selectedGallery, deleteSetectedImage, deleteImage }) => {
+export const ImageGallery = ({ gallery, deleteSetectedImage }) => {
   return (
     <>
-      {selectedGallery.length>0 && (
-        
-        <Carousel
+    {gallery.length>0 && <Carousel
           slide={false}
           variant="dark"
           id="imageGallerySlider"
           indicators={false}
           
         >
-          {selectedGallery.map(image => {
+          {gallery.map(image => {
             
             return (
               <Carousel.Item key={image} id={"carouselItemNumber" + image}>
                 <Button
                   variant="danger"
                   className="btn w-100"
-                  onClick={() => {
-                    console.log("Delete")
-                    const item = document.getElementById("carouselItemNumber" + image)
-                    const slider = document.getElementById("imageGallerySlider")
-                    
-                    deleteSetectedImage(selectedGallery.filter(img => img !== image))
-                    deleteImage(gallery.filter(img=>img.name!==image.name))
-            
-                    
-                  }}
+                  onClick={()=>{deleteSetectedImage(image)}}
                 >
                   Delete
                 </Button>
@@ -35,8 +24,7 @@ export const ImageGallery = ({ gallery, selectedGallery, deleteSetectedImage, de
               </Carousel.Item>
             );
           })}
-        </Carousel>
-      )}
+        </Carousel>}
     </>
   );
 };

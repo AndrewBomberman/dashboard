@@ -22,7 +22,19 @@ export default function AddHotel() {
   const [selectedGallery, setSelectedGallery] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [name, setName] = useState("");
-  const { mutate } = useAddHotel();
+  
+   const setGalleryImage = (image)=>{
+    setSelectedGallery([...selectedGallery, URL.createObjectURL(image)])
+    setGallery([...gallery,image])
+   }
+   const deleteGalleryImage = (image)=>{
+    setSelectedGallery([...selectedGallery.filter(img=>img!==image)])
+   }
+   const setThumbnailImage = (image)=>{
+    setSelectedThumbnail(URL.createObjectURL(image))
+    setThumbnail(image)
+   }
+  
 
  
   const formData = new FormData();
@@ -68,10 +80,7 @@ export default function AddHotel() {
               <Form.Label>Thumbnail</Form.Label>
               <Form.Control
                 type="file"
-                onChange={(e) => {
-                  setSelectedThumbnail(URL.createObjectURL(e.target.files[0]));
-                  setThumbnail(e.target.files[0])
-                }}
+                onChange={(e) => setThumbnailImage(e.target.files[0])}
               />
             </Form.Group>
             <Button
@@ -88,22 +97,13 @@ export default function AddHotel() {
                 id="addImageToGallery"
                 type="file"
                 className="d-none"
-                onChange={(e) => {
-                  setSelectedGallery([
-                    ...selectedGallery,
-                    URL.createObjectURL(e.target.files[0]),
-                  ]);
-                  setGallery([...gallery, e.target.files[0]])
-                  e.target.value = "";
-                }}
+                onChange={(e) => setGalleryImage(e.target.files[0])}
               />
             </Form.Group>
             <FormGroup>
               <ImageGallery
-                selectedGallery={selectedGallery}
-                gallery={gallery}
-                deleteSetectedImage={setSelectedGallery}
-                deleteImage={setGallery}
+                gallery={selectedGallery}
+                deleteSetectedImage={deleteGalleryImage}
               />
             </FormGroup>
 

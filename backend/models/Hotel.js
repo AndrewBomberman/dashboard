@@ -17,16 +17,8 @@ export const HotelSchema = new mongoose.Schema({
     },
   },
   rooms: [RoomSchema],
-  thumbnail:{
-    contentType:String,
-    data:Buffer
-  },
-  image_gallery: [
-    {
-      contentType:String,
-      data:Buffer
-    }
-  ],
+  thumbnail:String,
+  gallery: [String],
   reviews: [],
   bookings: {
     type: Number,
@@ -41,13 +33,7 @@ export const HotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  user_id:mongoose.Types.ObjectId
-})
-  .pre("save", async function (next) {
-    
-    next();
-  })
-  .pre("remove", { query: false, document: true }, async function (next) {
+}).pre("remove", { query: false, document: true }, async function (next) {
     await Room.deleteMany({ hotel_id: this._id });
     next();
   });

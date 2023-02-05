@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { useDeleteHotel } from "../../api/controllers/HotelController/useDeleteHotel"
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useCookies } from "react-cookie";
+import { Image, Button, Form } from "react-bootstrap";
+
 
 export default function Hotel({ hotel }) {
-    const [cookies, setCookies, removeCookie] = useCookies();
     const navigate = useNavigate()
     const { mutate } = useDeleteHotel(hotel._id)
     
@@ -17,6 +16,12 @@ export default function Hotel({ hotel }) {
     
   return (
     <tr key={hotel._id}>
+      <td><Image
+                  className="d-block w-100"
+                  height={75}
+                  
+                  src={hotel.thumbnail}
+                /></td>
       <td>{hotel.name}</td>
       <td>{hotel.bookings}</td>
       <td>{hotel.rating?.$numberDecimal}</td>

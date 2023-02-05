@@ -48,7 +48,7 @@ export const validateKey = (
   changeSort,
   changeOrder
 ) => {
-  if (key === "name" || key === "bookings" || key === "rating") {
+  if (key === "name" || key === "bookings" || key === "rating" || key === "thumbnail") {
     return (
       <th key={key}>
         <div className="d-flex align-items-start">

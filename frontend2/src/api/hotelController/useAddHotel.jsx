@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 
-
 export const useAddHotel = () => {
   const client = useQueryClient();
-
   return useMutation(async (hotel) => {
     console.log(hotel)
     await fetch("http://localhost:8000/api/v1/hotels", {

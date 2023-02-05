@@ -11,5 +11,7 @@ export const useGetHotel = (id) => {
 
     );
     return await response.json()
+  },{
+    refetchOnWindowFocus:false
   });
 };

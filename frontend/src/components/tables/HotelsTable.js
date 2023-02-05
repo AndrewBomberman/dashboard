@@ -18,7 +18,7 @@ export default function HotelsTable({ hotels }) {
     setFilteredHotels(filterHotels(hotels, query, sortBy, orderBy));
   }, [query, sortBy, orderBy]);
 
-  const keys = ["name" , "bookings" ,"rating"]
+  const keys = ["thumbnail", "name" , "bookings" ,"rating"]
   console.log(hotels)
 
   return (
@@ -43,34 +43,7 @@ export default function HotelsTable({ hotels }) {
             variant="secondary"
             className="text-dark"
           >
-            <thead>
-              <tr>
-                {keys.map((key) => {
-                  return validateKey(
-                    key,
-                    sortBy,
-                    orderBy,
-                    setSortBy,
-                    setOrderBy
-                  );
-                })}
-                <th>
-                  <div className="d-flex align-items-start">
-                    <p className="p-2">Displayed</p>
-                  </div>
-                </th>
-                <th colSpan={2}>
-                  <Button type="button" className="btn w-100" onClick={()=>{navigate("/hotels/add")}}>
-                    Add Hotel
-                  </Button>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {hotels && filteredHotels.length>0 && filteredHotels.map((hotel) => {
-                return <Hotel key={hotel._id} hotel={hotel} />;
-              })}
-            </tbody>
+            
           </Table>
         </Col>
       </Row>

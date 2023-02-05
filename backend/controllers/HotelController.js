@@ -1,4 +1,5 @@
 import Hotel from "../models/Hotel.js";
+import { upload_thumbnail, upload_gallery, delete_images} from "../config/image_handler/hotel_image_handler.js";
 
 const HotelController = {
   
@@ -14,51 +15,28 @@ const HotelController = {
   },
   add: async (req, res) => {
    
-    console.log(req.files)
-   
     const hotel = await Hotel.create({name:req.body.name});
-    
     const thumbnail = req.files.thumbnail
     const gallery = req.files.gallery
-    console.log(req.files)
-   
-    if(thumbnail){
-      hotel.thumbnail = process.env.IMAGES_URL + "hotel/"+hotel._id+"/thumbnail/"+thumbnail.name
-      await thumbnail.mv("./images/hotel/"+hotel._id+"/thumbnail/"+thumbnail.name)
-      
-      
-    }
-   
-    if(gallery){
-      gallery.forEach(async image => {
-        hotel.gallery.push(process.env.IMAGES_URL + "hotel/"+hotel._id+"/gallery/"+image.name)
-        await image.mv("./images/hotel/"+hotel._id+"/gallery/"+image.name)
-        
-        
-      });
-      await hotel.save()
-    }
     
-    
-    
+    if(thumbnail){await upload_thumbnail(hotel, thumbnail)}
+    if(gallery){await upload_gallery(hotel, gallery)}
+    await hotel.save()
     res.status(200).json({hotel: "Abc"})
   },
   edit: async (req, res) => {
-    if(req.files.thumbnail){
-      console.log(req.files.thumbnail)
-      const hotel = await hotel.findById(req.query._id)
-      hotel.thumbnail = req.files.thumbnail
-      
-    }
-    if(req.files.gallery){
-      const hotel = await hotel.findById(req.query._id)
-      hotel.gallery = req.files.gallery
-      await hotel.save()
-    }
+    const hotel = await Hotel.create({name:req.body.name});
+    const thumbnail = req.files.thumbnail
+    const gallery = req.files.gallery
+    
+    if(thumbnail){await upload_thumbnail(hotel, thumbnail)}
+    if(gallery){await upload_gallery(hotel, gallery)}
+    await hotel.save()
     res.status(200).json(await Hotel.findOneAndUpdate(req.query, req.body));
   
   },
   delete: async (req, res) => {
+    delete_images(req.query._id)
     res.status(200).json(await Hotel.findByIdAndDelete(req.query._id));
 
   },

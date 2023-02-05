@@ -37,6 +37,7 @@ export const useGetHotels = () => {
                 bookings: hotel.bookings,
                 rating: hotel.rating,
                 display: hotel.display,
+                thumbnail: hotel.thumbnail
               };
             })
           );

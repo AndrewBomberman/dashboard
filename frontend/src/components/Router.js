@@ -27,7 +27,7 @@ export default function Router() {
           />
           <Route
             path="/hotels/:id"
-            element={<EditHotel />}
+            element={<HotelPage />}
           />
           <Route
             path="/hotels/add"

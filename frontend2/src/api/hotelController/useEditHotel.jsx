@@ -5,3 +5,4 @@ const useEditHotel = async (hotel) =>{
       body: hotel,
     });
 }
+export default useEditHotel

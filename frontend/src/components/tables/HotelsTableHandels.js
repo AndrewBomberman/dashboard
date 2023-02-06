@@ -3,8 +3,7 @@ import { BiSortAlt2 } from "react-icons/bi";
 
 export const filterHotels = (data, query, sortBy, orderBy) => {
   if(data){
-    return data
-    .filter((hotel) => {
+    return data.filter((hotel) => {
       if (query.name) {
         return hotel.name.toLowerCase().includes(query.name.toLowerCase());
       }

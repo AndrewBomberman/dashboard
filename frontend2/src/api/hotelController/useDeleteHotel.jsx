@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 
-export const useDeleteHotel = () => {
+const useDeleteHotel = () => {
   const client = useQueryClient();
 
   return useMutation(
@@ -29,3 +29,4 @@ export const useDeleteHotel = () => {
     }
   );
 };
+export default useDeleteHotel

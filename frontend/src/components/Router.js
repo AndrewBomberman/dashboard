@@ -18,7 +18,7 @@ export default function Router() {
           <Route path="/register" element={!auth ? <RegisterPage /> : <Navigate to="/hotels"/>} />
           <Route
             path="/"
-            element={<Test />}
+            element={<HotelsPage />}
           />
 
           <Route

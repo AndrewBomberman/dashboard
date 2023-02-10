@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 
-export const useGetHotel = (id) => {
+
+const useGetHotel = (id) => {
   return useQuery(
     ["hotels", id],
     async () => {
@@ -14,3 +15,4 @@ export const useGetHotel = (id) => {
     }
   );
 };
+ export default useGetHotel

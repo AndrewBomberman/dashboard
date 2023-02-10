@@ -11,8 +11,9 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <Stack gap={3}>
+        <NavigationBar />
           <Container>
-            <NavigationBar />
+            
             <Router />
           </Container>
         </Stack>

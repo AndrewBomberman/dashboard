@@ -1,11 +1,12 @@
 import { Image, Button, Form } from "react-bootstrap";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import useDeleteHotel from "../../../api/hotelController/useDeleteHotel";
 
-export default function HotelsTableRow ({ hotel }) {
-  const { mutate } = useDeleteHotel(hotel._id)
-    
-  
+export default function HotelsTableRow({ hotel }) {
+  const { mutate } = useDeleteHotel(hotel._id);
+  const navigate = useNavigate()
+
   return (
     <>
       <td>
@@ -22,7 +23,6 @@ export default function HotelsTableRow ({ hotel }) {
           className="btn w-100 align-items-start"
           name={hotel._id}
           defaultChecked={hotel.display}
-          
         />
       </td>
       <td>
@@ -38,13 +38,11 @@ export default function HotelsTableRow ({ hotel }) {
         <Button
           variant="danger"
           className="btn w-100"
-          onClick={()=>mutate(hotel._id)}
+          onClick={() => mutate(hotel._id)}
         >
           <FaTrash />
         </Button>
       </td>
-      
     </>
   );
-};
-
+}

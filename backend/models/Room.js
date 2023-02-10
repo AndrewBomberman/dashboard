@@ -6,9 +6,7 @@ export const RoomSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please select a room type"],
   },
-  description: {
-    type: String,
-  },
+  description:String,
   nr_beds: {
     type: Number,
     required: [true, "Please enter the number of beds"],
@@ -21,22 +19,16 @@ export const RoomSchema = new mongoose.Schema({
     type: mongoose.Types.Decimal128,
     required: [true, "Please set a price per night"],
   },
-  booking: [
-    {
-      check_in: Date,
-      check_out: Date,
-    },
-  ],
-  main_image: {
-    data: Buffer,
-    content_type: String,
+  status:{
+    type: String,
+    default:"Available",
   },
-  image_gallery: [
-    {
-      data: Buffer,
-      content_type: String,
-    },
-  ],
+  displayed:{
+    type: Boolean,
+    default: false,
+  },
+  thumbnail: String,
+  image_gallery: [String],
   facilities: [String],
   hotel_id: mongoose.Types.ObjectId,
 }).pre("save", async function (next) {

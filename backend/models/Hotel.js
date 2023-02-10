@@ -1,23 +1,25 @@
 import mongoose from "mongoose";
 import { RoomSchema } from "./Room.js";
-import { User } from "./User.js";
+import {
+  upload_thumbnail,
+  upload_gallery,
+  delete_images,
+} from "../config/image_handler/hotel_image_handler.js";
+
 export const HotelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
   },
   address: {
-    street: {
-      type: String,
-      required: [false, "Please enter a street address"],
-    },
-    post_code: {
-      type: String,
-      required: [false, "Please enter a post code"],
-    },
+    nr: Number,
+    street: String,
+    city: String,
+    country: String,
+    post_code: String,
   },
   rooms: [RoomSchema],
-  thumbnail:String,
+  thumbnail: String,
   gallery: [String],
   reviews: [],
   bookings: {

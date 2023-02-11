@@ -1,4 +1,4 @@
-import useGetHotels from "../../../api/hotelController/useGetHotels";
+import useGetHotels from "../../../api/controllers/hotelController/useGetHotels";
 import {
   Spinner,
   Container,
@@ -19,15 +19,7 @@ export default function HotelPage() {
       </Spinner>
     );
   }
-  let active = 1;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
-  }
+ 
 
   return (
     <div className="HotelsPage">
@@ -39,7 +31,6 @@ export default function HotelPage() {
                 <Badge bg="dark">Hotels Table</Badge>
               </h1>
               <HotelsTable hotels={hotels} />
-              <Pagination size="lg">{items}</Pagination>
             </Col>
           </Row>
           <Row>

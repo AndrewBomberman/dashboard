@@ -34,6 +34,7 @@ export default function HotelsTable({ hotels }) {
                 crtOrder={orderBy}
                 changeSort={setSortBy}
                 changeOrder={setOrderBy}
+                
               />
             </thead>
 

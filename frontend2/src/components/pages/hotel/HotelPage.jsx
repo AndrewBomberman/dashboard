@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import useGetHotel from "../../../api/hotelController/useGetHotel";
+import useGetHotel from "../../../api/controllers/hotelController/useGetHotel";
 import { Spinner } from "react-bootstrap";
 
 export default function HotelPage() {

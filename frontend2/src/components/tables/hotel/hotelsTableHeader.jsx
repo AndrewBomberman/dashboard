@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { BiSortAlt2 } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-const HotelsTableHeader = ({ crtSort, crtOrder, changeSort, changeOrder }) => {
-  const keys = ["thumbnail", "name", "bookings", "rating", "displayed"];
-  const navigate = useNavigate()
+const HotelsTableHeader = ({ crtSort, crtOrder, changeSort, changeOrder}) => {
+  const keys = ["id", "thumbnail", "name", "bookings", "rating", "displayed"];
+  const navigate = useNavigate();
   const sort = (key) => {
     if (key !== crtSort) {
       changeSort(key);
@@ -25,10 +25,14 @@ const HotelsTableHeader = ({ crtSort, crtOrder, changeSort, changeOrder }) => {
         return (
           <th key={key}>
             <div className="d-flex align-items-start">
+            
               <p className="p-2">{key[0].toUpperCase() + key.slice(1)}</p>
-              {key !== "thumbnail" && <Button className="btn btn-dark" onClick={() => sort(key)}>
+              
+              {key !== "thumbnail" && key !== "id" && (
+                <Button className="btn btn-dark" onClick={() => sort(key)}>
                   <BiSortAlt2 />
-                </Button>}
+                </Button>
+              )}
             </div>
           </th>
         );

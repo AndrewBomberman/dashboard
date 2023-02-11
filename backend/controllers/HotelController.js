@@ -14,14 +14,14 @@ const HotelController = {
     
   },
   add: async (req, res) => {
-   
-    const hotel = await Hotel.create({name:req.body.name});
-    const thumbnail = req.files.thumbnail
-    const gallery = req.files.gallery
+   console.log(req.body)
+   // const hotel = await Hotel.create({name:req.body.name});
+   // const thumbnail = req.files.thumbnail
+    //const gallery = req.files.gallery
     
-    if(thumbnail){await upload_thumbnail(hotel, thumbnail)}
-    if(gallery){await upload_gallery(hotel, gallery)}
-    await hotel.save()
+   // if(thumbnail){await upload_thumbnail(hotel, thumbnail)}
+   // if(gallery){await upload_gallery(hotel, gallery)}
+    //await hotel.save()
     res.status(200).json({hotel: "Abc"})
   },
   edit: async (req, res) => {

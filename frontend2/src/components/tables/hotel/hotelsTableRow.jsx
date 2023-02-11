@@ -1,7 +1,7 @@
 import { Image, Button, Form } from "react-bootstrap";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import useDeleteHotel from "../../../api/hotelController/useDeleteHotel";
+import useDeleteHotel from "../../../api/controllers/hotelController/useDeleteHotel";
 
 export default function HotelsTableRow({ hotel }) {
   const { mutate } = useDeleteHotel(hotel._id);

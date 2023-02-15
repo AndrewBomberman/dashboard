@@ -19,6 +19,7 @@ const useGetHotels = () => {
                 bookings: hotel.bookings,
                 rating: hotel.rating,
                 display: hotel.display,
+                created_at: hotel.createdAt,
                 thumbnail: hotel.thumbnail,
               };
             })

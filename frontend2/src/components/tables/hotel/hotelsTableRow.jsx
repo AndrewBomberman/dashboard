@@ -10,7 +10,7 @@ export default function HotelsTableRow({ hotel }) {
   return (
     <>
       <td>
-        <Image className="d-block w-100" height={75} src={hotel.thumbnail} />
+        <Image className="d-block w-100" height={75} src={hotel.thumbnail ? hotel.thumbnail: "http://localhost:8000/images/sample/no-image.png"} />
       </td>
       <td>{hotel.name}</td>
       <td>{hotel.bookings}</td>

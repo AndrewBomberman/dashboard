@@ -1,22 +1,20 @@
 import mongoose from "mongoose";
 import { RoomSchema } from "./Room.js";
-import {
-  upload_thumbnail,
-  upload_gallery,
-  delete_images,
-} from "../config/image_handler/hotel_image_handler.js";
 
 export const HotelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
   },
+  phone:String,
+  email:String,
   address: {
     nr: Number,
-    street: String,
+    address1:String,
+    address2:String,
     city: String,
     country: String,
-    post_code: String,
+    postcode: String,
   },
   rooms: [RoomSchema],
   thumbnail: String,
@@ -35,7 +33,10 @@ export const HotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-}).pre("remove", { query: false, document: true }, async function (next) {
+  
+})
+
+.pre("remove", { query: false, document: true }, async function (next) {
     await Room.deleteMany({ hotel_id: this._id });
     next();
   });

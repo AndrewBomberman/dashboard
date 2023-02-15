@@ -1,38 +1,27 @@
-import { useState } from "react";
-import { Image, Card, Button, Form, Row, Col, Badge, Spinner } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import ImageGallery from "../../imageGallery";
+import { Image, Card, Button, Form, Row, Col, Badge } from "react-bootstrap";
 import { BiReset } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useEditHotel from "../../../api/controllers/hotelController/useEditHotel"
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import useAddHotel from "../../../api/controllers/hotelController/useAddHotel";
-import useCountryListProvider from "../../../api/providers/useCountryListProvider";
-
-export default function AddHotel() {
+import ImageGallery from "../../imageGallery";
+export default function EditHotel({ hotel }) {
   const navigate = useNavigate();
-  const [selectedThumbnail, setSelectedThumbnail] = useState();
-  const [thumbnail, setThumbnail] = useState();
-  const [selectedGallery, setSelectedGallery] = useState([]);
-  const [gallery, setGallery] = useState([]);
-  const [name, setName] = useState("");
-  const [address1, setAddress1] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [postcode, setPostcode] = useState("");
-  const [phone, setPhone] = useState("");
-  const [streetNumber, setStreetNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [cityOptionList, setCityOptionList] = useState([]);
-  const { data: countries, isLoading, isFetching } = useCountryListProvider();
-  while (isLoading || isFetching) {
-    return (
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </Spinner>
-    );
-  }
-  console.log(countries)
+  const [selectedThumbnail, setSelectedThumbnail] = useState(hotel.thumbnail);
+  const [thumbnail, setThumbnail] = useState(hotel.thumbnail);
+  const [selectedGallery, setSelectedGallery] = useState(hotel.gallery);
+  const [gallery, setGallery] = useState(hotel.gallery);
+  const [name, setName] = useState(hotel.name);
+  const [address1, setAddress1] = useState(hotel.address.address1);
+  const [address2, setAddress2] = useState(hotel.address.address2);
+  const [postcode, setPostcode] = useState(hotel.address.postcode);
+  const [phone, setPhone] = useState(hotel.phone);
+  const [streetNumber, setStreetNumber] = useState(hotel.address.nr);
+  const [email, setEmail] = useState(hotel.email);
+  const [city, setCity] = useState(hotel.address.city);
+  const [country, setCountry] = useState(hotel.address.country);
+  const [show, setShow] = useState(hotel.display);
 
   const setImageGallery = (e) => {
     let selectedGalleryImages = [];
@@ -55,21 +44,6 @@ export default function AddHotel() {
     setSelectedThumbnail(URL.createObjectURL(e.target.files[0]));
     setThumbnail(e.target.files[0]);
   };
-
-  const setSelectedCountry = async (e)=>{
-    setCountry(e.target.value)
-    const response  = await fetch("https://countriesnow.space/api/v0.1/countries/cities",{
-      method:"POST",
-      headers:{
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({country: e.target.value})
-    })
-    const json = await response.json()
-    setCityOptionList(json.data)
-    
-    
-  }
   const resetForm = (e) => {
     setSelectedThumbnail("");
     setThumbnail("");
@@ -80,6 +54,7 @@ export default function AddHotel() {
     document.getElementById("setImageGallery").value = "";
     document.getElementById("setThumbnail").value = "";
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,17 +72,18 @@ export default function AddHotel() {
     gallery.forEach((image) => {
       formData.append("gallery", image);
     });
-    await useAddHotel(formData);
-    navigate("/hotels");
+    await useEditHotel(hotel._id, formData)
+    navigate("/hotels")
+    
   };
 
   return (
-    <div className="AddHotelForm">
-      <Row>
+    <div className="EditHotel">
+         <Row>
         <Col md={3} lg={6}>
           <Card bg="primary" text="light">
             <Card.Header className="text-center">
-              <h2>Add Hotel Form</h2>
+              <h2>Edit Hotel Form</h2>
             </Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -181,11 +157,9 @@ export default function AddHotel() {
         </Col>
         <Col md={9} lg={6}>
           <Card bg="primary" text="light">
-            <Card.Header>
-              <h2 className="text-center">Hotel Address</h2>
-            </Card.Header>
+            <Card.Header><h2 className="text-center">Hotel Address</h2></Card.Header>
             <Card.Body>
-              <Form.Group>
+            <Form.Group>
                 <Form.Label aria-required>Street Number</Form.Label>
                 <Form.Control
                   id="setStreetNumber"
@@ -245,37 +219,42 @@ export default function AddHotel() {
                   }}
                 />
                 <Form.Group>
-                  <Form.Label aria-required>E-Mail</Form.Label>
+                <Form.Label aria-required>E-Mail</Form.Label>
+                <Form.Control
+                  id="setEmail"
+                  type="email"
+                  required={true}
+                  placeholder="E-mail address"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </Form.Group>
+              </Form.Group>
+              <Form.Group>
+                  <Form.Label aria-required>City</Form.Label>
                   <Form.Control
-                    id="setEmail"
-                    type="email"
+                    id="setCity"
+                    type="text"
                     required={true}
-                    placeholder="E-mail address"
+                    placeholder="City"
                     onChange={(e) => {
-                      setEmail(e.target.value);
+                      setCity(e.target.value);
                     }}
                   />
                 </Form.Group>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label aria-required>Country</Form.Label>
-                <Form.Select aria-label="Default select example" onChange={setSelectedCountry}>
-                  <option>Select Country</option>
-                  {countries.map(country => {
-                    return <option key={country}>{country}</option>
-                  })}
-                </Form.Select>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label aria-required>City</Form.Label>
-                <Form.Select aria-label="Default select example" onChange={(e)=>setCity(e.target.value)}>
-                  <option>Select City</option>
-                  {cityOptionList.map(city => {
-                    return <option>{city}</option>
-                  })}
-                </Form.Select>
-              </Form.Group>
-             
+                <Form.Group>
+                  <Form.Label aria-required>Country</Form.Label>
+                  <Form.Control
+                    id="setCountry"
+                    type="text"
+                    required={true}
+                    placeholder="Country"
+                    onChange={(e) => {
+                      setCountry(e.target.value);
+                    }}
+                  />
+                </Form.Group>
             </Card.Body>
           </Card>
         </Col>

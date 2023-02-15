@@ -4,7 +4,7 @@ import { BiSortAlt2 } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const HotelsTableHeader = ({ crtSort, crtOrder, changeSort, changeOrder}) => {
-  const keys = ["id", "thumbnail", "name", "bookings", "rating", "displayed"];
+  const keys = ["thumbnail", "name", "bookings", "rating", "displayed"];
   const navigate = useNavigate();
   const sort = (key) => {
     if (key !== crtSort) {

@@ -15,14 +15,27 @@ const HotelController = {
   },
   add: async (req, res) => {
    console.log(req.body)
-   // const hotel = await Hotel.create({name:req.body.name});
+
+   await Hotel.create({
+    name: req.body.name,
+    phone:req.body.phone,
+    email:req.body.email,
+    address:{
+      streetNumber:req.body.streetNumber,
+      address1:req.body.address1,
+      address2:req.body.address2,
+      city:req.body.city,
+      country:req.body.country,
+      postcode:req.body.postcode
+    }})
+   
    // const thumbnail = req.files.thumbnail
     //const gallery = req.files.gallery
     
    // if(thumbnail){await upload_thumbnail(hotel, thumbnail)}
    // if(gallery){await upload_gallery(hotel, gallery)}
     //await hotel.save()
-    res.status(200).json({hotel: "Abc"})
+    res.status(200).json("Hotel Added")
   },
   edit: async (req, res) => {
     const hotel = await Hotel.create({name:req.body.name});

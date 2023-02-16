@@ -1,7 +1,7 @@
 import fs from "fs"
 export const upload_thumbnail = async (hotel, thumbnail)=>{
-    hotel.thumbnail = process.env.IMAGES_URL + "hotel/"+hotel._id+"/thumbnail/"+thumbnail.name
-    await thumbnail.mv("./images/hotel/"+hotel._id+"/thumbnail/"+thumbnail.name)
+    hotel.thumbnail = thumbnail ? process.env.IMAGES_URL + "hotel/"+hotel._id+"/thumbnail/"+thumbnail.name: process.env.NO_IMAGE_URL
+    thumbnail && await thumbnail.mv("./images/hotel/"+hotel._id+"/thumbnail/"+thumbnail.name)
 }
 export const upload_gallery = async (hotel, gallery)=>{
     if(gallery.length){

@@ -4,49 +4,20 @@ import {
   Typography,
   Toolbar,
   Drawer,
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import { useNavigate } from "react-router-dom";
+
+import Menu from "./Menu";
 
 export default function Sidebar() {
   const navigate = useNavigate()
-  const menu = [
-    {
-      text: "Hotels",
-      icon: <ApartmentIcon />,
-      path: "/",
-    },
-    {
-      text: "Rooms",
-      icon: <MeetingRoomIcon />,
-      path: "/rooms",
-    },
-    {
-      text: "Bookings",
-      icon: <FormatListBulletedIcon />,
-      path: "/bookings",
-    },
-    {
-      text: "Statistics",
-      icon: <BarChartIcon />,
-      path: "/statistics",
-    },
-    {
-      text: "Logout",
-      icon: <LogoutIcon />,
-      path: "/logout",
-    }
-  ];
+  
 
   return (
     <div className="SideBar">
@@ -75,7 +46,7 @@ export default function Sidebar() {
           <Box>
             
             <List>
-              {menu.map((item) => {
+              {Menu.map((item) => {
                 return (
                   
                   <ListItem key={item.text}>

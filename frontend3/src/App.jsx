@@ -1,5 +1,5 @@
 import * as React from "react";
-import router from "./routes/router";
+import router from "./components/navigation/routes/router";
 import { RouterProvider } from "react-router-dom";
 import Layout from "./components/style/Layout";
 

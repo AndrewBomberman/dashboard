@@ -8,7 +8,7 @@ export default function Layout() {
       </header>
 
       <main>
-        <div style={{ display: "flex", marginLeft: 260,  paddingTop:80}}>
+        <div style={{ display: "flex", marginLeft: 300, marginRight:50,  paddingTop:80}}>
           <Outlet />
         </div>
       </main>

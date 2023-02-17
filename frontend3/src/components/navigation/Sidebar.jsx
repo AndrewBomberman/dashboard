@@ -9,15 +9,17 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Divider,
 } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-import Menu from "./Menu";
+import ViewsMenu from "./menu/ViewsMenu";
+import AuthMenu from "./menu/AuthMenu";
+import ButtonsMenu from "./menu/ButtonsMenu";
 
 export default function Sidebar() {
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   return (
     <div className="SideBar">
@@ -44,13 +46,15 @@ export default function Sidebar() {
         >
           <Toolbar />
           <Box>
-            
             <List>
-              {Menu.map((item) => {
+              {ViewsMenu.map((item) => {
                 return (
-                  
                   <ListItem key={item.text}>
-                    <ListItemButton onClick={()=>{navigate(item.path)}}>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(item.path);
+                      }}
+                    >
                       <ListItemIcon>{item.icon}</ListItemIcon>
                       <ListItemText primary={item.text} />
                     </ListItemButton>
@@ -58,7 +62,44 @@ export default function Sidebar() {
                 );
               })}
             </List>
-            
+          </Box>
+          <Divider/>
+          <Box>
+            <List>
+              {ButtonsMenu.map((item) => {
+                return (
+                  <ListItem key={item.text}>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(item.path);
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Box>
+          <Divider />
+          <Box>
+            <List>
+              {AuthMenu.map((item) => {
+                return (
+                  <ListItem key={item.text}>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(item.path);
+                      }}
+                    >
+                      <ListItemIcon>{item.icon}</ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              })}
+            </List>
           </Box>
         </Drawer>
       </Box>

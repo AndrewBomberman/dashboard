@@ -13,21 +13,33 @@ const HotelController = {
   add: async (req, res) => {
     const hotel = new Hotel(req.body);
     hotel.thumbnail = await generateImageData(
-      req.files.thumbnail ?? null,
+      req?.files?.thumbnail ?? null,
       "thumbnail",
       hotel,
       req.route.path
-    )
+    );
 
-    const gallery = [req.files.gallery];
-    gallery.forEach(async (image) => {
-      hotel.gallery.push(
-        await generateImageData(image, "gallery", hotel, req.route.path)
-      );
-    });
-    console.log(hotel)
+    const gallery = req?.files?.gallery;
+    if (gallery) {
+      if (gallery?.length && gallery.length > 1) {
+        for (let i = 0; i < gallery.length; i++) {
+          hotel.gallery.push(
+            await generateImageData(
+              gallery[i],
+              "gallery",
+              hotel,
+              req.route.path
+            )
+          );
+        }
+      } else {
+        hotel.gallery.push(
+          await generateImageData(gallery, "gallery", hotel, req.route.path)
+        );
+      }
+    }
+
     await hotel.save();
-    
 
     res.status(200).json("Hotel Added");
   },

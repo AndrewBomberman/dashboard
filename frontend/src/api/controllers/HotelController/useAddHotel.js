@@ -15,8 +15,6 @@ export const useAddHotel = () => {
   },
   {
     onMutate: async (hotel) => {
-      console.log("Hotel");
-      console.log(hotel);
       await client.cancelQueries("hotels");
       const prevData = client.getQueryData("hotels");
       console.log(prevData);

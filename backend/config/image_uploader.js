@@ -1,6 +1,7 @@
+import crypto  from "crypto";
+
 export const generateImageData = async (image, imageType, object, path) => {
-  image !== null &&
-    (await image.mv(
+  image !== null && await image.mv(
       process.env.IMAGES_PATH +
         path +
         "/" +
@@ -9,7 +10,7 @@ export const generateImageData = async (image, imageType, object, path) => {
         imageType +
         "/" +
         image.name
-    ));
+    );
   return image !== null
     ? process.env.IMAGES_URL +
         path +

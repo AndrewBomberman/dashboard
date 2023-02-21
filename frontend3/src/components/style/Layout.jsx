@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../navigation/Sidebar";
 import Fab from "@mui/material/Fab";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
+import Container from "@mui/material/Container";
 export default function Layout() {
   return (
     <div className="Layout">
@@ -9,17 +10,17 @@ export default function Layout() {
         <Sidebar />
       </header>
 
-      <main>
+      <main >
         <div
           style={{
             display: "flex",
-            marginLeft: 250,
-            marginRight: 50,
+            marginLeft: 10,
             paddingTop: 80,
           }}
         >
-          <Outlet />
-          
+          <Container >
+            <Outlet />
+          </Container>
         </div>
       </main>
     </div>

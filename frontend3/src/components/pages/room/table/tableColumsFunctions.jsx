@@ -3,8 +3,7 @@ import Switch from "@mui/material/Switch";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Rating from '@mui/material/Rating';
-import { useDeleteHotelQuery } from "../../../../api/hotel/query/hotelQueries";
-import { useNavigate } from "react-router-dom";
+import { useDeleteHotelQuery } from "../../../../api/query/hotelQueries";
 export const getThumbnail = (params) => {
   
 
@@ -49,9 +48,8 @@ export const getRating = (params) => {
   return <Rating name="read-only" value={params.row.rating.$numberDecimal} readOnly />
 }
 export const getEdit = (params) => {
-  const navigate = useNavigate()
   return (
-    <IconButton color="success" onClick={()=>{navigate("/hotels/"+params.row._id)}}>
+    <IconButton color="success">
       <EditIcon />
     </IconButton>
   );

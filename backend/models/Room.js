@@ -19,9 +19,9 @@ export const RoomSchema = new mongoose.Schema({
     type: mongoose.Types.Decimal128,
     required: [true, "Please set a price per night"],
   },
-  status:{
-    type: String,
-    default:"Available",
+  available:{
+    type: Boolean,
+    default:false,
   },
   displayed:{
     type: Boolean,
@@ -31,6 +31,7 @@ export const RoomSchema = new mongoose.Schema({
   image_gallery: [String],
   facilities: [String],
   hotel_id: mongoose.Types.ObjectId,
+  
 }).pre("save", async function (next) {
   const hotel = await Hotel.findById(this.hotel_id);
   hotel.rooms.push(this);

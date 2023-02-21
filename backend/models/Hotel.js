@@ -6,10 +6,10 @@ export const HotelSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a name"],
   },
+  description:String,
   phone:String,
   email:String,
   address: {
-    nr: Number,
     address1:String,
     address2:String,
     city: String,

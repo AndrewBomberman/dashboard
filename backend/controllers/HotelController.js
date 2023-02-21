@@ -1,5 +1,6 @@
-import { generateImageData } from "../config/image_uploader.js";
+import { generateImageData, deleteImageData } from "../config/image_handler.js";
 import Hotel from "../models/Hotel.js";
+
 
 const HotelController = {
   get: async (req, res) => {
@@ -47,7 +48,7 @@ const HotelController = {
     res.status(200).json(await Hotel.findOneAndUpdate(req.query, req.body));
   },
   delete: async (req, res) => {
-    delete_images(req.query._id);
+    deleteImageData(req.query._id);
     res.status(200).json(await Hotel.findByIdAndDelete(req.query._id));
   },
 };

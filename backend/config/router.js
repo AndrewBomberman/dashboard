@@ -14,7 +14,6 @@ router.post("/test", async function (req, res) {
     
     const thumbnail = req.files.thumbnail
     const gallery = req.files.gallery
-    console.log(req.files)
     if(thumbnail){
         await thumbnail.mv("./images/thumbnails/"+thumbnail.name)
     }

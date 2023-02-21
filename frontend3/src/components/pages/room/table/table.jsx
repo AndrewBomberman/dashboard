@@ -2,10 +2,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import CircularProgress from '@mui/material/CircularProgress';
 import columns from "./tableColumns";
-import { useGetHotelsQuery } from "../../../../api/hotel/query/hotelQueries";
+import { useGetRoomsQuery } from "../../../../api/query/roomQueries";
 
-export default function HotelsTable() {
-  const { data:hotels, isLoading, isFetching} = useGetHotelsQuery();
+export default function roomsTable() {
+  const { data:rooms, isLoading, isFetching} = useGetRoomsQuery();
   while( isLoading || isFetching ) {
     return <CircularProgress />
   }
@@ -14,7 +14,7 @@ export default function HotelsTable() {
     <Box sx={{ height: 400, width: 1400 }}>
       <DataGrid
         rowHeight={100}
-        rows={hotels}
+        rows={rooms}
         columns={columns}
         rowSpacingType="border"
         pageSize={5}

@@ -1,6 +1,5 @@
 import Input from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { FormControl } from "@mui/material";
 import Chip from '@mui/material/Chip';
 
@@ -58,18 +57,8 @@ export default [
           }}
           name="gallery"
           disableUnderline
+          
         />
-      </FormControl>
-    ),
-  },
-
-  {
-    id: "submitButton",
-    render: (
-      <FormControl>
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
       </FormControl>
     ),
   },

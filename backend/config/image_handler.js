@@ -1,4 +1,3 @@
-import crypto  from "crypto";
 import fs from "fs"
 
 export const generateImageData = async (image, imageType, object, path) => {

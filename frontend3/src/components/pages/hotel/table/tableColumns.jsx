@@ -41,7 +41,7 @@ export default [
     width: 100,
     minWidth: 150,
     maxWidth: 200,
-    renderValue:getAddress
+    valueGetter:getAddress
   },
   {
     field: "city",
@@ -49,7 +49,7 @@ export default [
     width: 100,
     minWidth: 150,
     maxWidth: 200,
-    renderValue:getCity
+    valueGetter:getCity
   },
   {
     field: "country",
@@ -57,7 +57,7 @@ export default [
     width: 100,
     minWidth: 150,
     maxWidth: 200,
-    renderValue:getCountry
+    valueGetter:getCountry
   },
   {
     field: "bookings",

@@ -1,21 +1,33 @@
-import { getGoogleOAuthUrl, getGoogleUser } from "../../config/auth/googleOAuth.js";
+import {
+  getGoogleOAuthUrl,
+  getGoogleUser,
+} from "../../config/auth/googleOAuth.js";
+import jwt from "jsonwebtoken";
 import { User } from "../../models/User.js";
 
-
 const googleOAuthController = {
-    googleOAuthUrl: (req, res) => {
-        res.status(200).json({ url: getGoogleOAuthUrl() });
-      },
-    
-      googleOAuthCallback: async (req, res) => {
-        const { code } = req.query;
-        try {
-          const token = await getGoogleUser(code);
-          res.cookie("auth", token, { expiresIn: 3 * 24 * 60 * 60 });
-          res.redirect("http://localhost:3000/hotels");
-        } catch (error) {
-          res.redirect("http://localhost:3000/login");
-        }
-      },
-}
+  googleOAuthUrl: (req, res) => {
+    res.status(200).json(getGoogleOAuthUrl());
+  },
+
+  googleOAuthCallback: async (req, res) => {
+    const { code } = req.query;
+    const user = await getGoogleUser(code);
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: 60 * 60 * 24 * 1000,
+    });
+    try {
+      res.cookie("auth", token, { expiresIn: 3 * 24 * 60 * 60 });
+      await User.create({
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+        password: token,
+      });
+      res.redirect(process.env.SUCCESS_AUTH_REDIRECT_URL);
+    } catch (error) {
+      res.redirect(process.env.FAIL_AUTH_REDIRECT_URL);
+    }
+  },
+};
 export default googleOAuthController;

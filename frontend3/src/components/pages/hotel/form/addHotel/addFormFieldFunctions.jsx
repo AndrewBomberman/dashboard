@@ -1,7 +1,8 @@
-import { useAddHotelRequest } from "../../../../../api/hotel/requests/hotelRequests";
+import { useAddHotelRequest } from "../../../../../api/internal/hotel/requests/hotelRequests";
 export const addFormHandleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
+    console.log(e)
     formData.append("name", e.target["name"].value);
     formData.append("discription", e.target["discription"].value);
     formData.append("address1", e.target["address1"].value);
@@ -13,6 +14,11 @@ export const addFormHandleSubmit = async (e) => {
         console.log(e.target["gallery"].files[i])
         formData.append("gallery", e.target["gallery"].files[i])
     }
-    
     await useAddHotelRequest(formData);
 };
+export const resetCountrySelect = (e)=>{
+    e.preventDefault();
+    const elem = document.getElementById("selectCountry")
+    console.log(elem.innerText = "")
+
+}

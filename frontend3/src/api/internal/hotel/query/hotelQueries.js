@@ -21,7 +21,12 @@ export const useDeleteHotelQuery = () => {
   });
 };
 
+
+
+
 export const useGetHotelsQuery = () => {
-  return useQuery("hotels", async () => await useGetHotelsRequest());
+  return useQuery("hotels", async () => await useGetHotelsRequest(),{
+    refetchOnWindowFocus:false
+  });
 };
 

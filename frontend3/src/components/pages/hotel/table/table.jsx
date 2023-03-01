@@ -2,13 +2,16 @@ import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import CircularProgress from '@mui/material/CircularProgress';
 import columns from "./tableColumns";
-import { useGetHotelsQuery } from "../../../../api/hotel/query/hotelQueries";
+import { useGetHotelsQuery } from "../../../../api/internal/hotel/query/hotelQueries";
+
 
 export default function HotelsTable() {
   const { data:hotels, isLoading, isFetching} = useGetHotelsQuery();
+ 
   while( isLoading || isFetching ) {
     return <CircularProgress />
   }
+  console.log(hotels)
 
   return (
     <Box sx={{ height: 400, width: 1400 }}>
@@ -17,7 +20,7 @@ export default function HotelsTable() {
         rows={hotels}
         columns={columns}
         rowSpacingType="border"
-        pageSize={5}
+        pageSize={10}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
         autoHeight

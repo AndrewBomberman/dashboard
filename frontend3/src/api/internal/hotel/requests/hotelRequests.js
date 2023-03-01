@@ -1,14 +1,23 @@
+import Cookies from "js-cookie"
+const auth = Cookies.get('auth')
+console.log(auth)
+
 export const useGetHotelsRequest = async ()=>{
-    const response = await fetch("http://localhost:8000/api/v1/hotels")
+    const response = await fetch("http://localhost:8000/api/v1/hotels",{
+        headers:{
+            "Authorization": auth
+        }
+    })
     return await response.json()
 }
 
-export const useGetHotelRequest = async (id) =>{
+export const useGetHotelRequest = async ({params}) =>{
+    console.log(params)
     const response =  await fetch("http://localhost:8000/api/v1/hotels?_id=" + id)
     return await response.json()
 }
 export const useAddHotelRequest = async (hotel) =>{
-    console.log(request)
+    
     await fetch("http://localhost:8000/api/v1/hotels",{
         method: "POST",
         mode:"cors",

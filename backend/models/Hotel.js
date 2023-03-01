@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { RoomSchema } from "./Room.js";
 
-export const HotelSchema = new mongoose.Schema({
+const HotelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
@@ -14,7 +14,6 @@ export const HotelSchema = new mongoose.Schema({
     address2:String,
     city: String,
     country: String,
-    postcode: String,
   },
   rooms: [RoomSchema],
   thumbnail: String,
@@ -33,6 +32,10 @@ export const HotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  created_at:{
+    type:String,
+    default: new Date(),
+  }
   
 })
 

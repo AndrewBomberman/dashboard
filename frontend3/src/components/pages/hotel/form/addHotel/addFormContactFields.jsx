@@ -1,9 +1,7 @@
-import Input from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import CountryList from "../../../../lists/countryAndCityList";
 import { FormControl } from "@mui/material";
-import Chip from '@mui/material/Chip';
+
 export default [
     {
         id: "address1Input",
@@ -30,7 +28,6 @@ export default [
               variant="outlined"
               placeholder="Address2"
               label="Address2 (optional)"
-              ty
             />
           </FormControl>
         ),

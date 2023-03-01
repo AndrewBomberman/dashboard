@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import Hotel from "./Hotel.js";
 
 export const RoomSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    required: [true, "Please select a room type"],
+  name:{
+    type:String,
+    required:[true, "Please enter a room name"]
   },
   description:String,
   nr_beds: {

@@ -4,7 +4,7 @@ import Hotel from "../models/Hotel.js";
 
 const HotelController = {
   get: async (req, res) => {
-    console.log(req.query);
+    console.log(res.locals)
     if (req.query._id) {
       res.status(200).json(await Hotel.findById(req.query));
     } else {
@@ -12,7 +12,19 @@ const HotelController = {
     }
   },
   add: async (req, res) => {
-    const hotel = new Hotel(req.body);
+    const hotel = new Hotel({
+      name: req.body.name,
+      description: req.body.description,
+      phone:req.body.phone,
+      email: req.body.email,
+      address:{
+        address1: req.body.address1,
+        address2: req.body.address2,
+        city: req.body.city,
+        country: req.body.country
+      }
+    });
+    console.log(hotel)
     hotel.thumbnail = await generateImageData(
       req?.files?.thumbnail ?? null,
       "thumbnail",
@@ -39,6 +51,7 @@ const HotelController = {
         );
       }
     }
+    console.log(hotel)
 
     await hotel.save();
 

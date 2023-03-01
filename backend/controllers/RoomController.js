@@ -3,7 +3,7 @@ import { Room } from "../models/Room.js";
 const RoomController = {
   get: async (req, res) => {
     res.status(200).json(
-      await Room.find(await req.query)
+      await Room.find()
     );
   },
   add: async (req, res) => {
@@ -41,7 +41,6 @@ const RoomController = {
     res.status(200).json("Hotel Added");
   },
   edit: async (req, res) => {
-    const { _id, name, description } = req.body;
     res.status(200).json(
       await Room.findByIdAndUpdate(req.query._id, req.body)
     );

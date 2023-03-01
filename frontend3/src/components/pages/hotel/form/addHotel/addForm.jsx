@@ -4,17 +4,18 @@ import CardContent from "@mui/material/CardContent";
 import addFormProfileFields from "./addFormProfileFields";
 import { CardHeader } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { addFormHandleSubmit } from "../addHotel/addFormFieldFunctions"
+import { addFormHandleSubmit } from "../addHotel/addFormFieldFunctions";
 import React from "react";
 import addFormContactFields from "./addFormContactFields";
 import Typography from "@mui/material/Typography";
+import addFormButtons from "./addFormButtons";
 
 export default function AddHotelForm() {
   return (
     <Card>
-      <CardHeader title="Add Hotel" />
+       <CardHeader title="Add Hotel" />
       <CardContent>
-        <Form method="post" onSubmit={addFormHandleSubmit}>
+        <Form onSubmit={addFormHandleSubmit}>
           <Stack spacing={1} alignItems={"stretch"}>
             {addFormProfileFields.map((field) => {
               return (
@@ -29,6 +30,12 @@ export default function AddHotelForm() {
                 <React.Fragment key={field.id}>{field.render}</React.Fragment>
               );
             })}
+            <Stack direction="row">
+             {addFormButtons.map(button=>{
+              return <React.Fragment key={button.id}>{button.render}</React.Fragment>
+             })}
+              
+            </Stack>
           </Stack>
         </Form>
       </CardContent>

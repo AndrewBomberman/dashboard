@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useDeleteRoomRequest, useGetRoomsRequest } from "..../requests/roomRequests
-export const useDeleteHotelQuery = () => {
+export const useDeleteRoomQuery = () => {
   const client = useQueryClient();
 
   return useMutation(async (id) => await useDeleteRoomRequest(id), {

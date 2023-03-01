@@ -3,7 +3,7 @@ import Switch from "@mui/material/Switch";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Rating from '@mui/material/Rating';
-import { useDeleteHotelQuery } from "../../../../api/hotel/query/hotelQueries";
+import { useDeleteHotelQuery } from "../../../../api/internal/hotel/query/hotelQueries";
 import { useNavigate } from "react-router-dom";
 export const getThumbnail = (params) => {
   
@@ -26,17 +26,11 @@ export const getDisplay = (params) => {
   return <Switch defaultChecked={params.row.display} />;
 };
 export const getAddress = (params) => {
-  return (
-    params.row.nr +
-    " " +
-    params.row.address.address1 +
-    " " +
-    params.row.address.address2 +
-    " " +
-    params.row.address.postcode
-  );
+ 
+  return (params.row.address.address1 + " " +params.row.address.address2)
 };
 export const getCity = (params) => {
+  console.log(params)
   return params.row.address.city;
 };
 export const getCountry = (params) => {
@@ -46,7 +40,7 @@ export const getBookings = (params) => {
   return params.row.address.bookings
 }
 export const getRating = (params) => {
-  return <Rating name="read-only" value={params.row.rating.$numberDecimal} readOnly />
+  return <Rating name="read-only" value={Number(params.row.rating.$numberDecimal)} readOnly />
 }
 export const getEdit = (params) => {
   const navigate = useNavigate()

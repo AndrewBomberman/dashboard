@@ -3,8 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import router from "./router.js";
 import fileUpload from "express-fileupload";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import middleware from "./middleware.js";
 
 
 

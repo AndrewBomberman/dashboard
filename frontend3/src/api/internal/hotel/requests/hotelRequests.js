@@ -11,9 +11,13 @@ export const useGetHotelsRequest = async ()=>{
     return await response.json()
 }
 
-export const useGetHotelRequest = async ({params}) =>{
-    console.log(params)
-    const response =  await fetch("http://localhost:8000/api/v1/hotels?_id=" + id)
+
+export const useGetHotelRequest = async (id) =>{
+    const response =  await fetch("http://localhost:8000/api/v1/hotels?_id=" + id,{
+        headers:{
+            "Authorization": auth
+        }
+    })
     return await response.json()
 }
 export const useAddHotelRequest = async (hotel) =>{
@@ -26,8 +30,8 @@ export const useAddHotelRequest = async (hotel) =>{
     
 }
 
-export const useEditHotelRequest = async (id, hotel) =>{
-    await fetch("http://localhost:8000/api/v1/hotels?_id="+id,{
+export const useEditHotelRequest = async (hotel) =>{
+    await fetch("http://localhost:8000/api/v1/hotels?_id="+hotel._id,{
         method: "PUT",
         mode:"cors",
         body:hotel

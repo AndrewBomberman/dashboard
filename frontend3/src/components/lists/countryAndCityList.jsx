@@ -5,11 +5,16 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import { useEffect, useState } from "react";
 import { FormControl, Stack } from "@mui/material";
-export default function CountryList({enabled}) {
+import React from "react";
+export default function CountryAndCityList({
+  enabled,
+  crtSelectedCountry,
+  crtSelectedCity,
+}) {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectCityOptions, setSelectedCityOptions] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
-  const [disableSelectCity, setDisableSelectCity] = useState(true)
+  const [disableSelectCity, setDisableSelectCity] = useState(true);
   const { data, isLoading, isFetching } = useCountryListProvider();
   useEffect(() => {
     console.log(selectCityOptions);
@@ -18,26 +23,30 @@ export default function CountryList({enabled}) {
   while (isLoading || isFetching) {
     return <CircularProgress />;
   }
-  console.log(enabled);
+  console.log(crtSelectedCity);
 
   return (
     <Stack spacing={2}>
       <FormControl>
-        <InputLabel id="demo-simple-select-label">Country</InputLabel>
+        <InputLabel id="demo-simple-select-label">{crtSelectedCountry ?? "Country"}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="selectCountry"
-          value={selectedCountry}
+          value={crtSelectedCountry ?? selectedCountry}
           label="Country"
           name="country"
-          defaultValue=""
+          defaultValue="Abc"
           onChange={(e) => {
             setSelectedCountry(e.target.value);
-            const filter = data.find((elem) => elem.country === e.target.value);
+            const filter = data.find((elem) =>
+              crtSelectedCountry
+                ? elem.country === crtSelectedCountry
+                : elem.country === e.target.value
+            );
             setSelectedCityOptions(filter.cities);
-            setDisableSelectCity(!disableSelectCity)
+            setDisableSelectCity(false)
           }}
-          disabled={enabled ? !enabled:true}
+          disabled={enabled}
         >
           {data.map((country) => {
             return (
@@ -49,14 +58,13 @@ export default function CountryList({enabled}) {
         </Select>
       </FormControl>
       <FormControl disabled={disableSelectCity}>
-        <InputLabel id="demo-simple-select-label2">City</InputLabel>
+        <InputLabel id="demo-simple-select-label2">{crtSelectedCity ?? "City"}</InputLabel>
         <Select
           labelId="demo-simple-select-label2"
           id="demo-simple-select2"
-          value={selectedCity}
+          value={""}
           label="City"
           name="city"
-          defaultValue=""
           onChange={(e) => setSelectedCity(e.target.value)}
         >
           {selectCityOptions.map((city) => {

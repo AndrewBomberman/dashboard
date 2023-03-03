@@ -4,9 +4,11 @@ import Hotel from "../models/Hotel.js";
 
 const HotelController = {
   get: async (req, res) => {
-    console.log(res.locals)
+    console.log(req.query)
     if (req.query._id) {
-      res.status(200).json(await Hotel.findById(req.query));
+      const hotel = await Hotel.findById(req.query._id)
+      console.log(hotel)
+      res.status(200).json(hotel);
     } else {
       res.status(200).json(await Hotel.find(req.query).limit(10).skip(0));
     }
@@ -58,7 +60,8 @@ const HotelController = {
     res.status(200).json("Hotel Added");
   },
   edit: async (req, res) => {
-    res.status(200).json(await Hotel.findOneAndUpdate(req.query, req.body));
+    console.log(req.body)
+    res.status(200).json("Edited");
   },
   delete: async (req, res) => {
     deleteImageData(req.query._id);

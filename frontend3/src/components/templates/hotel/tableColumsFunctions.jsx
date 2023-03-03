@@ -3,7 +3,7 @@ import Switch from "@mui/material/Switch";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Rating from '@mui/material/Rating';
-import { useDeleteHotelQuery } from "../../../../api/internal/hotel/query/hotelQueries";
+import { useDeleteHotelQuery } from "../../../api/internal/hotel/query/hotelQueries";
 import { useNavigate } from "react-router-dom";
 export const getThumbnail = (params) => {
   

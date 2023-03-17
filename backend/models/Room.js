@@ -6,7 +6,10 @@ export const RoomSchema = new mongoose.Schema({
     type:String,
     required:[true, "Please enter a room name"]
   },
-  description:String,
+  description:{
+    type: String,
+    default:""
+  },
   nr_beds: {
     type: Number,
     required: [true, "Please enter the number of beds"],
@@ -28,14 +31,14 @@ export const RoomSchema = new mongoose.Schema({
     default: false,
   },
   thumbnail: String,
-  image_gallery: [String],
+  gallery: [String],
   facilities: [String],
   hotel_id: mongoose.Types.ObjectId,
   
 }).pre("save", async function (next) {
-  const hotel = await Hotel.findById(this.hotel_id);
-  hotel.rooms.push(this);
-  await hotel.save();
+  const hotel = await Hotel.findById(this.hotel_id)
+  hotel.rooms.push(this),
+  await hotel.save()
   next();
 });
 export const Room = new mongoose.model("Room", RoomSchema);

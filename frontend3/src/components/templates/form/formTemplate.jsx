@@ -1,42 +1,36 @@
-import { Button, Card, CardContent, CardHeader, Divider, Stack } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
+  Stack,
+} from "@mui/material";
 import { Form } from "react-router-dom";
 import HotelFormTextFields from "../hotel/formTextFields";
 import Thumbnail from "../thumbnail/Thumbnail";
 import { useState } from "react";
 import { EnableFormButton, SubmitButton } from "./formButtons";
 import ImageGallery from "../imageGallery/ImageGallery";
+import { handleSubmit } from "../hotel/formFunctions";
+import { useNavigate } from "react-router-dom";
 
-export default function FormTemplate({ type, data, submit }) {
+export default function FormTemplate({ type, data, submit, title }) {
   const [editable, setEditable] = useState(true);
-
-  const handleSubmit = (e)=>{
-    e.preventDefault()
-    const formData = new FormData();
-    console.log(e)
-    formData.append("name", e.target["name"].value);
-    formData.append("discription", e.target["discription"].value);
-    formData.append("address1", e.target["address1"].value);
-    formData.append("address2", e.target["address2"].value);
-    formData.append("country", e.target["country"].value);
-    formData.append("city", e.target["city"].value);
-    formData.append("thumbnail", e.target["thumbnail"].files[0]);
-    for(let i=0;i<e.target["gallery"].files.length;i++) {
-        console.log(e.target["gallery"].files[i])
-        formData.append("gallery", e.target["gallery"].files[i])
-    }
-    submit(formData)
-  }
+  const navigate = useNavigate();
   return (
     <div className="FormTemplate">
-      <Card>
-        <CardHeader title={"Edit"} sx={{ textAlign: "center" }} />
-        <Divider sx={{ marginLeft: "10%", marginRight: "10%" }} />
-        <CardContent>
-          <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e) => {
+        e.preventDefault()
+        handleSubmit(e, submit)
+        navigate("/hotels")
+        }}>
+        <Card>
+          <CardHeader title={title} sx={{ textAlign: "center" }} />
+          <Divider sx={{ marginLeft: "10%", marginRight: "10%" }} />
+          <CardContent>
             <Stack spacing={2}>
-              
-              <EnableFormButton enabled={editable} setter={setEditable}/>
-              <SubmitButton />
               <Stack direction={"row"} spacing={2}>
                 {type === "hotel" ? (
                   <HotelFormTextFields
@@ -47,18 +41,18 @@ export default function FormTemplate({ type, data, submit }) {
                 ) : (
                   <div>Room</div>
                 )}
-                <Thumbnail image={data ? data.thumbnail:"http://localhost:8000/images/no-image.png"} />
+                <Thumbnail image={data && data.thumbnail} />
               </Stack>
 
-              <Card>
-                <CardContent>
-                  <ImageGallery gallery={data ? data.gallery:[]} />
-                </CardContent>
-              </Card>
+              <ImageGallery gallery={data ? data.gallery : []} />
             </Stack>
-          </Form>
-        </CardContent>
-      </Card>
+          </CardContent>
+          <CardActions sx={{justifyContent:"center"}}>
+            <EnableFormButton enabled={editable} setter={setEditable} />
+            <SubmitButton />
+          </CardActions>
+        </Card>
+      </Form>
     </div>
   );
 }

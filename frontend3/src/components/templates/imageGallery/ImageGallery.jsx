@@ -55,6 +55,7 @@ export default function ImageGallery({ gallery }) {
         <Stack direction={"row"} spacing={3}>
           <TextField
             type="file"
+            name="gallery"
             inputProps={{ multiple: true }}
             onChange={(e) => {
               addImagesToGallery(

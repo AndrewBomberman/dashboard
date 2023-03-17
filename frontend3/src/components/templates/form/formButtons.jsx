@@ -12,7 +12,7 @@ export const EnableFormButton = ({enabled, setter})=>{
 
 export const SubmitButton = ()=>{
     return (
-        <IconButton type="submit" color="primary">
+        <IconButton type="submit" color="primary" size="large">
             <SaveIcon/>
         </IconButton>
     )

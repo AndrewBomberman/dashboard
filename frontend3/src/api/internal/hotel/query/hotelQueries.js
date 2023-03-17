@@ -52,14 +52,10 @@ export const useAddHotelQuery = () => {
   return useMutation(async (hotel) => await useAddHotelRequest(hotel), {
     
     onMutate: async (hotel) => {
+      console.log(hotel)
       await client.cancelQueries("hotels");
-      const prevData = client.getQueryData("hotel");
-      console.log("Prev Data")
-      client.setQueryData("hotels", (prevData) => {
-        return [...prevData, hotel]
-      });
-      return prevData;
-
+      const prevData = client.getQueryData("hotels");
+    
       
     },
     onError: (_e, _hero, context) => {

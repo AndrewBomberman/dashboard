@@ -1,21 +1,22 @@
-import fs from "fs"
+import fs from "fs";
 
-export const generateImageData = async (image, imageType, object, path) => {
-  image !== null && await image.mv(
+export const generateImageData = async (image, imageType, id, path) => {
+  image !== null &&
+    (await image.mv(
       process.env.IMAGES_PATH +
         path +
         "/" +
-        object._id +
+        id +
         "/" +
         imageType +
         "/" +
         image.name
-    );
+    ));
   return image !== null
     ? process.env.IMAGES_URL +
         path +
         "/" +
-        object._id +
+        id +
         "/" +
         imageType +
         "/" +
@@ -23,8 +24,12 @@ export const generateImageData = async (image, imageType, object, path) => {
     : process.env.NO_IMAGES_URL;
 };
 
-export const deleteImageData = async (object) => {
-  fs.rmSync(process.env.IMAGES_PATH + object._id, {
+export const deleteImageData = (path, id) => {
+  fs.rmSync(process.env.IMAGES_PATH + path + "/" + id + "/thumbnail", {
+    recursive: true,
+    force: true,
+  });
+  fs.rmSync(process.env.IMAGES_PATH + path + "/" + id + "/gallery", {
     recursive: true,
     force: true,
   });

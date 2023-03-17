@@ -1,23 +1,29 @@
 import { DataGrid } from "@mui/x-data-grid";
-import Box from "@mui/material/Box";
-import columns from "../../pages/hotel/table/tableColumns
+import hotelColumns from "../../templates/hotel/tableColumns";
+import roomColumns from "../../templates/room/tableColums";
+import { Card, CardContent, CardHeader } from "@mui/material";
 
-export default function Table({mode, data}) {
+export default function TableTemplate({ mode, data }) {
   return (
-    <Box sx={{ height: 400, width: 1375,}}>
-      <DataGrid
-        rowHeight={100}
-        rows={data}
-        columns={mode ==="hotel" ? columns :[]}
-        rowSpacingType="border"
-        pageSize={10}
-        rowsPerPageOptions={[5]}
-        disableSelectionOnClick
-        autoHeight
-        autoPageSize
-        getRowId={(row) => row._id}
-        experimentalFeatures={{ newEditingApi: true }}
-      />
-    </Box>
+    <Card>
+      <CardHeader title={"Hotels"}/>
+      <CardContent>
+        <DataGrid
+          sx={{ width: "fit-content 100%", height: "100%" }}
+          rowHeight={100}
+          rows={data}
+          columns={mode === "hotel" ? hotelColumns : roomColumns}
+          rowSpacingType="border"
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          disableSelectionOnClick
+          autoHeight
+          autoPageSize
+          getRowId={(row) => row._id}
+          density="comfortable"
+          experimentalFeatures={{ newEditingApi: true }}
+        />
+      </CardContent>
+    </Card>
   );
 }

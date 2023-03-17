@@ -1,6 +1,5 @@
 import Cookies from "js-cookie"
 const auth = Cookies.get('auth')
-console.log(auth)
 
 export const useGetHotelsRequest = async ()=>{
     const response = await fetch("http://localhost:8000/api/v1/hotels",{
@@ -18,7 +17,7 @@ export const useGetHotelRequest = async (id) =>{
             "Authorization": auth
         }
     })
-    return await response.json()
+    return await response.json()[0]
 }
 export const useAddHotelRequest = async (hotel) =>{
     

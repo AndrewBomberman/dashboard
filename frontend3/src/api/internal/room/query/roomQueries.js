@@ -1,16 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useDeleteRoomRequest, useGetRoomsRequest } from "..../requests/roomRequests
+import { useGetRoomsRequest, useDeleteRoomRequest } from "../requests/roomRequests"
 export const useDeleteRoomQuery = () => {
   const client = useQueryClient();
 
   return useMutation(async (id) => await useDeleteRoomRequest(id), {
     onMutate: async (id) => {
-      await client.cancelQueries("rooms");
-      const prevData = client.getQueryData("rooms");
-      client.setQueryData("rooms", (prevData) => {
-        return prevData.filter((room) => room._id !== id);
-      });
-      return prevData;
+     console.log(id)
     },
     onError: (_e, _hero, context) => {
       console.log(context);
@@ -21,7 +16,13 @@ export const useDeleteRoomQuery = () => {
   });
 };
 
-export const useGetRoomsQuery = () => {
-  return useQuery("rooms", async () => await useGetRoomsRequest());
+export const useGetRoomsQuery = (hotel_id) => {
+  return useQuery(["rooms", hotel_id], async () => await useGetRoomsRequest(hotel_id),{
+    refetchOnWindowFocus:true
+  });
 };
-
+export const useGetRoomQuery = (id) => {
+  return useQuery(["rooms",id], async () => await useGetRoomsRequest(id),{
+    refetchOnWindowFocus:false
+  });
+};

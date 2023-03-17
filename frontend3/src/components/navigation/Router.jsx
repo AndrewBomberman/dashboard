@@ -4,7 +4,6 @@ import {
   Navigate,
   Route,
 } from "react-router-dom";
-import AddHotelForm from "../pages/hotel/form/addHotel/addForm";
 import Layout from "../style/Layout";
 import React from "react";
 import Login from "../pages/auth/Login";
@@ -15,6 +14,7 @@ import HotelPage from "../pages/hotel/HotelPage";
 import AddHotelPage from "../pages/hotel/AddHotelPage";
 
 const auth = Cookies.get("auth");
+console.log(auth);
 
 const router = createBrowserRouter(
   createRoutesFromElements(

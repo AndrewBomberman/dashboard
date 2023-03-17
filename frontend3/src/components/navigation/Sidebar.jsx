@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import ViewsMenu from "./menu/ViewsMenu";
 import AuthMenu from "./menu/AuthMenu";
 import ButtonsMenu from "./menu/ButtonsMenu";
+import Cookies from "js-cookie";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -71,7 +72,9 @@ export default function Sidebar() {
                   <ListItem key={item.text}>
                     <ListItemButton
                       onClick={() => {
-                        navigate(item.path);
+                        const auth = Cookies.get('auth');
+                        console.log(auth)
+                        navigate(auth ? item.path : "/login");
                       }}
                     >
                       <ListItemIcon>{item.icon}</ListItemIcon>
@@ -90,7 +93,8 @@ export default function Sidebar() {
                   <ListItem key={item.text}>
                     <ListItemButton
                       onClick={() => {
-                        navigate(item.path);
+                        item?.f()
+                       // navigate(item.path);
                       }}
                     >
                       <ListItemIcon>{item.icon}</ListItemIcon>

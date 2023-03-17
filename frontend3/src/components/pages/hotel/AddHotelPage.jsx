@@ -5,7 +5,7 @@ export default function AddHotelPage(){
     const { mutate } = useAddHotelQuery()
     return (
         <div className="AddHotelPage">
-            <FormTemplate type={"hotel"} datasubmit={mutate} />
+            <FormTemplate type={"hotel"} submit={mutate} title={"Add"}/>
         </div>
     )
 }

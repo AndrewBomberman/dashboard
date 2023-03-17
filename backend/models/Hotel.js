@@ -1,21 +1,35 @@
 import mongoose from "mongoose";
-import { RoomSchema } from "./Room.js";
 
 const HotelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
   },
-  description:String,
+  description:{
+    type: String,
+    default:""
+  },
   phone:String,
   email:String,
   address: {
-    address1:String,
-    address2:String,
-    city: String,
-    country: String,
+    address1:{
+      type: String,
+      default:""
+    },
+    address2:{
+      type: String,
+      default:""
+    },
+    city: {
+      type: String,
+      default:""
+    },
+    country: {
+      type: String,
+      default:""
+    },
   },
-  rooms: [RoomSchema],
+  rooms: [],
   thumbnail: String,
   gallery: [String],
   reviews: [],
@@ -38,10 +52,15 @@ const HotelSchema = new mongoose.Schema({
   }
   
 })
+.pre("save", function(next){
+  console.log(this)
+  next()
+})
 
 .pre("remove", { query: false, document: true }, async function (next) {
     await Room.deleteMany({ hotel_id: this._id });
     next();
-  });
+});
+
 
 export default new mongoose.model("Hotel", HotelSchema);

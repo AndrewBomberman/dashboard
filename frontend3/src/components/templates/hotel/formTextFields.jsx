@@ -3,12 +3,9 @@ import {
   CardContent,
   CardHeader,
   FormControl,
-  IconButton,
   Stack,
   TextField,
 } from "@mui/material";
-import CountryAndCityList from "../../lists/countryAndCityList";
-
 
 export default function HotelFormTextFields({ editable, hotel }) {
   return (
@@ -20,9 +17,10 @@ export default function HotelFormTextFields({ editable, hotel }) {
             <TextField
               type="text"
               name="name"
-              value={hotel ? hotel.name : ""}
-              label="name"
+              value={hotel && hotel.name}
+              label="Name"
               placeholder="Name"
+              required
               disabled={editable}
             />
           </FormControl>
@@ -34,7 +32,7 @@ export default function HotelFormTextFields({ editable, hotel }) {
               placeholder="Description (optional)"
               label="Description"
               multiline
-              value={hotel ? hotel.description : ""}
+              value={hotel && hotel.description}
               rows={5}
               disabled={editable}
             />
@@ -43,8 +41,9 @@ export default function HotelFormTextFields({ editable, hotel }) {
             <TextField
               type="email"
               name="email"
-              value={hotel ? hotel.email : ""}
+              value={hotel && hotel.email}
               label="E-Mail"
+              required
               placeholder="E-Mail"
               disabled={editable}
             />
@@ -53,8 +52,9 @@ export default function HotelFormTextFields({ editable, hotel }) {
             <TextField
               type="phone"
               name="phone"
-              value={hotel ? hotel.phone :""}
+              value={hotel && hotel.phone}
               label="Phone"
+              required
               placeholder="Phone"
               disabled={editable}
             />
@@ -63,7 +63,7 @@ export default function HotelFormTextFields({ editable, hotel }) {
             <TextField
               type="text"
               name="address1"
-              value={hotel ? hotel.address.address1:""}
+              value={hotel && hotel.address.address1}
               label="Address1"
               placeholder="Address 1"
               disabled={editable}
@@ -74,18 +74,13 @@ export default function HotelFormTextFields({ editable, hotel }) {
             <TextField
               type="text"
               name="address2"
-              value={hotel ? hotel.address.address2:"" }
+              value={hotel && hotel.address.address2}
               label="Address2"
               placeholder="Address 2"
               disabled={editable}
             />
           </FormControl>
-          <CountryAndCityList
-            crtSelectedCountry={hotel && hotel.address.country}
-            crtSelectedCity={hotel && hotel.address.city}
-            enabled={editable}
-          />
-          
+         
         </Stack>
       </CardContent>
     </Card>

@@ -1,8 +1,10 @@
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Sidebar from "../navigation/Sidebar";
 import Container from "@mui/material/Container";
+import Cookies from "js-cookie";
 
 export default function Layout() {
+
   return (
     <div className="Layout">
       <header>
@@ -15,9 +17,10 @@ export default function Layout() {
             display: "flex",
             marginLeft: 10,
             paddingTop: 80,
+            width:"100%"
           }}
         >
-          <Container >
+          <Container sx={{width:"100%"}} >
             <Outlet />
           </Container>
         </div>

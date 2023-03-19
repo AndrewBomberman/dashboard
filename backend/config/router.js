@@ -21,8 +21,17 @@ router.get("/auth/jwt/callback", jwtAuthController.jwtAuthCallback);
 
 router.get("/hotels",HotelController.get);
 router.post("/hotels",HotelController.add);
-router.put("/hotels", HotelController.edit);
 router.delete("/hotels",HotelController.delete);
+router.put("/hotels/name", HotelController.updateName)
+router.put("/hotels/description", HotelController.updateDescription)
+router.put("/hotels/email", HotelController.updateEmail)
+router.put("/hotels/phone", HotelController.updatePhone)
+router.put("/hotels/address1", HotelController.updateAddress1)
+router.put("/hotels/address2", HotelController.updateAddress2)
+router.put("/hotels/city", HotelController.updateCity)
+router.put("/hotels/country", HotelController.updateCountry)
+router.put("/hotels/thumbnail", HotelController.updateHotelThumbnail)
+router.put("/hotels/gallery", HotelController.updateHotelGallery)
 
 //Room Routes
 router.get("/rooms",middleware, RoomController.get);

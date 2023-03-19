@@ -1,12 +1,10 @@
 import { generateImageData, deleteImageData } from "../config/image_handler.js";
 import Hotel from "../models/Hotel.js";
-import { updateGallery, updateName } from "../config/model_updater.js";
+import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery } from "../config/model_updater.js";
 
 const HotelController = {
   get: async (req, res) => {
-    console.log("Request");
     const hotels = await Hotel.find(req.query);
-    console.log(hotels);
     res.status(200).json(hotels);
   },
   add: async (req, res) => {
@@ -56,14 +54,49 @@ const HotelController = {
 
     res.status(200).json("Hotel Added");
   },
-  edit: async (req, res) => {
-    await updateName(req,Hotel)
-    await updateGallery(req,Hotel)
-    res.status(200).json("Edited");
-  },
   delete: async (req, res) => {
     await Hotel.findByIdAndDelete(req.query._id);
     res.status(200).json("Hotel Deleted");
   },
+
+  updateName: async (req, res)=>{
+    await updateName(req, Hotel)
+    res.status(200).json("update")
+  },
+
+  updateDescription: async (req, res)=>{
+    await updateDescription(req, Hotel)
+    res.status(200).json("update")
+  },
+  updateEmail: async (req, res)=>{
+    await updateEmail(req, Hotel)
+    res.status(200).json("update")
+  },
+  updatePhone: async (req, res)=>{
+    await updatePhone(req, Hotel)
+    res.status(200).json("update")
+  },
+  updateAddress1: async (req, res)=>{
+    await updateAddress1(req,Hotel)
+    res.status(200).json("update")
+  },
+  updateAddress2: async (req, res)=>{
+    await updateAddress2(req,Hotel)
+    res.status(200).json("update")
+  },
+  updateCity: async (req, res)=>{
+
+  },
+  updateCountry: async (req, res)=>{
+
+  },
+  updateHotelThumbnail: async (req, res)=>{
+    await updateThumbnail(req, Hotel)
+    res.status(200).json("update")
+  },
+  updateHotelGallery: async (req, res)=>{
+    await updateGallery(req, Hotel)
+    res.status(200).json("update")
+  }
 };
 export default HotelController;

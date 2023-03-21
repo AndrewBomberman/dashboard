@@ -73,7 +73,6 @@ export const updateCountry = async (req, model) => {
 };
 
 export const updateThumbnail = async (req, model) => {
-  
   const thumbnail = await generateImageData(
     req?.files?.thumbnail ?? null,
     "thumbnail",
@@ -88,7 +87,7 @@ export const updateThumbnail = async (req, model) => {
     },
     { new: true }
   );
-  console.log(updated)
+  console.log(updated);
 };
 export const updateGallery = async (req, model) => {
   const gallery = req?.files?.gallery;
@@ -96,7 +95,7 @@ export const updateGallery = async (req, model) => {
   if (gallery) {
     if (gallery?.length && gallery.length > 1) {
       for (let i = 0; i < gallery.length; i++) {
-        console.log(gallery[i])
+        console.log(gallery[i]);
         updated_gallery.push(
           await generateImageData(
             gallery[i],
@@ -123,7 +122,4 @@ export const updateGallery = async (req, model) => {
     { new: true }
   );
   console.log(updated);
-  
-
-  
 };

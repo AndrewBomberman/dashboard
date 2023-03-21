@@ -1,6 +1,6 @@
 import { generateImageData, deleteImageData } from "../config/image_handler.js";
 import Hotel from "../models/Hotel.js";
-import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery } from "../config/model_updater.js";
+import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery, updateCountry, updateCity } from "../config/model_updater.js";
 
 const HotelController = {
   get: async (req, res) => {
@@ -84,12 +84,15 @@ const HotelController = {
     await updateAddress2(req,Hotel)
     res.status(200).json("update")
   },
-  updateCity: async (req, res)=>{
-
+  updateHotelCountry: async (req, res)=>{
+    await updateCountry(req, Hotel)
+    res.status(200).json("update")
   },
-  updateCountry: async (req, res)=>{
-
+  updateHotelCity: async (req, res)=>{
+    await updateCity(req, Hotel)
+    res.status(200).json("update")
   },
+
   updateHotelThumbnail: async (req, res)=>{
     await updateThumbnail(req, Hotel)
     res.status(200).json("update")

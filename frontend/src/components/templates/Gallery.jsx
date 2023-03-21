@@ -42,14 +42,12 @@ export default function Gallery({ model, imageSender }) {
   const updateGallery = async () => {
     const formData = new FormData();
     for (let i = 0; i < selectedGallery.length; i++) {
-      console.log(selectedGallery[i]);
       const response = await fetch(selectedGallery[i]);
       const blob = await response.blob();
       const file = new File([blob], "gallery" + [i], {
         type: blob.type,
       });
       formData.append("gallery", file);
-      console.log(file)
     }
     
     await imageSender(model._id, formData);
@@ -64,7 +62,6 @@ export default function Gallery({ model, imageSender }) {
           {selectedGallery && (
             <ImageList cols={5}>
               {selectedGallery.map((image) => {
-                console.log(image);
                 return (
                   <ImageListItem key={image}>
                     <img src={image} width={"100%"} height={"100%"} />

@@ -18,54 +18,56 @@ export default function HotelEditNameFormField({ hotel }) {
   const [hotelName, setHotelName] = useState(hotel.name ?? "");
   useEffect(() => {}, [hotelName]);
 
-  const updateHotelName = async ()=>{
-    const formData =new FormData();
-    formData.append('name',hotelName);
+  const updateHotelName = async () => {
+    const formData = new FormData();
+    formData.append("name", hotelName);
     setEditable(false);
     await updateHotelNameService(hotel._id, formData);
-  }
+  };
   return (
     <div className="HotelNameFormField">
-      <FormControl>
-        <TextField
-          type="text"
-          name="name"
-          value={hotelName}
-          label="Name"
-          placeholder="Name"
-          required
-          disabled={!editable}
-          onChange={(e) => {
-            setHotelName(e.target.value);
-            console.log(hotelName);
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <IconButton color="success" onClick={() => setEditable(!editable)}>
-          <EditIcon />
-        </IconButton>
-      </FormControl>
-      <FormControl>
-        <IconButton
-          color="primary"
-          disabled={!editable}
-          onClick={updateHotelName}
-        >
-          <SaveIcon />
-        </IconButton>
-      </FormControl>
-      <FormControl>
-        <IconButton
-          color="success"
-          disabled={!editable}
-          onClick={() => {
-            setHotelName(hotel.name ?? "");
-          }}
-        >
-          <RefreshIcon />
-        </IconButton>
-      </FormControl>
+      <Stack direction={"row"} spacing={1}>
+        <FormControl fullWidth>
+          <TextField
+            type="text"
+            name="name"
+            value={hotelName}
+            label="Name"
+            placeholder="Name"
+            required
+            disabled={!editable}
+            onChange={(e) => {
+              setHotelName(e.target.value);
+              console.log(hotelName);
+            }}
+          />
+        </FormControl>
+        <FormControl>
+          <IconButton color="success" onClick={() => setEditable(!editable)}>
+            <EditIcon />
+          </IconButton>
+        </FormControl>
+        <FormControl>
+          <IconButton
+            color="primary"
+            disabled={!editable}
+            onClick={updateHotelName}
+          >
+            <SaveIcon />
+          </IconButton>
+        </FormControl>
+        <FormControl>
+          <IconButton
+            color="success"
+            disabled={!editable}
+            onClick={() => {
+              setHotelName(hotel.name ?? "");
+            }}
+          >
+            <RefreshIcon />
+          </IconButton>
+        </FormControl>
+      </Stack>
     </div>
   );
 }

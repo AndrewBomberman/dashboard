@@ -13,7 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 
 export default function Thumbnail({ model, imageSender }) {
-  console.log(model);
   const [thumbnailFile, setThumbnailFile] = useState();
   const [thumbnailPreview, setThumbnailPreview] = useState(model.thumbnail);
 

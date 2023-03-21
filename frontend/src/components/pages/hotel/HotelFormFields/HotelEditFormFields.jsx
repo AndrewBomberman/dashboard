@@ -7,6 +7,7 @@ import HotelEditAddress1FormField from "./HotelEditAddress1FormField";
 import HotelEditAddress2FormField from "./HotelEditAddress2FormField";
 import HotelEditThumbnailFormField from "./HotelEditThumbnailFormField";
 import HotelEditGalleryFormField from "./HotelEditGalleryFormField";
+import HotelEditCountryAndCity from "./HotelEditCountryAndCity";
 
 export default function HotelEditFormFields({ hotel }) {
   return (
@@ -22,6 +23,7 @@ export default function HotelEditFormFields({ hotel }) {
           <HotelEditPhoneFormField hotel={hotel} />
           <HotelEditAddress1FormField hotel={hotel} />
           <HotelEditAddress2FormField hotel={hotel} />
+          <HotelEditCountryAndCity hotel={hotel} />
           <HotelEditGalleryFormField hotel={hotel} />
         </Stack>
       </CardContent>

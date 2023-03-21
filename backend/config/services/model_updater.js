@@ -1,4 +1,4 @@
-import { generateImageData } from "../image_handler";
+import { generateImageData } from "./image_handler.js";
 
 export const updateName = async (req, model) => {
   const updated = await model.findOneAndUpdate(

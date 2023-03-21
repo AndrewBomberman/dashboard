@@ -11,12 +11,14 @@ import {
     ListItemText,
     Divider,
   } from "@mui/material";
+  import { useNavigate } from "react-router-dom"
   
   import ViewsMenu from "./menu/ViewsMenu";
   import AuthMenu from "./menu/AuthMenu";
   import ButtonsMenu from "./menu/ButtonsMenu";
   
   export default function Sidebar() {
+    const navigate = useNavigate()
     return (
       <div className="SideBar">
         <Box sx={{ display: "flex" }}>
@@ -46,7 +48,7 @@ import {
                 {ViewsMenu.map((item) => {
                   return (
                     <ListItem key={item.text}>
-                      <ListItemButton>
+                      <ListItemButton onClick={()=> navigate(item.path)}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                       </ListItemButton>
@@ -61,7 +63,7 @@ import {
                 {ButtonsMenu.map((item) => {
                   return (
                     <ListItem key={item.text}>
-                      <ListItemButton>
+                      <ListItemButton onClick={()=> na}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                       </ListItemButton>

@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useEffect, useState } from "react";
-import updateHotelPhoneService from "../../../../services/hotel/updateHotelPhoneService";
+import { updateHotelPhoneService } from "../../../../api/services/hotelServices";
 export default function HotelEditPhoneFormField({ hotel }) {
   const [editable, setEditable] = useState(false);
   const [hotelPhone, setHotelPhone] = useState(hotel.phone ?? "");

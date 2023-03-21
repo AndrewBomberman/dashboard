@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { useState } from "react";
 
-export default function Thumbnail({ model, imageSender }) {
+export default function Thumbnail({ model, imageSender, route }) {
   const [thumbnailFile, setThumbnailFile] = useState();
   const [thumbnailPreview, setThumbnailPreview] = useState(model.thumbnail);
 
@@ -43,7 +43,7 @@ export default function Thumbnail({ model, imageSender }) {
     setThumbnailFile(file);
     setThumbnailPreview(URL.createObject(file))
     formData.append("thumbnail",file)
-    await imageSender(model._id, formData)
+    await imageSender(model._id, formData, route)
   };
 
   return (

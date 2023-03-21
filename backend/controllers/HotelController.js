@@ -1,6 +1,21 @@
-import { generateImageData, deleteImageData } from "../config/services/image_handler.js";
+import {
+  generateImageData,
+  deleteImageData,
+} from "../config/services/image_handler.js";
 import Hotel from "../models/Hotel.js";
-import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery, updateCity, updateCountry} from "../config/services/model_updater.js"
+import {
+  updateDescription,
+  updateEmail,
+  updateName,
+  updatePhone,
+  updateAddress1,
+  updateAddress2,
+  updateThumbnail,
+  updateGallery,
+  updateCity,
+  updateCountry,
+} from "../config/services/model_updater.js";
+const HotelController = {
   get: async (req, res) => {
     const hotels = await Hotel.find(req.query);
     res.status(200).json(hotels);
@@ -57,47 +72,48 @@ import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1
     res.status(200).json("Hotel Deleted");
   },
 
-  updateName: async (req, res)=>{
-    await updateName(req, Hotel)
-    res.status(200).json("update")
+  updateName: async (req, res) => {
+    await updateName(req, Hotel);
+    res.status(200).json("update");
   },
 
-  updateDescription: async (req, res)=>{
-    await updateDescription(req, Hotel)
-    res.status(200).json("update")
+  updateDescription: async (req, res) => {
+    await updateDescription(req, Hotel);
+    res.status(200).json("update");
   },
-  updateEmail: async (req, res)=>{
-    await updateEmail(req, Hotel)
-    res.status(200).json("update")
+  updateEmail: async (req, res) => {
+    await updateEmail(req, Hotel);
+    res.status(200).json("update");
   },
-  updatePhone: async (req, res)=>{
-    await updatePhone(req, Hotel)
-    res.status(200).json("update")
+  updatePhone: async (req, res) => {
+    await updatePhone(req, Hotel);
+    res.status(200).json("update");
   },
-  updateAddress1: async (req, res)=>{
-    await updateAddress1(req,Hotel)
-    res.status(200).json("update")
+  updateAddress1: async (req, res) => {
+    await updateAddress1(req, Hotel);
+    res.status(200).json("update");
   },
-  updateAddress2: async (req, res)=>{
-    await updateAddress2(req,Hotel)
-    res.status(200).json("update")
+  updateAddress2: async (req, res) => {
+    await updateAddress2(req, Hotel);
+    res.status(200).json("update");
   },
-  updateHotelCountry: async (req, res)=>{
-    await updateCountry(req, Hotel)
-    res.status(200).json("update")
+  updateHotelCountry: async (req, res) => {
+    await updateCountry(req, Hotel);
+    res.status(200).json("update");
   },
-  updateHotelCity: async (req, res)=>{
-    await updateCity(req, Hotel)
-    res.status(200).json("update")
+  updateHotelCity: async (req, res) => {
+    await updateCity(req, Hotel);
+    res.status(200).json("update");
   },
 
-  updateHotelThumbnail: async (req, res)=>{
-    await updateThumbnail(req, Hotel)
-    res.status(200).json("update")
+  updateHotelThumbnail: async (req, res) => {
+    await updateThumbnail(req, Hotel);
+    res.status(200).json("update");
   },
-  updateHotelGallery: async (req, res)=>{
-    await updateGallery(req, Hotel)
-    res.status(200).json("update")
-  }
+  updateHotelGallery: async (req, res) => {
+    await updateGallery(req, Hotel);
+    res.status(200).json("update");
+  },
 };
+
 export default HotelController;

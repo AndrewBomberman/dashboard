@@ -12,7 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useEffect, useState } from "react";
-import updateHotelEmailService from "../../../../services/hotel/updateHotelEmailService";
+import { updateHotelEmailService } from "../../../../api/services/hotelServices";
 export default function HotelEditEmailFormField({ hotel }) {
   const [editable, setEditable] = useState(false);
   const [hotelEmail, setHotelEmail] = useState(hotel.email ?? "");

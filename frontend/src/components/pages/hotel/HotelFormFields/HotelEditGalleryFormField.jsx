@@ -1,10 +1,10 @@
-import updateHotelGalleryService from "../../../../services/hotel/updateHotelGalleryService"
+import { updateGalleryService } from "../../../../api/services/generalServices";
 import Gallery from "../../../templates/Gallery"
 export default  function HotelEditGalleryFormField ({hotel}){
 
     return (
         <div className="HotelEditGalleryFormField">
-            <Gallery model={hotel} imageSender={updateHotelGalleryService}/>
+            <Gallery route={"hotels"} model={hotel} imageSender={updateGalleryService}/>
         </div>
     )
 }

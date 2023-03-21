@@ -12,7 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { useEffect, useState } from "react";
-import updateHotelNameService from "../../../../services/hotel/updateHotelNameService";
+import { updateNameService } from "../../../../api/services/generalServices";
 export default function HotelEditNameFormField({ hotel }) {
   const [editable, setEditable] = useState(false);
   const [hotelName, setHotelName] = useState(hotel.name ?? "");
@@ -22,7 +22,7 @@ export default function HotelEditNameFormField({ hotel }) {
     const formData = new FormData();
     formData.append("name", hotelName);
     setEditable(false);
-    await updateHotelNameService(hotel._id, formData);
+    await updateNameService(hotel._id, formData, "hotels");
   };
   return (
     <div className="HotelNameFormField">

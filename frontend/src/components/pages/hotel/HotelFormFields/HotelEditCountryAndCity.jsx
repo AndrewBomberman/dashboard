@@ -1,6 +1,6 @@
 import CountryAndCityList from "../../../templates/lists/CountryAndCityList"
-import updateHotelCountryService from "../../../../services/hotel/updateHotelCountryService"
-import updateHotelCityService from "../../../../services/hotel/updateHotelCityService"
+import { updateHotelCountryService } from "../../../../api/services/hotelServices";
+import { updateHotelCityService } from "../../../../api/services/hotelServices";
 
 export default function HotelEditCountryAndCity({hotel}){
    return (

@@ -15,7 +15,7 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import SaveIcon from "@mui/icons-material/Save";
 import { useState } from "react";
 
-export default function Gallery({ model, imageSender }) {
+export default function Gallery({ model, imageSender, route }) {
   const [gallery, setGallery] = useState([]);
   const [selectedGallery, setSelectedGallery] = useState(model.gallery ?? []);
 
@@ -50,7 +50,7 @@ export default function Gallery({ model, imageSender }) {
       formData.append("gallery", file);
     }
     
-    await imageSender(model._id, formData);
+    await imageSender(model._id, formData, route);
   };
 
   return (

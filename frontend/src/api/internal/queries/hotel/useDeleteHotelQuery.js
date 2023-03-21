@@ -1,9 +1,9 @@
-import deleteHotelRequest from "../../requests/hotel/deleteHotelRequest";
+import { deleteService } from "../../../services/generalServices";
 import { useQueryClient, useMutation } from "react-query"
 const useDeleteHotelQuery =  () => {
   const client = useQueryClient();
 
-  return useMutation(async (id) => await deleteHotelRequest(id), {
+  return useMutation(async (id) => await deleteService(id, "hotels"), {
     onMutate: async (id) => {
       await client.cancelQueries("hotels");
       const prevData = client.getQueryData("hotels");

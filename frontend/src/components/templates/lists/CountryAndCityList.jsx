@@ -85,17 +85,6 @@ export default function CountryAndCityList({
           </FormControl>
           <FormControl>
             <IconButton
-              disabled={!enabledCountryList}
-              onClick={() => {
-                setSelectedCountry(model.address.country);
-                setSelectedCity(model.address.city);
-              }}
-            >
-              <RefreshIcon />
-            </IconButton>
-          </FormControl>
-          <FormControl>
-            <IconButton
               color="primary"
               disabled={!enabledCountryList}
               onClick={async () => {
@@ -110,6 +99,18 @@ export default function CountryAndCityList({
               <SaveIcon />
             </IconButton>
           </FormControl>
+          <FormControl>
+            <IconButton
+              disabled={!enabledCountryList}
+              onClick={() => {
+                setSelectedCountry(model.address.country);
+                setSelectedCity(model.address.city);
+              }}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </FormControl>
+          
         </Stack>
         <Stack direction={"row"} spacing={1}>
           <FormControl fullWidth>

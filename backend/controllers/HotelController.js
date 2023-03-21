@@ -1,8 +1,6 @@
-import { generateImageData, deleteImageData } from "../config/image_handler.js";
+import { generateImageData, deleteImageData } from "../config/services/image_handler.js";
 import Hotel from "../models/Hotel.js";
-import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery, updateCountry, updateCity } from "../config/model_updater.js";
-
-const HotelController = {
+import { updateDescription, updateEmail, updateName, updatePhone, updateAddress1, updateAddress2, updateThumbnail, updateGallery, updateCity, updateCountry} from "../config/services/model_updater.js"
   get: async (req, res) => {
     const hotels = await Hotel.find(req.query);
     res.status(200).json(hotels);

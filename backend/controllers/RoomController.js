@@ -1,5 +1,5 @@
 import { Room } from "../models/Room.js";
-import { generateImageData, deleteImageData } from "../config/image_handler.js";
+import { generateImageData, deleteImageData } from "../config/services/image_handler.js";
 
 const RoomController = {
   get: async (req, res) => {

@@ -31,11 +31,19 @@ export const RoomSchema = new mongoose.Schema({
     default: false,
   },
   thumbnail: String,
-  gallery: [String],
-  facilities: [String],
+  gallery: {
+    type:[String],
+    default:[]
+  },
+  facilities: {
+    type:[String],
+    default:[]
+  },
   hotel_id: mongoose.Types.ObjectId,
   
-}).pre("save", async function (next) {
+})
+.pre("save", async function (next) {
+  this.thumbnail = process.env.NO_IMAGES_URL
   const hotel = await Hotel.findById(this.hotel_id)
   hotel.rooms.push(this),
   await hotel.save()

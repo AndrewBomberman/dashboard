@@ -1,5 +1,8 @@
 import { useQuery } from "react-query"
-export default useGetHotelsQuery = () => {
-    return useQuery("rooms", async () => await useGetHotelsRequest());
+import { getService } from "../../../services/generalServices";
+export const useGetRoomsQuery = (query={}) => {
+    return useQuery("hotel_rooms", async () => await getService("rooms", query),{
+        refetchOnWindowFocus:false
+    });
 };
   

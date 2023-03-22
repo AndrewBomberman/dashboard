@@ -1,12 +1,12 @@
 import { DataGrid } from "@mui/x-data-grid";
 import hotelColumns from "../pages/hotel/HotelTableColumns";
-import Box from "@mui/material/Box";
+import roomColumns from "../pages/room/RoomTableColumns"
 export default function TableTemplate({ mode, data }) {
   return (
-    <DataGrid
+    <DataGrid sx={{width:"100%"}}
         rows={data}
         rowSpacingType="border"
-        columns={hotelColumns}
+        columns={mode === "hotel" ? hotelColumns :  roomColumns}
         getRowId={(row) => row._id}
         disableRowSelectionOnClick
         autoHeight

@@ -3,7 +3,7 @@ import Sidebar from "../../components/navigation/Sidebar";
 import Container from "@mui/material/Container";
 
 
-export default function Layout() {
+export default function Layout({children}) {
 
   return (
     <div className="Layout">
@@ -21,7 +21,7 @@ export default function Layout() {
           }}
         >
           <Container sx={{width:"100%"}} >
-            <Outlet />
+            {children}
           </Container>
         </div>
       </main>

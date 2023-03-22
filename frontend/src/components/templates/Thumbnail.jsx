@@ -33,7 +33,7 @@ export default function Thumbnail({ model, imageSender, route }) {
   const updateThumbnail = async () => {
     const formData = new FormData();
     formData.append("thumbnail", thumbnailFile);
-    await imageSender(model._id, formData);
+    await imageSender(model._id, formData, route);
   };
   const deleteThumbnail = async () => {
     const formData = new FormData();

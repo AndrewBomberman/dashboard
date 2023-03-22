@@ -1,38 +1,48 @@
 import mongoose from "mongoose";
+import { Room } from "./Room.js";
 
 const HotelSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter a name"],
   },
-  description:{
+  description: {
     type: String,
-    default:""
+    default: "",
   },
-  phone:String,
-  email:String,
+  phone: String,
+  email: String,
   address: {
-    address1:{
+    address1: {
       type: String,
-      default:""
+      default: "",
     },
-    address2:{
+    address2: {
       type: String,
-      default:""
+      default: "",
     },
     city: {
       type: String,
-      default:""
+      default: "London",
     },
     country: {
       type: String,
-      default:""
+      default: "United Kingdom",
     },
   },
   rooms: [],
-  thumbnail: String,
-  gallery: [String],
-  reviews: [],
+  thumbnail: {
+    type: String,
+    default: process.env.NO_IMAGES_URL,
+  },
+  gallery: {
+    type: [String],
+    default: [],
+  },
+  reviews: {
+    type: [String],
+    default: [],
+  },
   bookings: {
     type: Number,
     default: 0,
@@ -46,21 +56,22 @@ const HotelSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  created_at:{
-    type:String,
+  created_at: {
+    type: String,
     default: new Date(),
-  }
-  
+  },
 })
-.pre("save", function(next){
-  console.log(this)
-  next()
-})
+  .pre("save", function (next) {
+    if (!this.thumbnail) {
+      this.thumbnail = process.env.NO_IMAGES_URL;
+    }
 
-.pre("remove", { query: false, document: true }, async function (next) {
-    await Room.deleteMany({ hotel_id: this._id });
     next();
-});
+  })
 
+  .pre("remove" , function (next) {
+    console.log(this._id);
+    console.log("Deleted")
+  });
 
 export default new mongoose.model("Hotel", HotelSchema);

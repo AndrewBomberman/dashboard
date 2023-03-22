@@ -15,7 +15,8 @@ import {
   
   import ViewsMenu from "./menu/ViewsMenu";
   import AuthMenu from "./menu/AuthMenu";
-  import ButtonsMenu from "./menu/ButtonsMenu";
+import Cookies from "js-cookie";
+
   
   export default function Sidebar() {
     const navigate = useNavigate()
@@ -48,22 +49,11 @@ import {
                 {ViewsMenu.map((item) => {
                   return (
                     <ListItem key={item.text}>
-                      <ListItemButton onClick={()=> navigate(item.path)}>
-                        <ListItemIcon>{item.icon}</ListItemIcon>
-                        <ListItemText primary={item.text} />
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            </Box>
-            <Divider />
-            <Box>
-              <List>
-                {ButtonsMenu.map((item) => {
-                  return (
-                    <ListItem key={item.text}>
-                      <ListItemButton onClick={()=> na}>
+                      <ListItemButton onClick={()=> {
+                        const auth = Cookies.get('auth');
+                        console.log(auth)
+                        auth ? navigate(item.path) : navigate("/login")
+                      }}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                       </ListItemButton>
@@ -78,7 +68,10 @@ import {
                 {AuthMenu.map((item) => {
                   return (
                     <ListItem key={item.text}>
-                      <ListItemButton>
+                      <ListItemButton onClick={()=>{
+                        Cookies.remove("auth")
+                        navigate("/login")
+                      }}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
                       </ListItemButton>

@@ -4,6 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Rating from "@mui/material/Rating";
 import useDeleteHotelQuery from "../../../api/internal/queries/hotel/useDeleteHotelQuery";
+import { updateDisplayService } from "../../../api/services/generalServices";
 import { useNavigate } from "react-router-dom";
 export const getThumbnail = (params) => {
   return (
@@ -21,18 +22,16 @@ export const getName = (params) => {
   console.log(params);
   return params.row.name;
 };
+
 export const getDisplay = (params) => {
-  return <Switch defaultChecked={params.row.display} />;
-};
-export const getAddress = (params) => {
-  return params.row.address.address1 + " " + params.row.address.address2;
-};
-export const getCity = (params) => {
-  console.log(params);
-  return params.row.address.city;
-};
-export const getCountry = (params) => {
-  return params.row.address.country;
+  return <Switch defaultChecked={params.row.display} 
+  onChange={async(e)=> {
+    console.log(e.target.checked)
+    const formData = new FormData()
+    formData.append("display", e.target.checked)
+    await updateDisplayService(params.row._id, formData, "hotels")
+  }}
+  />;
 };
 export const getBookings = (params) => {
   return params.row.address.bookings;

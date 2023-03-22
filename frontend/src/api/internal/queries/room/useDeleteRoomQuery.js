@@ -1,13 +1,13 @@
-import deleteHotelRequest from "../../requests/hotel/deleteHotelRequest";
-import { useQueryClient } from "react-query"
-const useDeleteHotelQuery = () => {
+import { deleteService } from "../../../services/generalServices";
+import { useQueryClient, useMutation } from "react-query"
+const useDeleteRoomQuery = () => {
   const client = useQueryClient();
 
-  return useMutation(async (id) => await deleteHotelRequest(id), {
+  return useMutation(async (id) => await  deleteService(id , "rooms"), {
     onMutate: async (id) => {
-      await client.cancelQueries("rooms");
-      const prevData = client.getQueryData("rooms");
-      client.setQueryData("rooms", (prevData) => {
+      await client.cancelQueries("hotel_rooms");
+      const prevData = client.getQueryData("hotel_rooms");
+      client.setQueryData("hotel_rooms", (prevData) => {
         return prevData.filter((room) => room._id !== id);
       });
       return prevData;
@@ -16,8 +16,8 @@ const useDeleteHotelQuery = () => {
       console.log(context);
     },
     onSettled: () => {
-      client.invalidateQueries("room");
+      client.invalidateQueries("hotel_rooms");
     },
   });
 };
-export default useDeleteHotelQuery
+export default useDeleteRoomQuery

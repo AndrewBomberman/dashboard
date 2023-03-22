@@ -7,7 +7,8 @@ import { User } from "../../models/User.js";
 
 const googleOAuthController = {
   googleOAuthUrl: (req, res) => {
-    res.status(200).json(getGoogleOAuthUrl());
+    const url = getGoogleOAuthUrl()
+    res.status(200).json(url);
   },
 
   googleOAuthCallback: async (req, res) => {
@@ -24,9 +25,9 @@ const googleOAuthController = {
         picture: user.picture,
         password: token,
       });
-      res.redirect(process.env.SUCCESS_AUTH_REDIRECT_URL);
+      res.redirect(process.env.REDIRECT_URL);
     } catch (error) {
-      res.redirect(process.env.FAIL_AUTH_REDIRECT_URL);
+      res.redirect(process.env.REDIRECT_URL);
     }
   },
 };

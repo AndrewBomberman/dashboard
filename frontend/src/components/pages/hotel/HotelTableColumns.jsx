@@ -1,13 +1,5 @@
-import { getThumbnail, getName, getDisplay, getAddress, getCity, getCountry, getBookings, getRating, getEdit, getDelete } from "./HotelTableColumnFunctions";
+import { getThumbnail, getName, getDisplay, getBookings, getRating, getEdit, getDelete } from "./HotelTableColumnFunctions";
 export default [
-  {
-    field: "_id",
-    headerName: "ID",
-    width: 50,
-    minWidth: 50,
-    maxWidth: 100,
-    sortable: false,
-  },
   {
     field: "thumbnail",
     headerName: "Thumbnail",
@@ -22,7 +14,7 @@ export default [
     width: 100,
     minWidth: 100,
     maxWidth: 200,
-    filterable:true,
+    sortable:true,
     valueGetter: getName,
   },
   {
@@ -35,30 +27,7 @@ export default [
     filterable:false,
     renderCell: getDisplay,
   },
-  {
-    field: "address",
-    headerName: "Address",
-    width: 100,
-    minWidth: 150,
-    maxWidth: 200,
-    valueGetter:getAddress
-  },
-  {
-    field: "city",
-    headerName: "City",
-    width: 100,
-    minWidth: 150,
-    maxWidth: 200,
-    valueGetter:getCity
-  },
-  {
-    field: "country",
-    headerName: "Country",
-    width: 100,
-    minWidth: 150,
-    maxWidth: 200,
-    valueGetter:getCountry
-  },
+
   {
     field: "bookings",
     headerName: "Bookings",

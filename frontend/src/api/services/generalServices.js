@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export const updateNameService = async (id, name, route) => {
   await fetch("http://localhost:8000/api/v1/" + route + "/name?_id=" + id, {
     method: "PUT",
@@ -30,6 +32,12 @@ export const updateGalleryService = async (id, gallery, route) => {
     body: gallery,
   });
 };
+export const updateDisplayService = async (id, display, route) => {
+  await fetch("http://localhost:8000/api/v1/" + route + "/display?_id=" + id, {
+    method: "PUT",
+    body: display,
+  });
+};
 
 export const addService = async (data, route) => {
   return await fetch("http://localhost:8000/api/v1/" + route, {
@@ -46,15 +54,17 @@ export const deleteService = async (id, route) => {
   });
 };
 
-export const getService = async (id, route) => {
-  const response = await fetch(
-    "http://localhost:8000/api/v1/" + route + "?_id=" + id
-  );
-  const hotels = await response.json();
-  return hotels[0];
-};
-
-export const getAllService = async (route) => {
-  const response = await fetch("http://localhost:8000/api/v1/" + route);
+export const getService = async (route, query) => {
+  const auth = Cookies.get("auth")
+  
+  let url = "http://localhost:8000/api/v1/" + route + "?";
+  for (const [key, value] of Object.entries(query)) {
+    url += key + "=" + value + "&";
+  }
+  const response = await fetch(url,{
+    headers:{
+      authorization:auth
+    }
+  });
   return await response.json();
 };

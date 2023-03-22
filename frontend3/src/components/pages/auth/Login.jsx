@@ -11,8 +11,7 @@ import {
 import { Form, Link, useLoaderData } from "react-router-dom";
 import LoginFormFields from "./LoginFormFields";
 import GoogleButton from 'react-google-button'
-import jwtLoginAuth from "../../../api/auth/jwtLoginAuth"
-import { useNavigate } from "react-router-dom";
+import jwtLoginAuth from "../../../api/jwtLoginAuth"
 
 export default function Login() {
   const googleOAuth2URL = useLoaderData();

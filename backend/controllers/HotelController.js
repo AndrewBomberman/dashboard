@@ -1,9 +1,4 @@
 import {
-  generateImageData,
-  deleteImageData,
-} from "../config/services/image_handler.js";
-import Hotel from "../models/Hotel.js";
-import {
   updateDescription,
   updateEmail,
   updateName,
@@ -14,74 +9,36 @@ import {
   updateGallery,
   updateCity,
   updateCountry,
-} from "../config/services/model_updater.js";
+  getModels,
+  updateDisplay,
+} from "../config/services/model_handler.js";
+import Hotel from "../models/Hotel.js";
+import { Room } from "../models/Room.js";
 const HotelController = {
-  get: async (req, res) => {
-    const hotels = await Hotel.find(req.query);
+  getHotels: async (req, res) => {
+    const hotels = await getModels(req, Hotel)
     res.status(200).json(hotels);
   },
-  add: async (req, res) => {
-    const hotel = new Hotel({
-      name: req.body.name,
-      description: req.body.description,
-      phone: req.body.phone,
-      email: req.body.email,
-      address: {
-        address1: req.body.address1,
-        address2: req.body.address2,
-        city: req.body.city,
-        country: req.body.country,
-      },
-    });
-    console.log(hotel);
-    hotel.thumbnail = await generateImageData(
-      req?.files?.thumbnail ?? null,
-      "thumbnail",
-      hotel._id,
-      req.route.path
-    );
-
-    const gallery = req?.files?.gallery;
-    if (gallery) {
-      const updated_gallery = [];
-      if (gallery?.length && gallery.length > 1) {
-        for (let i = 0; i < gallery.length; i++) {
-          updated_gallery.push(
-            await generateImageData(
-              gallery[i],
-              "gallery",
-              hotel._id,
-              req.route.path
-            )
-          );
-        }
-      } else {
-        updated_gallery.push(
-          await generateImageData(gallery, "gallery", hotel._id, req.route.path)
-        );
-      }
-      hotel.gallery = updated_gallery;
-    }
-
-    await hotel.save();
-
+  addHotel: async (req, res) => {
+    await Hotel.create(req.body)
     res.status(200).json("Hotel Added");
   },
-  delete: async (req, res) => {
-    await Hotel.findByIdAndDelete(req.query._id);
+  deleteHotel: async (req, res) => {
+    await Hotel.findOneAndRemove({_id:req.query._id})
+    await Room.deleteMany({hotel_id:req.query._id})
     res.status(200).json("Hotel Deleted");
   },
 
-  updateName: async (req, res) => {
+  updateHotelName: async (req, res) => {
     await updateName(req, Hotel);
     res.status(200).json("update");
   },
 
-  updateDescription: async (req, res) => {
+  updateHotelDescription: async (req, res) => {
     await updateDescription(req, Hotel);
     res.status(200).json("update");
   },
-  updateEmail: async (req, res) => {
+  updateHotelEmail: async (req, res) => {
     await updateEmail(req, Hotel);
     res.status(200).json("update");
   },
@@ -112,6 +69,10 @@ const HotelController = {
   },
   updateHotelGallery: async (req, res) => {
     await updateGallery(req, Hotel);
+    res.status(200).json("update");
+  },
+  updateHotelDisplay: async (req, res) => {
+    await updateDisplay(req, Hotel);
     res.status(200).json("update");
   },
 };

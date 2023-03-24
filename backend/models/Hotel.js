@@ -33,7 +33,7 @@ const HotelSchema = new mongoose.Schema({
   rooms: [],
   thumbnail: {
     type: String,
-    default: process.env.NO_IMAGES_URL,
+    default: "http://localhost:8000/images/no-image.png",
   },
   gallery: {
     type: [String],

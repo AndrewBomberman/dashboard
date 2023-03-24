@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Stack } from "@mui/material";
+import { Card, CardContent, CardHeader, Divider, Stack, Button } from "@mui/material";
 import EditNameFormField from "../general/EditNameFormField"
 import EditDescriptionFormField from "../general/EditDescriptionFormField"
 import HotelEditEmailFormField from "../hotel/HotelEditEmailFormField"
@@ -9,9 +9,12 @@ import EditThumbnailFormField from "../general/EditThumbnailFormField"
 import EditGalleryFormField from "../general/EditGalleryFormField"
 import HotelEditCountryAndCity from "../hotel/HotelEditCountryAndCity"
 import HotelEditRooms from "../hotel/HotelEditRooms";
+import { deleteService } from "../../../../api/services/generalServices";
+import { useNavigate } from "react-router-dom";
+import AddRoomFormFields from "../../AddFormFields/room/AddRoomFormFields";
 
 export default function HotelEditFormFields({ hotel, rooms }) {
-  console.log(hotel)
+  const navigate = useNavigate()
   return (
     <Card>
       <CardHeader title={"Edit Hotel"} sx={{ width: "100%" }} />
@@ -27,7 +30,12 @@ export default function HotelEditFormFields({ hotel, rooms }) {
           <HotelEditAddress2FormField hotel={hotel} />
           <HotelEditCountryAndCity hotel={hotel} />
           <EditGalleryFormField model={hotel} route={"hotels"}/>
+          <AddRoomFormFields hotel={hotel}/>
           <HotelEditRooms rooms={rooms} />
+          <Button variant="contained" color="error" onClick={async()=> {
+            await deleteService(hotel._id, "hotels");
+            navigate("/")
+            }}>Delete Hotel</Button>
         </Stack>
       </CardContent>
     </Card>

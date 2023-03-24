@@ -1,5 +1,6 @@
+import Cookies from "js-cookie"
+const auth = Cookies.get('auth')
 export const updateName = async (id, name) => {
-  const auth = Cookies.get("auth")
   await fetch("http://localhost:8000/api/v1/hotels/name?_id=" + id, {
     method: "PUT",
     body: name,
@@ -10,7 +11,6 @@ export const updateName = async (id, name) => {
 };
 
 export const updateDescription = async (id, description) => {
-  const auth = Cookies.get("auth")
   await fetch("http://localhost:8000/api/v1/hotels/description?_id=" + id, {
     method: "PUT",
     body: description,
@@ -21,7 +21,6 @@ export const updateDescription = async (id, description) => {
 };
 
 export const updateThumbnail = async (id, thumbnail) => {
-  const auth = Cookies.get("auth")
   await fetch("http://localhost:8000/api/v1/hotels/thumbnail?_id=" + id, {
     method: "PUT",
     body: thumbnail,
@@ -32,7 +31,6 @@ export const updateThumbnail = async (id, thumbnail) => {
 };
 
 export const updateGallery = async (id, gallery) => {
-  const auth = Cookies.get("auth")
   await fetch("http://localhost:8000/api/v1/hotels/gallery?_id=" + id, {
     method: "PUT",
     body: gallery,

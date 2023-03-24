@@ -44,7 +44,7 @@ export default function Gallery({ model, imageSender, route }) {
     for (let i = 0; i < selectedGallery.length; i++) {
       const response = await fetch(selectedGallery[i]);
       const blob = await response.blob();
-      const file = new File([blob], "gallery" + [i], {
+      const file = new File([blob], "gallery" + [i] +".jpg", {
         type: blob.type,
       });
       formData.append("gallery", file);

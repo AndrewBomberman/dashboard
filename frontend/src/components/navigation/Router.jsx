@@ -4,9 +4,9 @@ import RoomPage from "../pages/room/RoomPage";
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Route
+  Route,
 } from "react-router-dom";
-import { getService } from "../../api/services/generalServices";
+import { addService, getService } from "../../api/services/generalServices";
 import AddHotelPage from "../pages/hotel/AddHotelPage";
 import LoginPage from "../pages/auth/LoginPage";
 import { googleOAuthURL } from "../../api/internal/auth";
@@ -23,8 +23,13 @@ export default createBrowserRouter(
         }}
       />
       <Route path="/" element={<ProtectedRoutes />}>
-        <Route index element={<HotelsPage />} />
-        <Route path="/hotels" element={<HotelsPage />} />
+        <Route index element={<HotelsPage />} loader={ async ()=>{ return await getService("hotels", {})}}  />
+        <Route path="/hotels" element={<HotelsPage />} action={async ({ request }) => {
+            let formData = await request.formData();
+            console.log(formData)
+            await addService(formData, "hotels")
+            return await getService("hotels", {})
+          }}/>
         <Route
           path="/hotels/:id"
           element={<HotelPage />}
@@ -39,7 +44,15 @@ export default createBrowserRouter(
             return await getService("rooms", { _id: params.id });
           }}
         />
-        <Route path="/hotels/add" element={<AddHotelPage />} />
+        <Route
+          path="/hotels/add"
+          element={<AddHotelPage />}
+          action={async ({ request }) => {
+            let formData = await request.formData();
+            await addService(formData, "hotels")
+            return await getService("hotels", {});
+          }}
+        />
       </Route>
     </Route>
   )

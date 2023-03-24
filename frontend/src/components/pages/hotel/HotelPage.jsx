@@ -3,6 +3,7 @@ import HotelEditFormFields from "../../templates/EditFormFields/hotel/HotelEditF
 import { useGetRoomsQuery } from "../../../api/internal/queries/room/useGetRoomsQuery";
 import { CircularProgress } from "@mui/material";
 
+
 export default function HotelPage() {
   const data = useLoaderData();
   const { data:rooms , isFetching, isLoading } = useGetRoomsQuery({hotel_id:data[0]._id})
@@ -14,6 +15,7 @@ export default function HotelPage() {
   return (
     <div className="HotelPage">
       {data[0] && <HotelEditFormFields hotel={data[0]} rooms={rooms}/>}
+      
     </div>
   );
 }

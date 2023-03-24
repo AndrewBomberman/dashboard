@@ -28,6 +28,6 @@ export default [
     {
       text: "Add Hotel",
       icon: <AddHomeIcon />,
-      path: "/hotels/add",
+      path: "hotels/add",
     },
   ];

@@ -11,6 +11,7 @@ import {
   updateCountry,
   getModels,
   updateDisplay,
+  deleteModel,
 } from "../config/services/model_handler.js";
 import Hotel from "../models/Hotel.js";
 import { Room } from "../models/Room.js";
@@ -20,11 +21,12 @@ const HotelController = {
     res.status(200).json(hotels);
   },
   addHotel: async (req, res) => {
+    console.log(req.body)
     await Hotel.create(req.body)
     res.status(200).json("Hotel Added");
   },
   deleteHotel: async (req, res) => {
-    await Hotel.findOneAndRemove({_id:req.query._id})
+    await deleteModel(req,Hotel)
     await Room.deleteMany({hotel_id:req.query._id})
     res.status(200).json("Hotel Deleted");
   },

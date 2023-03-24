@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+import { User } from "../models/User.js"
 export default (req, res, next) => {
   const token = req.headers.authorization
   if(token){
@@ -8,7 +9,13 @@ export default (req, res, next) => {
         res.status(401).json("Not Authorized")
       }
       if(decoded){
-       next()
+        if(await User.findOne({email:decoded.email})){
+          next()
+        }
+        else{
+          res.status(401).json("Not Authorized")
+        }
+
       }
       else{
         res.status(401).json("Not Authorized")

@@ -3,7 +3,7 @@ export default [
   {
     field: "thumbnail",
     headerName: "Thumbnail",
-    width: 200,
+    width: 500,
     sortable: false,
     filterable: false,
     renderCell: getThumbnail,

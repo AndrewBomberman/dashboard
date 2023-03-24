@@ -1,15 +1,13 @@
 import { Room } from "../models/Room.js";
-import { updateDescription, updateName, updateThumbnail, updateGallery } from "../config/services/model_handler.js"
+import { updateDescription, updateName, updateThumbnail, updateGallery, getModels } from "../config/services/model_handler.js"
 
 const RoomController = {
   get: async (req, res) => {
-    res.status(200).json(await Room.find(req.query));
+    res.status(200).json(await getModels(req, Room));
   },
   add: async (req, res) => {
-    const room = new Room(req.body)
-    room.hotel_id = req.query.hotel_id
-    await room.save()
-    res.status(200).json("Room Added");
+    await Room.create(req.body)
+    res.status(200).json("Room added")
   },
   delete: async (req, res) => {
     console.log(req.query._id)

@@ -1,4 +1,4 @@
-import { generateImageData } from "./image_handler.js";
+import { generateImageData, deleteImageData } from "./image_handler.js";
 
 export const updateName = async (req, model) => {
   const updated = await model.findOneAndUpdate(
@@ -53,6 +53,7 @@ export const updateAddress2 = async (req, model) => {
   console.log(updated);
 };
 export const updateCity = async (req, model) => {
+  console.log(req.body)
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     {
@@ -74,6 +75,7 @@ export const updateCountry = async (req, model) => {
 };
 
 export const updateThumbnail = async (req, model) => {
+  deleteImageData(req.route.path, req.query._id)
   const thumbnail = await generateImageData(
     req?.files?.thumbnail ?? null,
     "thumbnail",
@@ -91,6 +93,7 @@ export const updateThumbnail = async (req, model) => {
   console.log(updated);
 };
 export const updateGallery = async (req, model) => {
+  deleteImageData(req.route.path, req.query._id)
   const gallery = req?.files?.gallery;
   const updated_gallery = [];
   if (gallery) {
@@ -134,4 +137,9 @@ export const updateDisplay = async (req, model) => {
 };
 export const getModels = async (req, model) => {
   return await model.find(req.query)
+}
+
+export const deleteModel = async (req, model) => {
+  deleteImageData(req.route.path, req.query._id)
+  return await model.findByIdAndDelete(req.query._id)
 }

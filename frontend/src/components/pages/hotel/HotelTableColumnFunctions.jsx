@@ -13,13 +13,12 @@ export const getThumbnail = (params) => {
         params.row.thumbnail ??
         "http://localhost:8000/images/sample/no-image.png"
       }
-      width={200}
-      height={200}
+      width={400}
+      height={400}
     />
   );
 };
 export const getName = (params) => {
-  console.log(params);
   return params.row.name;
 };
 
@@ -33,6 +32,7 @@ export const getDisplay = (params) => {
   }}
   />;
 };
+
 export const getBookings = (params) => {
   return params.row.address.bookings;
 };

@@ -12,15 +12,15 @@ export const RoomSchema = new mongoose.Schema({
   },
   nr_beds: {
     type: Number,
-    required: [true, "Please enter the number of beds"],
+    default:0
   },
   nr_bathrooms: {
     type: Number,
-    required: [true, "Please enter the number of beds"],
+    default:0
   },
   price_per_night: {
     type: mongoose.Types.Decimal128,
-    required: [true, "Please set a price per night"],
+    default:0.0
   },
   available:{
     type: Boolean,
@@ -30,20 +30,38 @@ export const RoomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  thumbnail: String,
+  thumbnail: {
+    type: String,
+    default:"http://localhost:8000/images/no-image.png"
+  },
   gallery: {
     type:[String],
     default:[]
   },
-  facilities: {
-    type:[String],
-    default:[]
+  wifi:{
+    type: Boolean,
+    default:false,
+  },
+  tv:{
+    type: Boolean,
+    default:false,
+  },
+  room_service:{
+    type:Boolean,
+    default:false,
+  },
+  ac:{
+    type:Boolean,
+    default:false,
+  },
+  breakfast:{
+    type:Boolean,
+    default:false,
   },
   hotel_id: mongoose.Types.ObjectId,
   
 })
 .pre("save", async function (next) {
-  this.thumbnail = process.env.NO_IMAGES_URL
   const hotel = await Hotel.findById(this.hotel_id)
   hotel.rooms.push(this),
   await hotel.save()

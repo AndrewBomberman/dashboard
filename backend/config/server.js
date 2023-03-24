@@ -18,7 +18,7 @@ server.use(fileUpload({
   limits: { fileSize: 5 * 1024 * 1024 },
   debug:true,
 }));
-server.use("/api/v1/hotels", hotelRoutes);
+server.use("/api/v1/hotels",middleware, hotelRoutes);
 server.use("/api/v1/rooms", middleware, roomRoutes);
 server.use("/api/v1/", authRoutes);
 

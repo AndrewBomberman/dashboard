@@ -3,6 +3,7 @@ import Switch from "@mui/material/Switch";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Rating from "@mui/material/Rating";
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import useDeleteHotelQuery from "../../../api/internal/queries/hotel/useDeleteHotelQuery";
 import { updateDisplayService } from "../../../api/services/generalServices";
 import { useNavigate } from "react-router-dom";
@@ -55,6 +56,19 @@ export const getEdit = (params) => {
       }}
     >
       <EditIcon />
+    </IconButton>
+  );
+};
+export const getRooms = (params) => {
+  const navigate = useNavigate();
+  return (
+    <IconButton
+      color="primary"
+      onClick={() => {
+        navigate("/hotels/" + params.row._id + "/rooms");
+      }}
+    >
+      <MeetingRoomIcon />,
     </IconButton>
   );
 };

@@ -8,11 +8,6 @@ import {
   CardContent,
   CardActions,
   IconButton,
-  Input,
-  CardMedia,
-  ImageList,
-  ImageListItem,
-  ImageListItemBar,
 } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -24,8 +19,6 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BedIcon from "@mui/icons-material/Bed";
 import TitleIcon from "@mui/icons-material/Title";
 import DescriptionIcon from "@mui/icons-material/Description";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 import { useState } from "react";
 import useAddRoomQuery from "../../../../api/internal/queries/room/useAddRoomQuery";
 

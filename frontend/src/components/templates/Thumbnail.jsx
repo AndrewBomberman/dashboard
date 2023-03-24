@@ -41,7 +41,7 @@ export default function Thumbnail({ model, imageSender, route }) {
     const blob = await response.blob();
     const file = new File([blob], "thumbnail", { type: blob.type });
     setThumbnailFile(file);
-    setThumbnailPreview(URL.createObject(file))
+    setThumbnailPreview(URL.createObjectURL(file))
     formData.append("thumbnail",file)
     await imageSender(model._id, formData, route)
   };

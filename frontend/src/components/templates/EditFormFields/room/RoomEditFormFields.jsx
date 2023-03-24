@@ -2,9 +2,9 @@ import EditNameFormField from "../general/EditNameFormField";
 import EditDescriptionFormField from "../general/EditDescriptionFormField";
 import EditThumbnailFormField from "../general/EditThumbnailFormField";
 import EditGalleryFormField from "../general/EditGalleryFormField";
+import RoomEditFacilitiesFormField from "./RoomEditFacilitiesFormField";
 import { Stack, Card, CardContent, CardHeader, Divider } from "@mui/material";
 export default function RoomEditFormFields({ room }) {
-  console.log(room);
   return (
     <div className="RoomEditFormFields">
       <Card>
@@ -16,6 +16,7 @@ export default function RoomEditFormFields({ room }) {
             <EditDescriptionFormField model={room} route={"rooms"} />
             <EditThumbnailFormField model={room} route={"rooms"} />
             <EditGalleryFormField model={room} route={"rooms"} />
+            <RoomEditFacilitiesFormField model={room} route={"rooms"} />
           </Stack>
         </CardContent>
       </Card>

@@ -1,5 +1,6 @@
 import { Room } from "../models/Room.js";
-import { updateDescription, updateName, updateThumbnail, updateGallery, getModels } from "../config/services/model_handler.js"
+import { updateDescription, updateName, updateThumbnail, updateGallery, getModels, updateBreakfast, updateWifi, updateAc, updateTv } from "../config/services/model_handler.js"
+
 
 const RoomController = {
   get: async (req, res) => {
@@ -28,6 +29,26 @@ const RoomController = {
   },
   updateRoomGallery: async (req, res)=>{
     await updateGallery (req, Room)
+    res.status(200).json("updated")
+  },
+  updateRoomTv: async (req, res)=>{
+    await updateTv (req, Room)
+    res.status(200).json("updated")
+  },
+  updateRoomAc: async (req, res)=>{
+    await updateAc (req, Room)
+    res.status(200).json("updated")
+  },
+  updateRoomBreakfast: async (req, res)=>{
+    await updateBreakfast (req, Room)
+    res.status(200).json("updated")
+  },
+  updateRoomWifi: async (req, res)=>{
+    await updateWifi (req, Room)
+    res.status(200).json("updated")
+  },
+  updateRoomTv: async (req, res)=>{
+    await updateTv (req, Room)
     res.status(200).json("updated")
   }
 };

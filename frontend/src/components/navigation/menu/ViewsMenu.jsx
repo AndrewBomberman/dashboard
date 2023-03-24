@@ -1,33 +1,27 @@
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
-import AddHomeIcon from '@mui/icons-material/AddHome';
+import AddHomeIcon from "@mui/icons-material/AddHome";
 
 export default [
-    {
-      text: "Hotels",
-      icon: <ApartmentIcon />,
-      path: "/",
-    },
-    {
-      text: "Rooms",
-      icon: <MeetingRoomIcon />,
-      path: "/rooms",
-    },
-    {
-      text: "Bookings",
-      icon: <FormatListBulletedIcon />,
-      path: "/bookings",
-    },
-    {
-      text: "Statistics",
-      icon: <BarChartIcon />,
-      path: "/statistics",
-    },
-    {
-      text: "Add Hotel",
-      icon: <AddHomeIcon />,
-      path: "hotels/add",
-    },
-  ];
+  {
+    text: "Hotels",
+    icon: <ApartmentIcon />,
+    path: "/",
+  },
+  {
+    text: "Bookings",
+    icon: <FormatListBulletedIcon />,
+    path: "/bookings",
+  },
+  {
+    text: "Statistics",
+    icon: <BarChartIcon />,
+    path: "/statistics",
+  },
+  {
+    text: "Add Hotel",
+    icon: <AddHomeIcon />,
+    path: "hotels/add",
+  },
+];

@@ -1,6 +1,7 @@
 import HotelsPage from "../pages/hotel/HotelsPage";
 import HotelPage from "../pages/hotel/HotelPage";
-import RoomPage from "../pages/room/RoomPage";
+import HotelRoomsPage from "../pages/hotel/HotelRoomsPage";
+import RoomPage from "../pages/room/RoomPage"
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -24,17 +25,18 @@ export default createBrowserRouter(
       />
       <Route path="/" element={<ProtectedRoutes />}>
         <Route index element={<HotelsPage />} loader={ async ()=>{ return await getService("hotels", {})}}  />
-        <Route path="/hotels" element={<HotelsPage />} action={async ({ request }) => {
-            let formData = await request.formData();
-            console.log(formData)
-            await addService(formData, "hotels")
-            return await getService("hotels", {})
-          }}/>
         <Route
           path="/hotels/:id"
           element={<HotelPage />}
           loader={async ({ params }) => {
             return await getService("hotels", { _id: params.id });
+          }}
+        />
+        <Route
+          path="/hotels/:id/rooms"
+          element={<HotelRoomsPage />}
+          loader={async ({ params }) => {
+            return await getService("rooms", { hotel_id: params.id });
           }}
         />
         <Route
@@ -47,11 +49,6 @@ export default createBrowserRouter(
         <Route
           path="/hotels/add"
           element={<AddHotelPage />}
-          action={async ({ request }) => {
-            let formData = await request.formData();
-            await addService(formData, "hotels")
-            return await getService("hotels", {});
-          }}
         />
       </Route>
     </Route>

@@ -1,4 +1,4 @@
-import { getThumbnail, getName, getDisplay, getBookings, getRating, getEdit, getDelete } from "./HotelTableColumnFunctions";
+import { getThumbnail, getName, getDisplay, getBookings, getRating, getEdit, getDelete, getRooms } from "./HotelTableColumnFunctions";
 export default [
   {
     field: "thumbnail",
@@ -43,6 +43,14 @@ export default [
     minWidth: 150,
     maxWidth: 200,
     renderCell:getRating
+  },
+  {
+    field: "rooms",
+    headerName: "Rooms",
+    width: 150,
+    minWidth: 150,
+    maxWidth: 200,
+    renderCell:getRooms
   },
 
   {

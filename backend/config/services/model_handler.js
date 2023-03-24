@@ -128,6 +128,7 @@ export const updateGallery = async (req, model) => {
   console.log(updated);
 };
 export const updateDisplay = async (req, model) => {
+  
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     { display: req.body.display},
@@ -135,6 +136,50 @@ export const updateDisplay = async (req, model) => {
   );
   console.log(updated);
 };
+export const updateAc = async (req, model) => {
+   console.log(req.body)
+  const updated = await model.findOneAndUpdate(
+    { _id: req.query._id },
+    { ac: req.body.ac },
+    { new: true }
+  );
+  console.log(updated);
+};
+export const updateWifi = async (req, model) => {
+   console.log(req.body)
+  const updated = await model.findOneAndUpdate(
+    { _id: req.query._id },
+    { wifi: req.body.wifi },
+    { new: true }
+  );
+   console.log(updated);
+
+};
+export const updateRoomService = async (req, model) => {
+   console.log(req.body)
+ 
+
+};
+export const updateBreakfast = async (req, model) => {
+  console.log(req.body)
+  const updated = await model.findOneAndUpdate(
+    { _id: req.query._id },
+    { breakfast: req.body.breakfast },
+    { new: true }
+  );
+  console.log(updated);
+
+};
+export const updateTv = async (req, model) => {
+  console.log(req.body)
+  const updated = await model.findOneAndUpdate(
+    { _id: req.query._id },
+    { tv: req.body.tv },
+    { new: true }
+  );
+  console.log(updated);
+};
+
 export const getModels = async (req, model) => {
   return await model.find(req.query)
 }

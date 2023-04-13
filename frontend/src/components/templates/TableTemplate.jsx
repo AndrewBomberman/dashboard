@@ -21,6 +21,7 @@ const TableColumns = (mode) =>{
 export default function TableTemplate({ mode, data }) {
   return (
     <DataGrid
+    sx={{ marginTop: 5}}
       rows={data}
       rowSpacingType="border"
       columns={TableColumns(mode)}

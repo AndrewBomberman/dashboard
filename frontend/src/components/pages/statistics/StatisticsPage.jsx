@@ -1,10 +1,18 @@
 import { Form, useLoaderData } from "react-router-dom";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
-import { Grid, InputLabel, MenuItem, Select, FormControl } from "@mui/material";
+import {
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormControl,
+  Typography,
+} from "@mui/material";
 
 export default function HotelStatisticsPage() {
-  const { last_year_bookings, meal_plan_stats, family_type_stats } = useLoaderData();
+  const { last_year_bookings, meal_plan_stats, family_type_stats } =
+    useLoaderData();
 
   const config = {
     labels: last_year_bookings.map((data) => data.year),
@@ -62,16 +70,18 @@ export default function HotelStatisticsPage() {
   };
   return (
     <div className="Stats">
-      {" "}
-      <Grid container spacing={5} columns={16}>
+      <Typography variant="h1" component="h2">
+        Statistics
+      </Typography>
+      <Grid container spacing={5} columns={16} sx={{marginTop:10}}>
         <Grid xs={8}>
           <Line data={config} />
         </Grid>
         <Grid xs={8}>
           <Bar data={config2} />
         </Grid>
-        <Grid xs={12} sx={{marginTop:10}}>
-            <Pie data={config3} />
+        <Grid xs={8} sx={{ marginTop: 5 }}>
+          <Pie data={config3} />
         </Grid>
       </Grid>
     </div>

@@ -14,6 +14,7 @@ export default function HotelPage() {
   
   return (
     <div className="HotelPage">
+      
       {data[0] && <HotelEditFormFields hotel={data[0]} rooms={rooms}/>}
       
     </div>

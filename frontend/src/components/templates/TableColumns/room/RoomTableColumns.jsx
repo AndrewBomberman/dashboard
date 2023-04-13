@@ -1,4 +1,5 @@
 import { getThumbnail, getName, getDisplay, getAvailable, getEdit, getDelete, getWifi, getBathrooms, getBeds } from "./RoomTableColumnFunctions";
+
 export default [
     {
       field: "thumbnail",

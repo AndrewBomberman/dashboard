@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import HotelEditFormFields from "../../templates/EditFormFields/hotel/HotelEditFormFields";
-import { useGetRoomsQuery } from "../../../api/internal/queries/room/useGetRoomsQuery";
+import  useGetRoomsQuery  from "../../../api/internal/queries/room/useGetRoomsQuery";
 import { CircularProgress } from "@mui/material";
 
 

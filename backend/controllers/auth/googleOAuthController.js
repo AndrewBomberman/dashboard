@@ -1,7 +1,7 @@
 import {
   getGoogleOAuthUrl,
   getGoogleUser,
-} from "../../config/auth/googleOAuth.js";
+} from "../../services/auth/googleOAuth.js";
 import jwt from "jsonwebtoken";
 import { User } from "../../models/User.js";
 

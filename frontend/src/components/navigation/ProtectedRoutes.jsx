@@ -1,9 +1,13 @@
 import Cookies from "js-cookie";
 import { Navigate, Outlet } from "react-router-dom";
-import Layout from "../templates/Layout";
+import AuthLayout from "../templates/layouts/AuthLayout";
+
+
 
 export default function ProtectedRoutes() {
   const auth = Cookies.get("auth");
   console.log(auth)
-  return (auth ?<Layout><Outlet /></Layout> : <Navigate to="/login" />);
+  return (auth ?<AuthLayout>
+   <Outlet />
+   </AuthLayout> : <Navigate to="/auth" />);
 }

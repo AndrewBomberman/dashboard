@@ -8,13 +8,16 @@ import HotelEditAddress2FormField from "../hotel/HotelEditAddress2FormField"
 import EditThumbnailFormField from "../general/EditThumbnailFormField"
 import EditGalleryFormField from "../general/EditGalleryFormField"
 import HotelEditCountryAndCity from "../hotel/HotelEditCountryAndCity"
-import HotelEditRooms from "../hotel/HotelEditRooms";
 import { deleteService } from "../../../../api/services/generalServices";
 import { useNavigate } from "react-router-dom";
-import AddRoomFormFields from "../../AddFormFields/room/AddRoomFormFields";
+import HotelEditRooms from "./HotelEditRooms";
+import AddRoomForm from "../../AddFormFields/room/AddRoomForm";
+import { useState } from "react";
+
 
 export default function HotelEditFormFields({ hotel, rooms }) {
   const navigate = useNavigate()
+  const [showHotelRooms, setShowHotelRooms] = useState(false)
   return (
     <Card>
       <CardHeader title={"Edit Hotel"} sx={{ width: "100%" }} />
@@ -29,9 +32,13 @@ export default function HotelEditFormFields({ hotel, rooms }) {
           <HotelEditAddress1FormField hotel={hotel} />
           <HotelEditAddress2FormField hotel={hotel} />
           <HotelEditCountryAndCity hotel={hotel} />
+          <Button variant="contained" color="primary" onClick={()=> {
+            setShowHotelRooms(!showHotelRooms)
+            }}>Show Rooms</Button>
+          {showHotelRooms && <AddRoomForm hotel={hotel} />}
+          {showHotelRooms && <HotelEditRooms rooms={rooms}/>}
+         
           <EditGalleryFormField model={hotel} route={"hotels"}/>
-          <AddRoomFormFields hotel={hotel}/>
-          <HotelEditRooms rooms={rooms} />
           <Button variant="contained" color="error" onClick={async()=> {
             await deleteService(hotel._id, "hotels");
             navigate("/")

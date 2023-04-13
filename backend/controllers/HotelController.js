@@ -12,22 +12,22 @@ import {
   getModels,
   updateDisplay,
   deleteModel,
-} from "../config/services/model_handler.js";
+  createModel,
+} from "../services/model_handler.js";
 import Hotel from "../models/Hotel.js";
 import { Room } from "../models/Room.js";
 const HotelController = {
   getHotels: async (req, res) => {
-    const hotels = await getModels(req, Hotel)
+    const hotels = await getModels(req, Hotel);
     res.status(200).json(hotels);
   },
   addHotel: async (req, res) => {
-    console.log(req.body)
-    await Hotel.create(req.body)
+    await createModel(req, Hotel)
     res.status(200).json("Hotel Added");
   },
   deleteHotel: async (req, res) => {
-    await deleteModel(req,Hotel)
-    await Room.deleteMany({hotel_id:req.query._id})
+    await deleteModel(req, Hotel);
+    await Room.deleteMany({ hotel_id: req.query._id });
     res.status(200).json("Hotel Deleted");
   },
 
@@ -78,5 +78,4 @@ const HotelController = {
     res.status(200).json("update");
   },
 };
-
 export default HotelController;

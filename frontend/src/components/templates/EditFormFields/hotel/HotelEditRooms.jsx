@@ -4,7 +4,7 @@ export default function HotelEditRooms ({rooms}){
     
     return (
         <div className="HotelRooms">
-           <TableTemplate data={rooms} mode={"room"}/>
+           <TableTemplate data={rooms} mode={"rooms"}/>
         </div>
     )
 }

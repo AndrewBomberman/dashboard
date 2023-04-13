@@ -1,12 +1,29 @@
 import { DataGrid } from "@mui/x-data-grid";
-import hotelColumns from "../pages/hotel/HotelTableColumns";
-import roomColumns from "../pages/room/RoomTableColumns";
+import hotelColumns from "./TableColumns/hotel/HotelTableColumns";
+import roomColumns from "./TableColumns/room/RoomTableColumns";
+import bookingColumns  from "./TableColumns/booking/BookingTableColumns";
+
+const TableColumns = (mode) =>{
+  switch(mode){
+      case "hotels":{
+          return hotelColumns
+      }
+      case "rooms":{
+          return roomColumns;
+      }
+      case "bookings":{
+          return bookingColumns;
+      }
+      default: hotelColumns
+  }
+}
+
 export default function TableTemplate({ mode, data }) {
   return (
     <DataGrid
       rows={data}
       rowSpacingType="border"
-      columns={mode === "hotels" ? hotelColumns : roomColumns}
+      columns={TableColumns(mode)}
       getRowId={(row) => row._id}
       disableRowSelectionOnClick
       autoHeight

@@ -26,14 +26,11 @@ export default function LoginPage() {
     formData.append("email", e.target["email"].value)
     formData.append("password", e.target["password"].value)
     const { url } = await jwtLoginAuth(formData);
-   console.log(url)
+    window.location.href = url;
   };
 
   const auth = Cookies.get("auth")
-  console.log(auth)
-  if(auth){
-    return <Navigate to={"/"}/>
-  }
+  
 
 
   return (
@@ -80,7 +77,7 @@ export default function LoginPage() {
                 }}
                 style={{ width: "100%" }}
               />
-              <Link to="/register" style={{ width: "100%", marginTop: 53 }}>
+              <Link to="/auth/register" style={{ width: "100%", marginTop: 53 }}>
                 {" "}
                 Register
               </Link>

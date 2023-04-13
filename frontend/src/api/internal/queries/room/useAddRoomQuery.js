@@ -5,13 +5,16 @@ const useAddHotelQuery =  () => {
 
   return useMutation(async (room) => await addService(room, "rooms"), {
     onMutate: async (room) => {
-      return await getService("rooms",{hotel_id:room.get("hotel_id")});
+      const data =  await getService("rooms",{hotel_id:room.get("hotel_id")})
+      console.log(data)
+      return data
+
     },
     onError: (_e, _hero, context) => {
       console.log(context);
     },
     onSettled: () => {
-      client.invalidateQueries("hotels");
+      client.invalidateQueries("hotel_rooms");
     },
   });
 }

@@ -1,5 +1,12 @@
 import fs from "fs";
 
+/*
+
+  The following component contains functions that are used to handle image data.
+  The functions are imported in the model_handler.
+
+*/
+
 export const generateImageData = async (image, imageType, id, path) => {
   image !== null &&
     (await image.mv(

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Room } from "./Room.js";
+
 
 const HotelSchema = new mongoose.Schema({
   name: {
@@ -30,7 +30,10 @@ const HotelSchema = new mongoose.Schema({
       default: "United Kingdom",
     },
   },
-  rooms: [],
+  rooms: {
+    type:[],
+    default:[]
+  },
   thumbnail: {
     type: String,
     default: "http://localhost:8000/images/no-image.png",

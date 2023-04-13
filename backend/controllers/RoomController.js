@@ -1,5 +1,5 @@
 import { Room } from "../models/Room.js";
-import { updateDescription, updateName, updateThumbnail, updateGallery, getModels, updateBreakfast, updateWifi, updateAc, updateTv } from "../config/services/model_handler.js"
+import { updateDescription, updateName, updateThumbnail, updateGallery, getModels, updateBreakfast, updateWifi, updateAc, updateTv, createModel } from "../services/model_handler.js"
 
 
 const RoomController = {
@@ -7,7 +7,8 @@ const RoomController = {
     res.status(200).json(await getModels(req, Room));
   },
   add: async (req, res) => {
-    await Room.create(req.body)
+    await createModel(req, Room)
+
     res.status(200).json("Room added")
   },
   delete: async (req, res) => {

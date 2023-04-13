@@ -1,12 +1,12 @@
-import { Outlet} from "react-router-dom";
-import Sidebar from "../../components/navigation/Sidebar";
-import Container from "@mui/material/Container";
+import Sidebar from "../../navigation/Sidebar";
+import Container from "@mui/material/Container"
 
 
 export default function Layout({children}) {
+ 
 
   return (
-    <div className="Layout">
+    <div className="Auth Layout">
       <header>
         <Sidebar />
       </header>

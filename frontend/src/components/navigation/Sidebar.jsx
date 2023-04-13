@@ -22,7 +22,7 @@ import Cookies from "js-cookie";
     const navigate = useNavigate()
     return (
       <div className="SideBar">
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", backgroundColor:"#000"}}>
           <AppBar
             position="fixed"
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -51,8 +51,7 @@ import Cookies from "js-cookie";
                     <ListItem key={item.text}>
                       <ListItemButton onClick={()=> {
                         const auth = Cookies.get('auth');
-                        console.log(auth)
-                        auth ? navigate(item.path) : navigate("/login")
+                        auth ? navigate(item.path) : navigate("/auth")
                       }}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />
@@ -70,7 +69,7 @@ import Cookies from "js-cookie";
                     <ListItem key={item.text}>
                       <ListItemButton onClick={()=>{
                         Cookies.remove("auth")
-                        navigate("/login")
+                        navigate("/auth")
                       }}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.text} />

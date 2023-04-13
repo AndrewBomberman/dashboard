@@ -62,9 +62,7 @@ export const RoomSchema = new mongoose.Schema({
   
 })
 .pre("save", async function (next) {
-  const hotel = await Hotel.findById(this.hotel_id)
-  hotel.rooms.push(this),
-  await hotel.save()
+  console.log(this)
   next();
 });
 export const Room = new mongoose.model("Room", RoomSchema);

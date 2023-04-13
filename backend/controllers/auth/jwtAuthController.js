@@ -1,7 +1,7 @@
 import { User } from "../../models/User.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import jwtTokenGenerator from "../../config/auth/jwtTokenGenerator.js"
+import jwtTokenGenerator from "../../services/auth/jwtTokenGenerator.js"
 
 const jwtAuthController = {
   jwtAuthRegisterUrl: async (req, res) => {
@@ -21,25 +21,8 @@ const jwtAuthController = {
     
   },
   jwtAuthCallback: async (req, res) => {
-    console.log(req.query.token)
-    if (req.query.token) {
-      jwt.verify(
-        req.query.token,
-        process.env.JWT_SECRET,
-        async (err, decoded) => {
-          console.log(decoded);
-          const user = await User.findOne({email:decoded.email});
-          if (user) {
-            res.cookie("auth",req.query.token,{ expiresIn: 60 * 60 * 1000})
-            res.redirect(process.env.SUCCESS_AUTH_REDIRECT_URL);
-          } else {
-            res.redirect(process.env.FAIL_AUTH_REDIRECT_URL);
-          }
-        }
-      );
-    } else {
-      res.redirect(process.env.FAIL_AUTH_REDIRECT_URL);
-    }
+    res.cookie("auth", req.query.token, { expiresIn: 3 * 24 * 60 * 60 });
+    res.redirect(process.env.REDIRECT_URL)
   },
 };
 export default jwtAuthController

@@ -3,11 +3,11 @@ import googleOAuthController from "../../controllers/auth/googleOAuthController.
 import jwtAuthController from "../../controllers/auth/jwtAuthController.js";
 const authRoutes = express.Router();
 //Google Auth
-authRoutes.get("/auth/google/url", googleOAuthController.googleOAuthUrl);
-authRoutes.get("/auth/google/callback", googleOAuthController.googleOAuthCallback);
+authRoutes.get("/google/url", googleOAuthController.googleOAuthUrl);
+authRoutes.get("/google/callback", googleOAuthController.googleOAuthCallback);
 
 //JWt Auth+
-authRoutes.post("/auth/jwt/register", jwtAuthController.jwtAuthRegisterUrl);
-authRoutes.post("/auth/jwt/login", jwtAuthController.jwtAuthLoginUrl);
-authRoutes.get("/auth/jwt/callback", jwtAuthController.jwtAuthCallback);
+authRoutes.post("/jwt/register", jwtAuthController.jwtAuthRegisterUrl);
+authRoutes.post("/jwt/login", jwtAuthController.jwtAuthLoginUrl);
+authRoutes.get("/jwt/callback", jwtAuthController.jwtAuthCallback);
 export default authRoutes

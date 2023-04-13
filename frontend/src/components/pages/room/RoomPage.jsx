@@ -3,6 +3,7 @@ import RoomEditFormFields from "../../templates/EditFormFields/room/RoomEditForm
 
 export default function RoomPage(){
     const room = useLoaderData()
+   
     return (
         <div className="RoomPage">
             <RoomEditFormFields room={room[0]}/>

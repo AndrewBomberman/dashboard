@@ -9,3 +9,10 @@ export const jwtLoginAuth = async (user) => {
   });
   return await response.json();
 };
+export const jwtRegisterAuth = async (user) => {
+  const response = await fetch("http://localhost:8000/api/v1/auth/jwt/register", {
+    method: "POST",
+    body: user,
+  });
+  return await response.json();
+};

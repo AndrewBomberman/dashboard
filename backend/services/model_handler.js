@@ -1,4 +1,19 @@
 import { generateImageData, deleteImageData } from "./image_handler.js";
+/*
+
+  This file contains functions that are used to handle the operations on the models. 
+  Each function contains the request object and model that is being updated.
+  The functions are exported and imported in the controller files.
+  
+*/
+
+export const createModel = async (req, model) => {
+  await model.create(req.body);
+}
+
+export const getModels = async (req, model) => {
+  return await model.find(req.query)
+}
 
 export const updateName = async (req, model) => {
   const updated = await model.findOneAndUpdate(
@@ -179,10 +194,6 @@ export const updateTv = async (req, model) => {
   );
   console.log(updated);
 };
-
-export const getModels = async (req, model) => {
-  return await model.find(req.query)
-}
 
 export const deleteModel = async (req, model) => {
   deleteImageData(req.route.path, req.query._id)

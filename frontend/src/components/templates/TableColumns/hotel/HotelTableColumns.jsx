@@ -11,18 +11,18 @@ export default [
   {
     field: "name",
     headerName: "Name",
-    width: 100,
-    minWidth: 100,
-    maxWidth: 200,
+    width: 200,
+    minWidth: 200,
+    maxWidth: 300,
     sortable:true,
     valueGetter: getName,
   },
   {
     field: "display",
     headerName: "Display",
-    width:100,
-    minWidth: 100,
-    maxWidth: 150,
+    width:200,
+    minWidth: 200,
+    maxWidth: 250,
     sortable:false,
     filterable:false,
     renderCell: getDisplay,
@@ -31,32 +31,24 @@ export default [
   {
     field: "bookings",
     headerName: "Bookings",
-    width: 100,
-    minWidth: 100,
-    maxWidth: 150,
+    width: 150,
+    minWidth: 150,
+    maxWidth: 200,
     renderValue:getBookings
   },
   {
     field: "rating",
     headerName: "Rating",
-    width: 150,
-    minWidth: 150,
-    maxWidth: 200,
+    width: 200,
+    minWidth: 200,
+    maxWidth: 250,
     renderCell:getRating
-  },
-  {
-    field: "rooms",
-    headerName: "Rooms",
-    width: 150,
-    minWidth: 150,
-    maxWidth: 200,
-    renderCell:getRooms
   },
 
   {
     field: "edit",
     headerName: "Edit",
-    width: 50,
+    width: 100,
     minWidth: 100,
     maxWidth: 150,
     sortable:false,
@@ -66,7 +58,7 @@ export default [
   {
     field: "delete",
     headerName:"Delete",
-    width: 50,
+    width: 100,
     minWidth: 100,
     maxWidth: 150,
     sortable:false,

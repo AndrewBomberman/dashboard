@@ -2,9 +2,9 @@ import { Checkbox, IconButton } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { updateDisplayService } from "../../../api/services/generalServices";
-import useDeleteRoomQuery from "../../../api/internal/queries/room/useDeleteRoomQuery";
-import { updateRoomWifiService } from "../../../api/services/roomServices";
+import { updateDisplayService } from "../../../../api/services/generalServices";
+import useDeleteRoomQuery from "../../../../api/internal/queries/room/useDeleteRoomQuery";
+import { updateRoomWifiService } from "../../../../api/services/roomServices";
 import { useNavigate } from "react-router-dom";
 export const getThumbnail = (params) => {
   return <img src={params.row.thumbnail} width={200} height={200} />;

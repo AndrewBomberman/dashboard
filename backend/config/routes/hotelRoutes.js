@@ -1,6 +1,6 @@
 import express from "express";
 import HotelController from "../../controllers/HotelController.js";
-import middleware from "../middleware.js";
+
 const hotelRoutes = express.Router();
 //Hotel Routes
 

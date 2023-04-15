@@ -27,10 +27,11 @@ import Cookies from "js-cookie";
             position="fixed"
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
             color="info"
+            
           >
             <Toolbar>
-              <Typography variant="h6" noWrap component="div">
-                Dashboard
+              <Typography variant="h4" noWrap component="div">
+                HotelHub
               </Typography>
             </Toolbar>
           </AppBar>

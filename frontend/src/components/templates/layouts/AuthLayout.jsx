@@ -16,7 +16,7 @@ export default function Layout({children}) {
           style={{
             display: "flex",
             marginLeft: 10,
-            paddingTop: 80,
+            paddingTop: 100,
             width:"100%"
           }}
         >

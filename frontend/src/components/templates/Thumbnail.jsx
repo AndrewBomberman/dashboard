@@ -26,6 +26,7 @@ export default function Thumbnail({ model, imageSender, route }) {
     document.getElementById("thumbnail").value = ""
   };
   const setThumbnail = (e) => {
+    console.log(e.target.files[0]);
     setThumbnailFile(e.target.files[0]);
     thumbnailPreview ?? URL.revokeObjectURL(thumbnailPreview);
     setThumbnailPreview(URL.createObjectURL(e.target.files[0]));
@@ -39,10 +40,13 @@ export default function Thumbnail({ model, imageSender, route }) {
     const formData = new FormData();
     const response = await fetch("http://localhost:8000/images/no-image.png");
     const blob = await response.blob();
-    const file = new File([blob], "thumbnail", { type: blob.type });
-    setThumbnailFile(file);
-    setThumbnailPreview(URL.createObjectURL(file))
-    formData.append("thumbnail",file)
+    console.log(blob)
+    const newThumbnail = new File([blob], "thumbnail.jpg",  { type: blob.type });
+    formData.append("thumbnail",newThumbnail)
+    console.log(newThumbnail)
+    setThumbnailFile(newThumbnail);
+    setThumbnailPreview(URL.createObjectURL(newThumbnail))
+   
     await imageSender(model._id, formData, route)
   };
 

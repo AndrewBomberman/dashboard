@@ -2,15 +2,8 @@ import { IconButton, Stack } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
-import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from '@mui/icons-material/Edit';
-import {
-  updateRoomAcService,
-  updateRoomTvService,
-  updateRoomWifiService,
-  updateRoomServiceService,
-  updateRoomBreakfastService
-} from "../../../../api/services/roomServices";
+
 
 export default function RoomEditFacilitiesFormField({ model }) {
   const [wifi, setWifi] = useState(model.wifi);
@@ -27,11 +20,13 @@ export default function RoomEditFacilitiesFormField({ model }) {
           control={
             <Checkbox
               disabled={disabled}
-              defaultChecked={model.wifi}
+              defaultChecked={wifi}
               onChange={async (e) => {
                 const formData = new FormData()
-                formData.append("breakfast",e.target.checked)
-                await updateRoomWifiService(model._id,formData)
+                formData.append("wifi",e.target.checked)
+                const { updateRoomWifiService } = await import ("../../../../api/services/roomServices")
+                updateRoomWifiService(model._id,formData)
+                console.log(e.target.checked)
                 setWifi(e.target.checked);
               }}
             />
@@ -42,10 +37,11 @@ export default function RoomEditFacilitiesFormField({ model }) {
           control={
             <Checkbox
               disabled={disabled}
-              defaultChecked={model.breakfast}
+              defaultChecked={breakfast}
               onChange={async (e) => {
                 const formData = new FormData()
                 formData.append("breakfast",e.target.checked)
+                const { updateRoomBreakfastService } = await import ("../../../../api/services/roomServices")
                 await updateRoomBreakfastService(model._id,formData)
                 setBreakfast(e.target.checked);
               }}
@@ -57,10 +53,11 @@ export default function RoomEditFacilitiesFormField({ model }) {
           control={
             <Checkbox
               disabled={disabled}
-              defaultChecked={model.ac}
+              defaultChecked={ac}
               onChange={async (e) => {
                 const formData = new FormData()
                 formData.append("ac",e.target.checked)
+                const { updateRoomAcService } = await import ("../../../../api/services/roomServices")
                 await updateRoomAcService(model._id,formData)
                 setAC(e.target.checked);
               }}
@@ -72,10 +69,11 @@ export default function RoomEditFacilitiesFormField({ model }) {
           control={
             <Checkbox
               disabled={disabled}
-              defaultChecked={model.tv}
+              defaultChecked={tv}
               onChange={async (e) => {
                 const formData = new FormData()
                 formData.append("tv",e.target.checked)
+                const { updateRoomTvService } = await import ("../../../../api/services/roomServices")
                 await updateRoomTvService(model._id,formData)
                 setTV(e.target.checked);
               }}
@@ -87,10 +85,11 @@ export default function RoomEditFacilitiesFormField({ model }) {
           control={
             <Checkbox
               disabled={disabled}
-              defaultChecked={model.roomService}
+              defaultChecked={roomService}
               onChange={async (e) => {
                 const formData = new FormData()
                 formData.append("room_service",e.target.checked)
+                const { updateRoomServiceService } = await import ("../../../../api/services/roomServices")
                 await updateRoomServiceService(model._id,formData)
                 setRoomService(e.target.checked);
               }}

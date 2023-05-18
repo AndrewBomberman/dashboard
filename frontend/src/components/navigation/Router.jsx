@@ -1,72 +1,58 @@
-import HotelsPage from "../pages/hotel/HotelsPage";
-import HotelPage from "../pages/hotel/HotelPage";
-import RoomPage from "../pages/room/RoomPage";
-import RegisterPage from "../pages/auth/RegisterPage";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import { getService } from "../../api/services/generalServices";
-import LoginPage from "../pages/auth/LoginPage";
-import { googleOAuthURL } from "../../api/internal/auth";
-import ProtectedRoutes from "./ProtectedRoutes";
-import GuestLayout from "../templates/layouts/GuestLayout";
-import StatisticsPage from "../pages/statistics/StatisticsPage";
-import { FamillyTypeStatistics, HotelStatisctics, MealPlanStatistics } from "../../api/internal/statistics";
-import BookingsPage from "../pages/bookings/BookingsPage";
+
+import { Suspense, lazy } from "react";
+import { CircularProgress } from "@mui/material";
+import AuthRoutes from "../navigation/routes/AuthRoutes";
+import GuestRoutes from "../navigation/routes/GuestRoutes";
+
+const GuestLayout = lazy(() => import("../templates/layouts/GuestLayout"));
+const ProtectedRoutes = lazy(() => import("./ProtectedRoutes"));
 
 
 export default createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/auth" element={<GuestLayout />}>
-        <Route
-          index
-          element={<LoginPage />}
-          loader={async () => {
-            return await googleOAuthURL();
-          }}
-        />
-        
-        <Route
-          path="register"
-          element={<RegisterPage />}
-          loader={async () => {
-            return await googleOAuthURL();
-          }}
-        />
+      <Route
+        path="/auth"
+        element={
+          <Suspense fallback={<CircularProgress />}>
+            <GuestLayout />
+          </Suspense>
+        }
+      >
+        {GuestRoutes.map(route=>{
+            return <Route key={route.path} path={route.path} element={
+                <Suspense fallback={<CircularProgress />}>
+                    <route.component />
+                </Suspense>
+            }
+            index={route.index}
+            loader={route.data}
+            />
+        })}
       </Route>
-
-      <Route path="/" element={<ProtectedRoutes />}>
-        <Route
-          index
-          element={<HotelsPage />}
-        />
-        <Route
-          path="/hotels/:id"
-          element={<HotelPage />}
-          loader={async ({ params }) => {
-            return await getService("hotels", { _id: params.id });
-          }}
-        />
-        <Route
-          path="/rooms/:id"
-          element={<RoomPage />}
-          loader={async ({ params }) => {
-            return await getService("rooms", { _id: params.id });
-          }}
-        />
-        <Route path="/statistics" element={<StatisticsPage />} loader={async ()=>{
-          return {
-            last_year_bookings:await HotelStatisctics(),
-            meal_plan_stats:await MealPlanStatistics(),
-            family_type_stats:await FamillyTypeStatistics()
-          } 
-        }}/>
-         <Route path="/bookings" element={<BookingsPage />}/>
+      <Route
+        path="/"
+        element={
+          <Suspense fallback={<CircularProgress />}>
+            <ProtectedRoutes />
+          </Suspense>
+        }
+      >
+        {AuthRoutes.map(route=>{
+            return <Route key={route.path} path={route.path} element={
+                <Suspense fallback={<CircularProgress />}>
+                    <route.component />
+                </Suspense>
+            }
+            loader={route.data}/>  
+        })}
       </Route>
-      
+      <Route path="*" element={<h1>404</h1>} />
     </Route>
   )
 );

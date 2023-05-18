@@ -7,31 +7,24 @@ import {
   Divider,
   FormControl,
   Stack,
-  TextField
+  TextField,
 } from "@mui/material";
-import { Form, Link, Navigate, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 import GoogleButton from "react-google-button";
-import{ jwtLoginAuth } from "../../../api/internal/auth";
-import Cookies from "js-cookie";
 
 export default function LoginPage() {
-
-  
   const googleOAuth2URL = useLoaderData();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
-    formData.append("name", e.target["name"].value)
-    formData.append("email", e.target["email"].value)
-    formData.append("password", e.target["password"].value)
+    formData.append("name", e.target["name"].value);
+    formData.append("email", e.target["email"].value);
+    formData.append("password", e.target["password"].value);
+    const { jwtLoginAuth } = await import("../../../api/internal/auth");
     const { url } = await jwtLoginAuth(formData);
     window.location.href = url;
   };
-
-  const auth = Cookies.get("auth")
-  
-
 
   return (
     <Container sx={{ marginTop: 25, textAlign: "center" }}>
@@ -77,7 +70,10 @@ export default function LoginPage() {
                 }}
                 style={{ width: "100%" }}
               />
-              <Link to="/auth/register" style={{ width: "100%", marginTop: 53 }}>
+              <Link
+                to="/auth/register"
+                style={{ width: "100%", marginTop: 53 }}
+              >
                 {" "}
                 Register
               </Link>

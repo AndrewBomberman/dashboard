@@ -17,7 +17,7 @@ export default function GuestLayout() {
           style={{
             display: "flex",
             marginLeft: 10,
-            paddingTop: 80,
+            paddingTop: 100,
             width: "100%",
           }}
         >

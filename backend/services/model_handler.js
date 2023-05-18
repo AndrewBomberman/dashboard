@@ -1,4 +1,3 @@
-import { generateImageData, deleteImageData } from "./image_handler.js";
 /*
 
   This file contains functions that are used to handle the operations on the models. 
@@ -9,11 +8,11 @@ import { generateImageData, deleteImageData } from "./image_handler.js";
 
 export const createModel = async (req, model) => {
   await model.create(req.body);
-}
+};
 
 export const getModels = async (req, model) => {
-  return await model.find(req.query)
-}
+  return await model.find(req.query);
+};
 
 export const updateName = async (req, model) => {
   const updated = await model.findOneAndUpdate(
@@ -68,7 +67,7 @@ export const updateAddress2 = async (req, model) => {
   console.log(updated);
 };
 export const updateCity = async (req, model) => {
-  console.log(req.body)
+  console.log(req.body);
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     {
@@ -90,7 +89,9 @@ export const updateCountry = async (req, model) => {
 };
 
 export const updateThumbnail = async (req, model) => {
-  deleteImageData(req.route.path, req.query._id)
+  const { deleteImageData } = await import("./image_handler.js");
+  const { generateImageData } = await import("./image_handler.js");
+  deleteImageData(req.route.path, req.query._id);
   const thumbnail = await generateImageData(
     req?.files?.thumbnail ?? null,
     "thumbnail",
@@ -108,7 +109,9 @@ export const updateThumbnail = async (req, model) => {
   console.log(updated);
 };
 export const updateGallery = async (req, model) => {
-  deleteImageData(req.route.path, req.query._id)
+  const { deleteImageData } = await import("./image_handler.js");
+  const { generateImageData } = await import("./image_handler.js");
+  deleteImageData(req.route.path, req.query._id);
   const gallery = req?.files?.gallery;
   const updated_gallery = [];
   if (gallery) {
@@ -143,16 +146,15 @@ export const updateGallery = async (req, model) => {
   console.log(updated);
 };
 export const updateDisplay = async (req, model) => {
-  
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
-    { display: req.body.display},
+    { display: req.body.display },
     { new: true }
   );
   console.log(updated);
 };
 export const updateAc = async (req, model) => {
-   console.log(req.body)
+  console.log(req.body);
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     { ac: req.body.ac },
@@ -161,32 +163,34 @@ export const updateAc = async (req, model) => {
   console.log(updated);
 };
 export const updateWifi = async (req, model) => {
-   console.log(req.body)
+  console.log(req.body.wifi);
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     { wifi: req.body.wifi },
     { new: true }
   );
-   console.log(updated);
-
+  console.log(updated);
 };
 export const updateRoomService = async (req, model) => {
-   console.log(req.body)
- 
-
+  console.log(req.body);
+  const updated = await model.findOneAndUpdate(
+    { _id: req.query._id },
+    { room_service: req.body.room_service },
+    { new: true }
+  );
+  console.log(updated);
 };
 export const updateBreakfast = async (req, model) => {
-  console.log(req.body)
+  console.log(req.body);
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     { breakfast: req.body.breakfast },
     { new: true }
   );
   console.log(updated);
-
 };
 export const updateTv = async (req, model) => {
-  console.log(req.body)
+  console.log(req.body);
   const updated = await model.findOneAndUpdate(
     { _id: req.query._id },
     { tv: req.body.tv },
@@ -196,6 +200,7 @@ export const updateTv = async (req, model) => {
 };
 
 export const deleteModel = async (req, model) => {
-  deleteImageData(req.route.path, req.query._id)
-  return await model.findByIdAndDelete(req.query._id)
-}
+  const { deleteImageData } = await import("./image_handler.js");
+  deleteImageData(req.route.path, req.query._id);
+  return await model.findByIdAndDelete(req.query._id);
+};

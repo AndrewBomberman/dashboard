@@ -72,9 +72,4 @@ const HotelSchema = new mongoose.Schema({
     next();
   })
 
-  .pre("remove" , function (next) {
-    console.log(this._id);
-    console.log("Deleted")
-  });
-
 export default new mongoose.model("Hotel", HotelSchema);

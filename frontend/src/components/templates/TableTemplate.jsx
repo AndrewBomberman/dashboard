@@ -1,7 +1,8 @@
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import hotelColumns from "./TableColumns/hotel/HotelTableColumns";
 import roomColumns from "./TableColumns/room/RoomTableColumns";
 import bookingColumns  from "./TableColumns/booking/BookingTableColumns";
+
 
 const TableColumns = (mode) =>{
   switch(mode){
@@ -31,6 +32,9 @@ export default function TableTemplate({ mode, data }) {
       autoWidth
       rowHeight={300}
       experimentalFeatures={{ newEditingApi: true }}
+      components={{
+        Toolbar: GridToolbar,
+      }}
     />
   );
 }

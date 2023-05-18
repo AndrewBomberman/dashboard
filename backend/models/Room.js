@@ -61,8 +61,4 @@ export const RoomSchema = new mongoose.Schema({
   hotel_id: mongoose.Types.ObjectId,
   
 })
-.pre("save", async function (next) {
-  console.log(this)
-  next();
-});
 export const Room = new mongoose.model("Room", RoomSchema);

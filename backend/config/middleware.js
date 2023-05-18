@@ -9,15 +9,12 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/User.js"
 export default (req, res, next) => {
   const token = req.headers.authorization
-  console.log(req.headers)
-  console.log(token)
-  if(token){
-    console.log(token)
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+  if(token){ // Verifies if the access token is present in the request header
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => { // Verifies the authenticity of the token
       if(err){
         res.status(401).json({message: "Invalid token"})
       }else{
-        if(await User.findOne({email: decodedToken.email})){
+        if(await User.findOne({email: decodedToken.email})){ // Verifies if the user exists in the database
           next()
         }
         else{
